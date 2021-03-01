@@ -1,0 +1,1 @@
+# Regen Network mainnet
