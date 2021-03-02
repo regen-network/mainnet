@@ -1,0 +1,32 @@
+package main
+
+import (
+	"github.com/spf13/cobra"
+	"github.com/tendermint/tendermint/types"
+	"path/filepath"
+)
+
+func main() {
+	rootCmd := &cobra.Command{}
+
+	rootCmd.AddCommand(&cobra.Command{
+		Use:  "build-genesis [genesis-dir]",
+		Args: cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			genDir := args[0]
+			genTmpl := filepath.Join(genDir, "genesis.tmpl.json")
+			doc, err := types.GenesisDocFromFile(genTmpl)
+			if err != nil {
+				return err
+			}
+
+			genFile := filepath.Join(genDir, "genesis.json")
+			return doc.SaveAs(genFile)
+		},
+	})
+
+	err := rootCmd.Execute()
+	if err != nil {
+		panic(err)
+	}
+}
