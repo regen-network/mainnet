@@ -4,7 +4,7 @@ import (
 	"encoding/csv"
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"os"
+	"io"
 	"strconv"
 	"strings"
 	"time"
@@ -18,14 +18,9 @@ type Record struct {
 	NumMonthlyDistributions int
 }
 
-func parseAccountsCsv(filename string) ([]Record, error) {
-	f, err := os.Open(filename)
-	if err != nil {
-		return nil, err
-	}
-
-	rdr := csv.NewReader(f)
-	lines, err := rdr.ReadAll()
+func parseAccountsCsv(rdr io.Reader) ([]Record, error) {
+	csvRdr := csv.NewReader(rdr)
+	lines, err := csvRdr.ReadAll()
 	if err != nil {
 		return nil, err
 	}
