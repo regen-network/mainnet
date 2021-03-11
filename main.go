@@ -1,11 +1,19 @@
 package main
 
 import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/types"
 	"path/filepath"
 	"time"
 )
+
+func init() {
+	cfg := sdk.GetConfig()
+	cfg.SetBech32PrefixForAccount("regen", "regenpub")
+	cfg.SetBech32PrefixForConsensusNode("regencons", "regenconspub")
+	cfg.SetBech32PrefixForValidator("regenvaloper", "regenvaloperpub")
+}
 
 func main() {
 	rootCmd := &cobra.Command{}

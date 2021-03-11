@@ -2,6 +2,10 @@ package main
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
+	vesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
+	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"math"
 	"time"
 )
 
@@ -57,5 +61,48 @@ func recordToAccount(rec Record, defaultStartTime time.Time) Account {
 		StartTime:     startTime,
 		Distributions: distributions,
 		EndTime:       endTime,
+	}
+}
+
+const (
+	uregen = "uregen"
+	tenE6  = 1000000
+)
+
+func toCosmosAccount(acc Account) (auth.AccountI, *bank.Balance) {
+	addrStr := acc.Address.String()
+	totalCoins := sdk.NewCoins(sdk.NewCoin(uregen, acc.TotalAmount.MulRaw(tenE6)))
+	balance := &bank.Balance{
+		Address: addrStr,
+		Coins:   totalCoins,
+	}
+	if len(acc.Distributions) == 0 {
+		return &auth.BaseAccount{Address: addrStr}, balance
+	} else {
+		var periods []vesting.Period
+
+		periodStart := acc.StartTime
+
+		for _, dist := range acc.Distributions {
+			coins := sdk.NewCoins(sdk.NewCoin(uregen, dist.Amount.MulRaw(tenE6)))
+			length := dist.Time.Sub(periodStart)
+			seconds := int64(math.Floor(length.Seconds()))
+			periods = append(periods, vesting.Period{
+				Length: seconds,
+				Amount: coins,
+			})
+		}
+
+		return &vesting.PeriodicVestingAccount{
+			BaseVestingAccount: &vesting.BaseVestingAccount{
+				BaseAccount: &auth.BaseAccount{
+					Address: addrStr,
+				},
+				OriginalVesting: totalCoins,
+				EndTime:         acc.EndTime.Unix(),
+			},
+			StartTime:      acc.StartTime.Unix(),
+			VestingPeriods: periods,
+		}, balance
 	}
 }
