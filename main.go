@@ -1,12 +1,10 @@
 package main
 
 import (
-	"path/filepath"
-	"time"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 	"github.com/tendermint/tendermint/types"
+	"path/filepath"
+	"time"
 )
 
 func main() {
@@ -32,4 +30,21 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func buildAccounts(defaultStartTime time.Time) error {
+	records, err := parseAccountsCsv("accounts.csv")
+	if err != nil {
+		return err
+	}
+
+	var accounts []Account
+	for _, rec := range records {
+		acc := recordToAccount(rec, defaultStartTime)
+		accounts = append(accounts, acc)
+	}
+
+	_ = mergeAccounts(accounts)
+
+	return nil
 }

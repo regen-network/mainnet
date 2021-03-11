@@ -14,7 +14,7 @@ type Account struct {
 }
 
 type Distribution struct {
-	Length time.Duration
+	Time   time.Time
 	Amount sdk.Int
 }
 
@@ -33,7 +33,7 @@ func recordToAccount(rec Record, defaultStartTime time.Time) Account {
 
 		// first distribution at start time
 		distributions = append(distributions, Distribution{
-			Length: 0,
+			Time:   endTime,
 			Amount: distAmount,
 		})
 
@@ -45,7 +45,7 @@ func recordToAccount(rec Record, defaultStartTime time.Time) Account {
 		for i := 1; i < numDist; i++ {
 			endTime = endTime.Add(oneMonth)
 			distributions = append(distributions, Distribution{
-				Length: oneMonth,
+				Time:   endTime,
 				Amount: distAmount,
 			})
 		}

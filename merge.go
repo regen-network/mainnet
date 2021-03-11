@@ -2,14 +2,26 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"time"
 )
 
-//func mergeAccountMap(accounts map[string]Account) map[string]Account {
-//
-//}
+func mergeAccounts(accounts []Account) map[string]Account {
+	accMap := make(map[string]Account)
 
-func mergeAccounts(acc1, acc2 Account) Account {
+	for _, acc := range accounts {
+		addrStr := acc.Address.String()
+		existing, ok := accMap[addrStr]
+		if ok {
+			acc = mergeTwoAccounts(acc, existing)
+		}
+		accMap[addrStr] = acc
+	}
+
+	return accMap
+}
+
+func mergeTwoAccounts(acc1, acc2 Account) Account {
 	if !acc1.Address.Equals(acc2.Address) {
 		panic(fmt.Errorf("%s != %s", acc1.Address, acc2.Address))
 	}
@@ -30,12 +42,45 @@ func mergeAccounts(acc1, acc2 Account) Account {
 		endTime = acc2.EndTime
 	}
 
-	newAcc := Account{
-		Address:     acc1.Address,
-		TotalAmount: newTotal,
-		StartTime:   startTime,
-		EndTime:     endTime,
+	distMap := make(map[time.Time]Distribution)
+	for _, dist := range acc1.Distributions {
+		distMap[dist.Time] = dist
 	}
 
-	return newAcc
+	for _, dist := range acc2.Distributions {
+		t := dist.Time
+		amount := dist.Amount
+		existing, ok := distMap[t]
+		if ok {
+			amount = existing.Amount.Add(amount)
+		}
+
+		distMap[t] = Distribution{
+			Time:   t,
+			Amount: amount,
+		}
+	}
+
+	// sort times
+	var times []time.Time
+	for t := range distMap {
+		times = append(times, t)
+	}
+	sort.Slice(times, func(i, j int) bool {
+		return times[i].Before(times[j])
+	})
+
+	// put distributions in sorted order
+	var distributions []Distribution
+	for _, t := range times {
+		distributions = append(distributions, distMap[t])
+	}
+
+	return Account{
+		Address:       acc1.Address,
+		TotalAmount:   newTotal,
+		StartTime:     startTime,
+		EndTime:       endTime,
+		Distributions: distributions,
+	}
 }
