@@ -1,7 +1,6 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 	"time"
 
@@ -96,7 +95,7 @@ func TestToCosmosAccount(t *testing.T) {
 						Amount: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
 					},
 					{
-						Length: 0,
+						Length: int64(time1.Sub(time0).Seconds()),
 						Amount: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
 					},
 				},
@@ -111,16 +110,9 @@ func TestToCosmosAccount(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, got1, err := ToCosmosAccount(tt.acc)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("ToCosmosAccount() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ToCosmosAccount() got AccountI = %v, want %v", got, tt.want)
-			}
-			if !reflect.DeepEqual(got1, tt.want1) {
-				t.Errorf("ToCosmosAccount() got Balance = %v, want %v", got1, tt.want1)
-			}
+			require.NoError(t, err)
+			require.Equal(t, tt.want, got)
+			require.Equal(t, tt.want1, got1)
 		})
 	}
 }
