@@ -8,6 +8,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/regen-network/regen-ledger/app"
+
 	"github.com/cockroachdb/apd/v2"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -65,7 +67,7 @@ func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time) ([]Record, error) {
 }
 
 func parseLine(line []string, genesisTime time.Time) (Record, error) {
-	addr, err := sdk.GetFromBech32(line[0], "regen")
+	addr, err := sdk.GetFromBech32(line[0], app.Bech32PrefixAccAddr)
 	if err != nil {
 		return Record{}, err
 	}
