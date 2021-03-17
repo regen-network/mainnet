@@ -8,13 +8,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cockroachdb/apd/v2"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type Record struct {
-	Address     sdk.AccAddress
-	TotalAmount sdk.Int
-	// empty for mainnet launch
+	Address                 sdk.AccAddress
+	TotalAmount             apd.Decimal
 	StartTime               time.Time
 	NumMonthlyDistributions int
 }
@@ -69,9 +70,9 @@ func parseLine(line []string, genesisTime time.Time) (Record, error) {
 		return Record{}, err
 	}
 
-	amount, ok := sdk.NewIntFromString(line[1])
-	if !ok {
-		return Record{}, fmt.Errorf("expected integer got, %s", line[1])
+	amount, _, err := apd.NewFromString(line[1])
+	if err != nil {
+		return Record{}, err
 	}
 
 	var startTime time.Time
@@ -99,9 +100,16 @@ func parseLine(line []string, genesisTime time.Time) (Record, error) {
 
 	return Record{
 		Address:                 addr,
-		TotalAmount:             amount,
+		TotalAmount:             *amount,
 		StartTime:               startTime,
 		NumMonthlyDistributions: numDist,
 	}, nil
 
+}
+
+func (r Record) Equal(o Record) bool {
+	return r.StartTime.Equal(o.StartTime) &&
+		r.TotalAmount.Cmp(&o.TotalAmount) == 0 &&
+		r.Address.Equals(o.Address) &&
+		r.NumMonthlyDistributions == o.NumMonthlyDistributions
 }
