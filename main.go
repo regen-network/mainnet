@@ -21,6 +21,7 @@ func main() {
 
 	rootCmd.AddCommand(&cobra.Command{
 		Use:  "build-genesis [genesis-dir]",
+		Long: "Builds a [genesis-dir]/genesis.json file from accounts.csv and [genesis-dir]/genesis.tmpl.json",
 		Args: cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			genDir := args[0]
