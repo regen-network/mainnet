@@ -1,0 +1,1 @@
+module "github.com/regen-network/mainnet"
