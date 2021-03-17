@@ -23,6 +23,7 @@ type Record struct {
 }
 
 const (
+	// Based on 365.2425 days/year
 	SecondsPerYear  = 31556952
 	SecondsPerMonth = 2629746
 )
