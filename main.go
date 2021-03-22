@@ -76,7 +76,11 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time) ([]auth.Account
 		return nil, nil, err
 	}
 
-	// TODO process and convert accounts
+	// TODO:
+	// 1. convert records to accounts
+	// 2. merge accounts
+	// 3. prune distributions before genesis
+	// 4. convert to cosmos accounts
 
 	return nil, nil, nil
 }
