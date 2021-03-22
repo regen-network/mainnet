@@ -54,11 +54,10 @@ func TestToCosmosAccount(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"base account",
+			"no distribution",
 			Account{
 				Address:    addr0,
 				TotalRegen: *ten,
-				StartTime:  time0,
 			},
 			&auth.BaseAccount{
 				Address: addr0.String(),
@@ -70,11 +69,81 @@ func TestToCosmosAccount(t *testing.T) {
 			false,
 		},
 		{
+			"one distribution at mainnet",
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten,
+				Distributions: []Distribution{
+					{
+						Time:  time0,
+						Regen: *ten,
+					},
+				},
+			},
+			&auth.BaseAccount{
+				Address: addr0.String(),
+			},
+			&bank.Balance{
+				Address: addr0.String(),
+				Coins:   sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 10000000)),
+			},
+			false,
+		},
+		{
+			"one distribution at mainnet bad balance",
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten,
+				Distributions: []Distribution{
+					{
+						Time:  time0,
+						Regen: *five,
+					},
+				},
+			},
+			nil,
+			nil,
+			true,
+		},
+		{
+			"one distribution after mainnet",
+			Account{
+				Address:    addr1,
+				TotalRegen: *five,
+				Distributions: []Distribution{
+					{
+						Time:  time1,
+						Regen: *five,
+					},
+				},
+			},
+			&vesting.PeriodicVestingAccount{
+				BaseVestingAccount: &vesting.BaseVestingAccount{
+					BaseAccount: &auth.BaseAccount{
+						Address: addr1.String(),
+					},
+					OriginalVesting: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
+					EndTime:         time1.Unix(),
+				},
+				StartTime: time1.Unix(),
+				VestingPeriods: []vesting.Period{
+					{
+						Length: 0,
+						Amount: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
+					},
+				},
+			},
+			&bank.Balance{
+				Address: addr1.String(),
+				Coins:   sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
+			},
+			false,
+		},
+		{
 			"two distributions",
 			Account{
 				Address:    addr1,
 				TotalRegen: *ten,
-				StartTime:  time0,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
@@ -117,7 +186,6 @@ func TestToCosmosAccount(t *testing.T) {
 			Account{
 				Address:    addr1,
 				TotalRegen: *thirty,
-				StartTime:  time0,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
@@ -171,11 +239,35 @@ func TestToCosmosAccount(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"two distributions bad balance",
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten,
+				Distributions: []Distribution{
+					{
+						Time:  time0,
+						Regen: *five,
+					},
+					{
+						Time:  time1,
+						Regen: *ten,
+					},
+				},
+			},
+			nil,
+			nil,
+			true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1, err := ToCosmosAccount(tt.acc)
-			require.NoError(t, err)
+			got, got1, err := ToCosmosAccount(tt.acc, time0)
+			if tt.wantErr {
+				require.Error(t, err)
+			} else {
+				require.NoError(t, err)
+			}
 			require.Equal(t, tt.want, got)
 			require.Equal(t, tt.want1, got1)
 		})

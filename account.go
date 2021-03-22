@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math"
 	"time"
 
@@ -16,7 +17,6 @@ import (
 type Account struct {
 	Address       sdk.AccAddress
 	TotalRegen    apd.Decimal
-	StartTime     time.Time
 	Distributions []Distribution
 }
 
@@ -40,7 +40,7 @@ func init() {
 	}
 }
 
-func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
+func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.Balance, error) {
 	totalCoins, err := RegenToCoins(&acc.TotalRegen)
 	if err != nil {
 		return nil, nil, err
@@ -51,14 +51,32 @@ func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
 		Address: addrStr,
 		Coins:   totalCoins,
 	}
+
 	if len(acc.Distributions) == 0 {
 		return &auth.BaseAccount{Address: addrStr}, balance, nil
-	} else {
-		var periods []vesting.Period
+	}
 
-		periodStart := acc.StartTime
+	startTime := acc.Distributions[0].Time
+
+	// if we have one distribution and it happens before or at genesis return a basic BaseAccount
+	if len(acc.Distributions) == 1 && (startTime.Before(genesisTime) || startTime.Equal(genesisTime)) {
+		if acc.TotalRegen.Cmp(&acc.Distributions[0].Regen) != 0 {
+			return nil, nil, fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), acc.Distributions[0].Regen.String())
+		}
+
+		return &auth.BaseAccount{Address: addrStr}, balance, nil
+	} else {
+		periodStart := startTime
+
+		var periods []vesting.Period
+		var calcTotal apd.Decimal
 
 		for _, dist := range acc.Distributions {
+			_, err = apd.BaseContext.Add(&calcTotal, &calcTotal, &dist.Regen)
+			if err != nil {
+				return nil, nil, err
+			}
+
 			coins, err := RegenToCoins(&dist.Regen)
 			if err != nil {
 				return nil, nil, err
@@ -73,6 +91,10 @@ func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
 			})
 		}
 
+		if acc.TotalRegen.Cmp(&calcTotal) != 0 {
+			return nil, nil, fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), calcTotal.String())
+		}
+
 		return &vesting.PeriodicVestingAccount{
 			BaseVestingAccount: &vesting.BaseVestingAccount{
 				BaseAccount: &auth.BaseAccount{
@@ -81,7 +103,7 @@ func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
 				OriginalVesting: totalCoins,
 				EndTime:         periodStart.Unix(),
 			},
-			StartTime:      acc.StartTime.Unix(),
+			StartTime:      startTime.Unix(),
 			VestingPeriods: periods,
 		}, balance, nil
 	}
