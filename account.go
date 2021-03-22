@@ -18,7 +18,6 @@ type Account struct {
 	TotalRegen    apd.Decimal
 	StartTime     time.Time
 	Distributions []Distribution
-	EndTime       time.Time
 }
 
 // Distribution is an internal representation of a genesis vesting distribution of regen
@@ -66,6 +65,7 @@ func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
 			}
 
 			length := dist.Time.Sub(periodStart)
+			periodStart = dist.Time
 			seconds := int64(math.Floor(length.Seconds()))
 			periods = append(periods, vesting.Period{
 				Length: seconds,
@@ -79,7 +79,7 @@ func ToCosmosAccount(acc Account) (auth.AccountI, *bank.Balance, error) {
 					Address: addrStr,
 				},
 				OriginalVesting: totalCoins,
-				EndTime:         acc.EndTime.Unix(),
+				EndTime:         periodStart.Unix(),
 			},
 			StartTime:      acc.StartTime.Unix(),
 			VestingPeriods: periods,
