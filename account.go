@@ -123,3 +123,44 @@ func RegenToCoins(regenAmount *apd.Decimal) (sdk.Coins, error) {
 
 	return sdk.NewCoins(sdk.NewCoin(URegenDenom, sdk.NewInt(uregenInt64))), nil
 }
+
+func PruneDistributionsBeforeGenesis(acc Account, genesisTime time.Time) (Account, error) {
+	if len(acc.Distributions) == 0 {
+		return acc, nil
+	}
+
+	genDist := Distribution{
+		Time: genesisTime,
+	}
+	haveGenDist := false
+
+	var newDists []Distribution
+
+	var lastTime time.Time
+	for i, dist := range acc.Distributions {
+		distTime := dist.Time
+		if lastTime.After(distTime) || lastTime.Equal(distTime) {
+			return Account{}, fmt.Errorf("poorly ordered distributions")
+		}
+
+		lastTime = distTime
+
+		if distTime.Before(genesisTime) || distTime.Equal(genesisTime) {
+			haveGenDist = true
+			_, err := apd.BaseContext.Add(&genDist.Regen, &genDist.Regen, &dist.Regen)
+			if err != nil {
+				return Account{}, err
+			}
+		} else {
+			if haveGenDist {
+				newDists = append(newDists, genDist)
+				for j := i + 1; i < len(acc.Distributions); j++ {
+					newDists = append(newDists, acc.Distributions[j])
+				}
+				acc.Distributions = newDists
+			}
+		}
+	}
+
+	return acc, nil
+}
