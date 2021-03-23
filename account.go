@@ -45,6 +45,12 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		return Account{
 			Address:    rec.Address,
 			TotalRegen: amount,
+			Distributions: []Distribution{
+				{
+					Time:  genesisTime,
+					Regen: amount,
+				},
+			},
 		}, nil
 	}
 
@@ -53,32 +59,30 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		return Account{}, err
 	}
 
-	// put dust in first distribution
+	// put dust + distAmount in first distribution
 	var firstDist apd.Decimal
-	_, err = apd.BaseContext.Add(&firstDist, &firstDist, &dust)
+	_, err = apd.BaseContext.Add(&firstDist, &distAmount, &dust)
 	if err != nil {
 		return Account{}, err
 	}
 
-	endTime := rec.StartTime
-
-	// prune distributions before genesis
-	if endTime.Before(genesisTime) {
-		startTime = genesisTime
-		for endTime.Before(genesisTime) {
-			endTime = endTime.Add(OneMonth)
-			numDist -= 1
-			_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
-		}
-	} else {
-		_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
-		if err != nil {
-			return Account{}, err
-		}
-	}
-
 	var distributions []Distribution
 
+	endTime := startTime
+	if startTime.Before(genesisTime) {
+		startTime = genesisTime
+		for numDist > 0 {
+			if endTime.Before(genesisTime) && numDist > 0 {
+
+			}
+			endTime = endTime.Add(OneMonth)
+			numDist -= 1
+			_, err = apd.BaseContext.Add(&nextDist, &nextDist, &distAmount)
+		}
+
+	}
+
+	var nextDist apd.Decimal
 	// first distribution at start time
 	distributions = append(distributions, Distribution{
 		Time:  startTime,

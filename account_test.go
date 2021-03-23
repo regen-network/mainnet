@@ -279,9 +279,9 @@ func TestRecordToAccount(t *testing.T) {
 
 	five, _, err := apd.NewFromString("5")
 	require.NoError(t, err)
-	five02, _, err := apd.NewFromString("5.02")
+	five000001, _, err := apd.NewFromString("5.000001")
 	require.NoError(t, err)
-	ten02, _, err := apd.NewFromString("10.02")
+	ten000001, _, err := apd.NewFromString("10.000001")
 	require.NoError(t, err)
 	//thirty, _, err := apd.NewFromString("30")
 	//require.NoError(t, err)
@@ -291,8 +291,8 @@ func TestRecordToAccount(t *testing.T) {
 
 	genesisPlus1Month := genesisTime.Add(OneMonth)
 
-	//start0, err := time.Parse(time.RFC3339, "2021-01-05:00:00Z")
-	//require.NoError(t, err)
+	start0, err := time.Parse(time.RFC3339, "2021-01-05T00:00:00Z")
+	require.NoError(t, err)
 	//
 	//start1, err := time.Parse(time.RFC3339, "2021-02-08:00:00Z")
 	//require.NoError(t, err)
@@ -318,6 +318,12 @@ func TestRecordToAccount(t *testing.T) {
 			Account{
 				Address:    addr0,
 				TotalRegen: *five,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *five,
+					},
+				},
 			},
 			false,
 		},
@@ -331,6 +337,12 @@ func TestRecordToAccount(t *testing.T) {
 			Account{
 				Address:    addr0,
 				TotalRegen: *five,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *five,
+					},
+				},
 			},
 			false,
 		},
@@ -345,28 +357,74 @@ func TestRecordToAccount(t *testing.T) {
 			Account{
 				Address:    addr0,
 				TotalRegen: *five,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *five,
+					},
+				},
 			},
 			false,
 		},
 		{
-			"two dists at genesis",
+			"two dists from genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten02,
+				TotalAmount:             *ten000001,
 				StartTime:               genesisTime,
 				NumMonthlyDistributions: 2,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten02,
+				TotalRegen: *ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five02,
+						Regen: *five000001,
 					},
 					{
 						Time:  genesisPlus1Month,
 						Regen: *five,
+					},
+				},
+			},
+			false,
+		},
+		{
+			"two dists from before genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *ten000001,
+				StartTime:               start0,
+				NumMonthlyDistributions: 2,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten000001,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *ten000001,
+					},
+				},
+			},
+			false,
+		},
+		{
+			"four dists from before genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *ten000001,
+				StartTime:               start0,
+				NumMonthlyDistributions: 4,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten000001,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *ten000001,
 					},
 				},
 			},
@@ -402,6 +460,10 @@ func Test_distAmountAndDust(t *testing.T) {
 	ten0000002, _, err := apd.NewFromString("10.020001")
 	require.NoError(t, err)
 	point000001, _, err := apd.NewFromString("0.000001")
+	require.NoError(t, err)
+	ten, _, err := apd.NewFromString("10")
+	require.NoError(t, err)
+	three333333, _, err := apd.NewFromString("3.333333")
 	require.NoError(t, err)
 
 	type args struct {
@@ -452,6 +514,16 @@ func Test_distAmountAndDust(t *testing.T) {
 				numDist: 2,
 			},
 			wantDistAmount: *five01,
+			wantDust:       *point000001,
+			wantErr:        false,
+		},
+		{
+			name: "3 dists, dust",
+			args: args{
+				amount:  *ten,
+				numDist: 3,
+			},
+			wantDistAmount: *three333333,
 			wantDust:       *point000001,
 			wantErr:        false,
 		},
