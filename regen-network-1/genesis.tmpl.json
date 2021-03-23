@@ -39,7 +39,36 @@
       },
       "balances": [],
       "supply": [],
-      "denom_metadata": []
+      "denom_metadata": [
+        [
+          {
+            "base": "uregen",
+            "denom_units": [
+              {
+                "aliases": [
+                  "microregen"
+                ],
+                "denom": "uregen",
+                "exponent": 0
+              },
+              {
+                "aliases": [
+                  "milliregen"
+                ],
+                "denom": "mregen",
+                "exponent": 3
+              },
+              {
+                "aliases": [],
+                "denom": "regen",
+                "exponent": 6
+              }
+            ],
+            "description": "The native staking token of Regen Network",
+            "display": "regen"
+          }
+        ]
+      ]
     },
     "capability": {
       "index": "1",
