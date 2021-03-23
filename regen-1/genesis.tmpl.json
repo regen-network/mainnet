@@ -4,12 +4,12 @@
   "initial_height": "1",
   "consensus_params": {
     "block": {
-      "max_bytes": "22020096",
-      "max_gas": "-1",
+      "max_bytes": "2097152",
+      "max_gas": "2000000",
       "time_iota_ms": "1000"
     },
     "evidence": {
-      "max_age_num_blocks": "100000",
+      "max_age_num_blocks": "1000000",
       "max_age_duration": "172800000000000",
       "max_bytes": "1048576"
     },
@@ -77,7 +77,7 @@
     "crisis": {
       "constant_fee": {
         "denom": "uregen",
-        "amount": "1000"
+        "amount": "1000000000"
       }
     },
     "distribution": {
@@ -114,13 +114,13 @@
         "min_deposit": [
           {
             "denom": "uregen",
-            "amount": "10000000"
+            "amount": "1000000000"
           }
         ],
-        "max_deposit_period": "172800s"
+        "max_deposit_period": "1209600s"
       },
       "voting_params": {
-        "voting_period": "172800s"
+        "voting_period": "1209600s"
       },
       "tally_params": {
         "quorum": "0.334000000000000000",
@@ -175,11 +175,11 @@
     "params": null,
     "slashing": {
       "params": {
-        "signed_blocks_window": "2000",
-        "min_signed_per_window": "0.500000000000000000",
         "downtime_jail_duration": "600s",
+        "min_signed_per_window": "0.250000000000000000",
+        "signed_blocks_window": "10000",
         "slash_fraction_double_sign": "0.050000000000000000",
-        "slash_fraction_downtime": "0.010000000000000000"
+        "slash_fraction_downtime": "0.000100000000000000"
       },
       "signing_infos": [],
       "missed_blocks": []
