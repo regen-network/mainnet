@@ -127,7 +127,7 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
 							Time: time0,
