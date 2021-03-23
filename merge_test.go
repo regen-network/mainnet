@@ -22,6 +22,8 @@ func TestMergeAccounts(t *testing.T) {
 	require.NoError(t, err)
 	thirty, _, err := apd.NewFromString("30")
 	require.NoError(t, err)
+	forty, _, err := apd.NewFromString("40")
+	require.NoError(t, err)
 
 	time0, err := time.Parse(time.RFC3339, "2021-05-21T00:00:00Z")
 	require.NoError(t, err)
@@ -33,6 +35,9 @@ func TestMergeAccounts(t *testing.T) {
 	require.NoError(t, err)
 
 	time3, err := time.Parse(time.RFC3339, "2021-08-21T00:00:00Z")
+	require.NoError(t, err)
+
+	time4, err := time.Parse(time.RFC3339, "2021-09-21T00:00:00Z")
 	require.NoError(t, err)
 
 	tests := []struct {
@@ -92,10 +97,14 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *ten,
+					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
 							Time: time0,
+							Regen: *ten,
+						},
+						{
+							Time: time2,
 							Regen: *ten,
 						},
 					},
@@ -106,7 +115,11 @@ func TestMergeAccounts(t *testing.T) {
 					Distributions: []Distribution{
 						{
 							Time: time1,
-							Regen: *ten,
+							Regen: *five,
+						},
+						{
+							Time: time3,
+							Regen: *five,
 						},
 					},
 				},
@@ -122,7 +135,15 @@ func TestMergeAccounts(t *testing.T) {
 						},
 						{
 							Time: time1,
+							Regen: *five,
+						},
+						{
+							Time: time2,
 							Regen: *ten,
+						},
+						{
+							Time: time3,
+							Regen: *five,
 						},
 					},
 				},
@@ -194,6 +215,102 @@ func TestMergeAccounts(t *testing.T) {
 						},
 						{
 							Time: time2,
+							Regen: *ten,
+						},
+					},
+				},
+			},
+			false,
+		},
+		{
+			"merge complex accounts with overlapping distributions",
+			[]Account{
+				{
+					Address:    addr0,
+					TotalRegen: *fifteen,
+					Distributions: []Distribution{
+						{
+							Time: time1,
+							Regen: *five,
+						},
+						{
+							Time: time2,
+							Regen: *five,
+						},
+						{
+							Time: time3,
+							Regen: *five,
+						},
+					},
+				},
+				{
+					Address:    addr0,
+					TotalRegen: *twenty,
+					Distributions: []Distribution{
+						{
+							Time: time0,
+							Regen: *ten,
+						},
+						{
+							Time: time1,
+							Regen: *five,
+						},
+						{
+							Time: time2,
+							Regen: *five,
+						},
+					},
+				},
+				{
+					Address:    addr0,
+					TotalRegen: *five,
+					Distributions: []Distribution{
+						{
+							Time: time1,
+							Regen: *five,
+						},
+					},
+				},
+				{
+					Address:    addr1,
+					TotalRegen: *thirty,
+					Distributions: []Distribution{
+						{
+							Time: time4,
+							Regen: *ten,
+						},
+					},
+				},
+			},
+			[]Account{
+				{
+					Address:    addr0,
+					TotalRegen: *forty,
+					Distributions: []Distribution{
+						{
+							Time: time0,
+							Regen: *ten,
+						},
+						{
+							Time: time1,
+							Regen: *fifteen,
+						},
+						{
+							Time: time2,
+							Regen: *ten,
+						},
+						{
+							Time: time3,
+							Regen: *five,
+						},
+					},
+				},
+				{
+					Address:    addr1,
+					TotalRegen: *thirty,
+					Distributions: []Distribution{
+						{
+							Time: time4,
 							Regen: *ten,
 						},
 					},
