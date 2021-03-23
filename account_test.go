@@ -279,7 +279,9 @@ func TestRecordToAccount(t *testing.T) {
 
 	five, _, err := apd.NewFromString("5")
 	require.NoError(t, err)
-	ten, _, err := apd.NewFromString("10")
+	five02, _, err := apd.NewFromString("5.02")
+	require.NoError(t, err)
+	ten02, _, err := apd.NewFromString("10.02")
 	require.NoError(t, err)
 	//thirty, _, err := apd.NewFromString("30")
 	//require.NoError(t, err)
@@ -350,17 +352,17 @@ func TestRecordToAccount(t *testing.T) {
 			"two dists at genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten,
+				TotalAmount:             *ten02,
 				StartTime:               genesisTime,
-				NumMonthlyDistributions: 1,
+				NumMonthlyDistributions: 2,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten,
+				TotalRegen: *ten02,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five,
+						Regen: *five02,
 					},
 					{
 						Time:  genesisPlus1Month,
@@ -379,13 +381,80 @@ func TestRecordToAccount(t *testing.T) {
 				return
 			}
 			require.NotNil(t, got)
-			require.True(t, tt.want.TotalRegen.Cmp(&got.TotalRegen) == 0)
+			require.Truef(t, tt.want.TotalRegen.Cmp(&got.TotalRegen) == 0,
+				"%s != %s", tt.want.TotalRegen.String(), got.TotalRegen.String())
 			require.Equal(t, tt.want.Address, got.Address)
 			require.Equal(t, len(tt.want.Distributions), len(got.Distributions))
 			for i := 0; i < len(tt.want.Distributions); i++ {
 				require.Equal(t, tt.want.Distributions[i].Time, got.Distributions[i].Time)
-				require.True(t, tt.want.Distributions[i].Regen.Cmp(&got.Distributions[i].Regen) == 0)
+				require.Truef(t, tt.want.Distributions[i].Regen.Cmp(&got.Distributions[i].Regen) == 0,
+					"Distribution %d: %s != %s", i, tt.want.Distributions[i].Regen.String(), got.Distributions[i].Regen.String())
 			}
+		})
+	}
+}
+
+func Test_distAmountAndDust(t *testing.T) {
+	five, _, err := apd.NewFromString("5")
+	require.NoError(t, err)
+	point02, _, err := apd.NewFromString("0.02")
+	require.NoError(t, err)
+	ten02, _, err := apd.NewFromString("10.02")
+	require.NoError(t, err)
+
+	type args struct {
+		amount  apd.Decimal
+		numDist int
+	}
+	tests := []struct {
+		name           string
+		args           args
+		wantDistAmount apd.Decimal
+		wantDust       apd.Decimal
+		wantErr        bool
+	}{
+		{
+			name: "0 dist",
+			args: args{
+				amount:  *ten02,
+				numDist: 0,
+			},
+			wantDistAmount: *ten02,
+			wantDust:       apd.Decimal{},
+			wantErr:        false,
+		},
+		{
+			name: "1 dist",
+			args: args{
+				amount:  *ten02,
+				numDist: 1,
+			},
+			wantDistAmount: *ten02,
+			wantDust:       apd.Decimal{},
+			wantErr:        false,
+		},
+		{
+			name: "2 dist",
+			args: args{
+				amount:  *ten02,
+				numDist: 2,
+			},
+			wantDistAmount: *five,
+			wantDust:       *point02,
+			wantErr:        false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotDistAmount, gotDust, err := distAmountAndDust(tt.args.amount, tt.args.numDist)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("distAmountAndDust() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			require.Truef(t, tt.wantDistAmount.Cmp(&gotDistAmount) == 0,
+				"distAmount: %s != %s", tt.wantDistAmount.String(), gotDistAmount.String())
+			require.Truef(t, tt.wantDust.Cmp(&gotDust) == 0,
+				"dust: %s != %s", tt.wantDust.String(), gotDust.String())
 		})
 	}
 }

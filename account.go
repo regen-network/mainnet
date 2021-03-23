@@ -26,68 +26,71 @@ type Distribution struct {
 	Regen apd.Decimal
 }
 
+var Dec128Context = apd.Context{
+	Precision:   34,
+	MaxExponent: apd.MaxExponent,
+	MinExponent: apd.MinExponent,
+	Traps:       apd.DefaultTraps,
+}
+
 func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	amount := rec.TotalAmount
 	startTime := rec.StartTime
 	if startTime.IsZero() {
 		startTime = genesisTime
 	}
-	endTime := rec.StartTime
 	numDist := rec.NumMonthlyDistributions
 
-	var distributions []Distribution
-	if numDist >= 1 {
-		numDistDec := apd.New(int64(numDist), 1)
-		var distAmount apd.Decimal
-		var dust apd.Decimal
+	if numDist <= 1 && (startTime.Equal(genesisTime) || startTime.Before(genesisTime)) {
+		return Account{
+			Address:    rec.Address,
+			TotalRegen: amount,
+		}, nil
+	}
 
-		// each distribution is an integral amount of regen
-		_, err := apd.BaseContext.QuoInteger(&distAmount, &amount, numDistDec)
-		if err != nil {
-			return Account{}, err
-		}
+	distAmount, dust, err := distAmountAndDust(amount, numDist)
+	if err != nil {
+		return Account{}, err
+	}
 
-		// the remainder is dust
-		_, err = apd.BaseContext.Rem(&dust, &amount, numDistDec)
-		if err != nil {
-			return Account{}, err
-		}
+	// put dust in first distribution
+	var firstDist apd.Decimal
+	_, err = apd.BaseContext.Add(&firstDist, &firstDist, &dust)
+	if err != nil {
+		return Account{}, err
+	}
 
-		// put dust in first distribution
-		var firstDist apd.Decimal
-		_, err = apd.BaseContext.Add(&firstDist, &firstDist, &dust)
-		if err != nil {
-			return Account{}, err
-		}
+	endTime := rec.StartTime
 
-		// prune distributions before genesis
-		if endTime.Before(genesisTime) {
-			startTime = genesisTime
-			for endTime.Before(genesisTime) {
-				endTime = endTime.Add(OneMonth)
-				numDist -= 1
-				_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
-			}
-		} else {
-			_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
-			if err != nil {
-				return Account{}, err
-			}
-		}
-
-		// first distribution at start time
-		distributions = append(distributions, Distribution{
-			Time:  startTime,
-			Regen: firstDist,
-		})
-
-		for i := 1; i <= numDist; i++ {
+	// prune distributions before genesis
+	if endTime.Before(genesisTime) {
+		startTime = genesisTime
+		for endTime.Before(genesisTime) {
 			endTime = endTime.Add(OneMonth)
-			distributions = append(distributions, Distribution{
-				Time:  endTime,
-				Regen: distAmount,
-			})
+			numDist -= 1
+			_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
 		}
+	} else {
+		_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
+		if err != nil {
+			return Account{}, err
+		}
+	}
+
+	var distributions []Distribution
+
+	// first distribution at start time
+	distributions = append(distributions, Distribution{
+		Time:  startTime,
+		Regen: firstDist,
+	})
+
+	for i := 1; i < numDist; i++ {
+		endTime = endTime.Add(OneMonth)
+		distributions = append(distributions, Distribution{
+			Time:  endTime,
+			Regen: distAmount,
+		})
 	}
 
 	return Account{
@@ -95,6 +98,32 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		Distributions: distributions,
 		TotalRegen:    amount,
 	}, nil
+}
+
+func distAmountAndDust(amount apd.Decimal, numDist int) (distAmount apd.Decimal, dust apd.Decimal, err error) {
+	if numDist <= 1 {
+		return amount, dust, nil
+	}
+
+	numDistDec := apd.New(int64(numDist), 1)
+
+	// each distribution is an integral amount of regen
+	cond, err := Dec128Context.QuoInteger(&distAmount, &amount, numDistDec)
+	if err != nil {
+		return distAmount, dust, err
+	}
+
+	fmt.Println(cond)
+
+	// the remainder is dust
+	cond, err = Dec128Context.Rem(&dust, &amount, numDistDec)
+	if err != nil {
+		return distAmount, dust, err
+	}
+
+	fmt.Println(cond)
+
+	return distAmount, dust, nil
 }
 
 const (
