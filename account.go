@@ -48,11 +48,26 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 			return Account{}, err
 		}
 
-		// first distribution at start time
 		// put dust in first distribution
 		var firstDist apd.Decimal
-		_, err = apd.BaseContext.Add(&firstDist, &distAmount, &dust)
+		_, err = apd.BaseContext.Add(&firstDist, &firstDist, &dust)
+		if err != nil {
+			return Account{}, err
+		}
 
+		// prune distributions before genesis
+		if endTime.Before(genesisTime) {
+			startTime = genesisTime
+			for endTime.Before(genesisTime) {
+				endTime = endTime.Add(OneMonth)
+				numDist -= 1
+				_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
+			}
+		} else {
+			endTime = endTime.Add(OneMonth)
+		}
+
+		// first distribution at start time
 		distributions = append(distributions, Distribution{
 			Time:  startTime,
 			Regen: firstDist,
