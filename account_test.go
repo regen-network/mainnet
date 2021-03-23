@@ -395,11 +395,13 @@ func TestRecordToAccount(t *testing.T) {
 }
 
 func Test_distAmountAndDust(t *testing.T) {
-	five, _, err := apd.NewFromString("5")
-	require.NoError(t, err)
-	point02, _, err := apd.NewFromString("0.02")
+	five01, _, err := apd.NewFromString("5.01")
 	require.NoError(t, err)
 	ten02, _, err := apd.NewFromString("10.02")
+	require.NoError(t, err)
+	ten0000002, _, err := apd.NewFromString("10.020001")
+	require.NoError(t, err)
+	point000001, _, err := apd.NewFromString("0.000001")
 	require.NoError(t, err)
 
 	type args struct {
@@ -434,13 +436,23 @@ func Test_distAmountAndDust(t *testing.T) {
 			wantErr:        false,
 		},
 		{
-			name: "2 dist",
+			name: "2 dist, no dust",
 			args: args{
 				amount:  *ten02,
 				numDist: 2,
 			},
-			wantDistAmount: *five,
-			wantDust:       *point02,
+			wantDistAmount: *five01,
+			wantDust:       apd.Decimal{},
+			wantErr:        false,
+		},
+		{
+			name: "2 dist, dust",
+			args: args{
+				amount:  *ten0000002,
+				numDist: 2,
+			},
+			wantDistAmount: *five01,
+			wantDust:       *point000001,
 			wantErr:        false,
 		},
 	}

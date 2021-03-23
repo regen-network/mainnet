@@ -105,23 +105,34 @@ func distAmountAndDust(amount apd.Decimal, numDist int) (distAmount apd.Decimal,
 		return amount, dust, nil
 	}
 
-	numDistDec := apd.New(int64(numDist), 1)
+	var numDistDec apd.Decimal
+	numDistDec = *numDistDec.SetInt64(int64(numDist))
+
+	_, err = Dec128Context.Mul(&amount, &amount, tenE6)
+	if err != nil {
+		return distAmount, dust, err
+	}
 
 	// each distribution is an integral amount of regen
-	cond, err := Dec128Context.QuoInteger(&distAmount, &amount, numDistDec)
+	_, err = Dec128Context.QuoInteger(&distAmount, &amount, &numDistDec)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	fmt.Println(cond)
-
-	// the remainder is dust
-	cond, err = Dec128Context.Rem(&dust, &amount, numDistDec)
+	_, err = Dec128Context.Rem(&dust, &amount, &numDistDec)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	fmt.Println(cond)
+	_, err = Dec128Context.Quo(&distAmount, &distAmount, tenE6)
+	if err != nil {
+		return distAmount, dust, err
+	}
+
+	_, err = Dec128Context.Quo(&dust, &dust, tenE6)
+	if err != nil {
+		return distAmount, dust, err
+	}
 
 	return distAmount, dust, nil
 }
