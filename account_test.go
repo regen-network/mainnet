@@ -273,3 +273,119 @@ func TestToCosmosAccount(t *testing.T) {
 		})
 	}
 }
+
+func TestRecordToAccount(t *testing.T) {
+	addr0 := sdk.AccAddress("abcdefg012345")
+
+	five, _, err := apd.NewFromString("5")
+	require.NoError(t, err)
+	ten, _, err := apd.NewFromString("10")
+	require.NoError(t, err)
+	//thirty, _, err := apd.NewFromString("30")
+	//require.NoError(t, err)
+
+	genesisTime, err := time.Parse(time.RFC3339, "2021-04-08T00:00:00Z")
+	require.NoError(t, err)
+
+	genesisPlus1Month := genesisTime.Add(OneMonth)
+
+	//start0, err := time.Parse(time.RFC3339, "2021-01-05:00:00Z")
+	//require.NoError(t, err)
+	//
+	//start1, err := time.Parse(time.RFC3339, "2021-02-08:00:00Z")
+	//require.NoError(t, err)
+	//
+	//start2, err := time.Parse(time.RFC3339, "2021-09-04:00:00Z")
+	//require.NoError(t, err)
+
+	//t3, err := time.Parse(time.RFC3339, "2021-01-08:00:00Z")
+	//require.NoError(t, err)
+
+	tests := []struct {
+		name    string
+		record  Record
+		want    Account
+		wantErr bool
+	}{
+		{
+			"no dists, no start time",
+			Record{
+				Address:     addr0,
+				TotalAmount: *five,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *five,
+			},
+			false,
+		},
+		{
+			"no dists, genesis start time",
+			Record{
+				Address:     addr0,
+				TotalAmount: *five,
+				StartTime:   genesisTime,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *five,
+			},
+			false,
+		},
+		{
+			"one dist at genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *five,
+				StartTime:               genesisTime,
+				NumMonthlyDistributions: 1,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *five,
+			},
+			false,
+		},
+		{
+			"two dists at genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *ten,
+				StartTime:               genesisTime,
+				NumMonthlyDistributions: 1,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten,
+				Distributions: []Distribution{
+					{
+						Time:  genesisTime,
+						Regen: *five,
+					},
+					{
+						Time:  genesisPlus1Month,
+						Regen: *five,
+					},
+				},
+			},
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := RecordToAccount(tt.record, genesisTime)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("RecordToAccount() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			require.NotNil(t, got)
+			require.True(t, tt.want.TotalRegen.Cmp(&got.TotalRegen) == 0)
+			require.Equal(t, tt.want.Address, got.Address)
+			require.Equal(t, len(tt.want.Distributions), len(got.Distributions))
+			for i := 0; i < len(tt.want.Distributions); i++ {
+				require.Equal(t, tt.want.Distributions[i].Time, got.Distributions[i].Time)
+				require.True(t, tt.want.Distributions[i].Regen.Cmp(&got.Distributions[i].Regen) == 0)
+			}
+		})
+	}
+}

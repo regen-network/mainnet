@@ -36,7 +36,7 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	numDist := rec.NumMonthlyDistributions
 
 	var distributions []Distribution
-	if numDist > 1 {
+	if numDist >= 1 {
 		numDistDec := apd.New(int64(numDist), 1)
 		var distAmount apd.Decimal
 		var dust apd.Decimal
@@ -69,7 +69,10 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 				_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
 			}
 		} else {
-			endTime = endTime.Add(OneMonth)
+			_, err = apd.BaseContext.Add(&firstDist, &firstDist, &distAmount)
+			if err != nil {
+				return Account{}, err
+			}
 		}
 
 		// first distribution at start time
@@ -78,7 +81,7 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 			Regen: firstDist,
 		})
 
-		for i := 1; i < numDist; i++ {
+		for i := 1; i <= numDist; i++ {
 			endTime = endTime.Add(OneMonth)
 			distributions = append(distributions, Distribution{
 				Time:  endTime,
@@ -92,6 +95,8 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		Distributions: distributions,
 		TotalRegen:    amount,
 	}, nil
+}
+
 const (
 	URegenDenom = "uregen"
 )
