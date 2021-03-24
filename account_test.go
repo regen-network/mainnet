@@ -469,13 +469,7 @@ func TestRecordToAccount(t *testing.T) {
 				return
 			}
 			require.NotNil(t, got)
-			RequireDecEqual(t, &tt.want.TotalRegen, &got.TotalRegen)
-			require.Equal(t, tt.want.Address, got.Address)
-			require.Equal(t, len(tt.want.Distributions), len(got.Distributions))
-			for i := 0; i < len(tt.want.Distributions); i++ {
-				require.Equal(t, tt.want.Distributions[i].Time, got.Distributions[i].Time)
-				RequireDecEqual(t, &tt.want.Distributions[i].Regen, &got.Distributions[i].Regen, "Distribution", i)
-			}
+			RequireAccountEqual(t, tt.want, got)
 			require.NoError(t, got.Validate())
 		})
 	}

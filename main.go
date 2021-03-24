@@ -100,9 +100,10 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarning
 		if err != nil {
 			return nil, nil, err
 		}
+
 		err = acc.Validate()
 		if err != nil {
-			return nil, nil, fmt.Errorf("error on RecordToAccount: %w", err)
+			return nil, nil, fmt.Errorf("error on RecordToAccount: %w, Account: %s", err, acc)
 		}
 
 		accounts = append(accounts, acc)
