@@ -7,19 +7,22 @@ import (
 	"path/filepath"
 	"time"
 
+	regen "github.com/regen-network/regen-ledger/app"
+	"github.com/tendermint/tendermint/types"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
-	regen "github.com/regen-network/regen-ledger/app"
 	"github.com/spf13/cobra"
-	"github.com/tendermint/tendermint/types"
 )
 
 func main() {
 	rootCmd := &cobra.Command{}
 
-	rootCmd.AddCommand(&cobra.Command{
+	var errorsAsWarnings bool
+
+	buildGenesisCmd := &cobra.Command{
 		Use:  "build-genesis [genesis-dir]",
 		Long: "Builds a [genesis-dir]/genesis.json file from accounts.csv and [genesis-dir]/genesis.tmpl.json",
 		Args: cobra.ExactArgs(1),
@@ -36,7 +39,7 @@ func main() {
 				return err
 			}
 
-			accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime)
+			accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, errorsAsWarnings)
 			if err != nil {
 				return err
 			}
@@ -62,7 +65,11 @@ func main() {
 			genFile := filepath.Join(genDir, "genesis.json")
 			return doc.SaveAs(genFile)
 		},
-	})
+	}
+
+	buildGenesisCmd.Flags().BoolVar(&errorsAsWarnings, "errors-as-warnings", false, "Allows records with errors to be ignored with a warning rather than failing")
+
+	rootCmd.AddCommand(buildGenesisCmd)
 
 	err := rootCmd.Execute()
 	if err != nil {
@@ -70,8 +77,8 @@ func main() {
 	}
 }
 
-func buildAccounts(accountsCsv io.Reader, genesisTime time.Time) ([]auth.AccountI, []bank.Balance, error) {
-	records, err := ParseAccountsCsv(accountsCsv, genesisTime)
+func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
+	records, err := ParseAccountsCsv(accountsCsv, genesisTime, errorsAsWarnings)
 	if err != nil {
 		return nil, nil, err
 	}

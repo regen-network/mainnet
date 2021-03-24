@@ -46,7 +46,7 @@ func init() {
 	}
 }
 
-func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time) ([]Record, error) {
+func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time, errorsAsWarnings bool) ([]Record, error) {
 	csvRdr := csv.NewReader(rdr)
 	lines, err := csvRdr.ReadAll()
 	if err != nil {
@@ -57,8 +57,12 @@ func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time) ([]Record, error) {
 	for i, line := range lines {
 		record, err := parseLine(line, genesisTime)
 		if err != nil {
-			fmt.Printf("Error on line %d: %v", i, err)
-			continue
+			if errorsAsWarnings {
+				fmt.Printf("WARNING: Error on line %d: %v\n", i, err)
+				continue
+			} else {
+				return nil, err
+			}
 		}
 
 		records = append(records, record)
