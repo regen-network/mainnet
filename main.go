@@ -71,19 +71,40 @@ func main() {
 }
 
 func buildAccounts(accountsCsv io.Reader, genesisTime time.Time) ([]auth.AccountI, []bank.Balance, error) {
-	_, err := ParseAccountsCsv(accountsCsv, genesisTime)
+	records, err := ParseAccountsCsv(accountsCsv, genesisTime)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	// TODO:
-	// 1. convert records to accounts
-	// 2. merge accounts
-	// 3. prune distributions before genesis
-	// -- emit audit.yaml with all accounts and distributions
+	accounts := make([]Account, 0, len(records))
+	for _, record := range records {
+		acc, err := RecordToAccount(record, genesisTime)
+		if err != nil {
+			return nil, nil, err
+		}
+		accounts = append(accounts, acc)
+	}
+
+	accounts, err = MergeAccounts(accounts)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// TODO: emit audit file with all accounts and distributions
 	// 4. convert to cosmos accounts
 
-	return nil, nil, nil
+	authAccounts := make([]auth.AccountI, 0, len(accounts))
+	balances := make([]bank.Balance, 0, len(accounts))
+	for _, acc := range accounts {
+		authAcc, bal, err := ToCosmosAccount(acc, genesisTime)
+		if err != nil {
+			return nil, nil, err
+		}
+		authAccounts = append(authAccounts, authAcc)
+		balances = append(balances, *bal)
+	}
+
+	return authAccounts, balances, nil
 }
 
 func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accounts []auth.AccountI, balances []bank.Balance) error {

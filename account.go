@@ -34,6 +34,10 @@ func (d Distribution) String() string {
 	return fmt.Sprintf("Distribution{%s, %sregen}", d.Time.Format(time.RFC3339), d.Regen.String())
 }
 
+func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
+	return Account{}, fmt.Errorf("TODO")
+}
+
 const (
 	URegenDenom = "uregen"
 )
