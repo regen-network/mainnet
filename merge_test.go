@@ -357,6 +357,18 @@ func TestMergeAccounts(t *testing.T) {
 				t.Errorf("MergeAccounts() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+
+			require.Equal(t, len(tt.want), len(got))
+			for i, gotAcc := range got {
+				wantAcc := tt.want[i]
+				require.Equal(t, wantAcc.Address, gotAcc.Address)
+				RequireDecEqual(t, wantAcc.TotalRegen, gotAcc.TotalRegen)
+				require.Equal(t, len(wantAcc.Distributions), len(gotAcc.Distributions))
+				for j, dist := range gotAcc.Distributions {
+					wantDist := wantAcc.Distributions[i]
+					require.Equal(t, gotAcc.)
+				}
+			}
 			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("MergeAccounts() got = %v, want %v", got, tt.want)
 			}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -99,12 +100,17 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarning
 		if err != nil {
 			return nil, nil, err
 		}
+		err = acc.Validate()
+		if err != nil {
+			return nil, nil, fmt.Errorf("error on RecordToAccount: %w", err)
+		}
+
 		accounts = append(accounts, acc)
 	}
 
 	accounts, err = MergeAccounts(accounts)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("error on MergeAccounts: %w", err)
 	}
 
 	// TODO: emit audit file with all accounts and distributions
@@ -114,8 +120,14 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarning
 	for _, acc := range accounts {
 		authAcc, bal, err := ToCosmosAccount(acc, genesisTime)
 		if err != nil {
+			return nil, nil, fmt.Errorf("error on ToCosmosAccount: %w", err)
+		}
+
+		err = ValidateVestingAccount(authAcc)
+		if err != nil {
 			return nil, nil, err
 		}
+
 		authAccounts = append(authAccounts, authAcc)
 		balances = append(balances, *bal)
 	}

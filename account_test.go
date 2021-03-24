@@ -256,26 +256,9 @@ func TestToCosmosAccount(t *testing.T) {
 			}
 			require.Equal(t, tt.want, got)
 			require.Equal(t, tt.want1, got1)
-			validateVestingAccount(t, got)
+			require.NoError(t, ValidateVestingAccount(got))
 		})
 	}
-}
-
-func validateVestingAccount(t *testing.T, acc auth.AccountI) {
-	vacc, ok := acc.(*vesting.PeriodicVestingAccount)
-	if !ok {
-		return
-	}
-
-	orig := vacc.OriginalVesting
-	time := vacc.StartTime
-	var total sdk.Coins
-	for _, period := range vacc.VestingPeriods {
-		total = total.Add(period.Amount...)
-		time += period.Length
-	}
-	require.Equal(t, orig, total)
-	require.Equal(t, vacc.EndTime, time)
 }
 
 func TestRecordToAccount(t *testing.T) {
@@ -486,14 +469,12 @@ func TestRecordToAccount(t *testing.T) {
 				return
 			}
 			require.NotNil(t, got)
-			require.Truef(t, tt.want.TotalRegen.Cmp(&got.TotalRegen) == 0,
-				"%s != %s", tt.want.TotalRegen.String(), got.TotalRegen.String())
+			RequireDecEqual(t, &tt.want.TotalRegen, &got.TotalRegen)
 			require.Equal(t, tt.want.Address, got.Address)
 			require.Equal(t, len(tt.want.Distributions), len(got.Distributions))
 			for i := 0; i < len(tt.want.Distributions); i++ {
 				require.Equal(t, tt.want.Distributions[i].Time, got.Distributions[i].Time)
-				require.Truef(t, tt.want.Distributions[i].Regen.Cmp(&got.Distributions[i].Regen) == 0,
-					"Distribution %d: %s != %s", i, tt.want.Distributions[i].Regen.String(), got.Distributions[i].Regen.String())
+				RequireDecEqual(t, &tt.want.Distributions[i].Regen, &got.Distributions[i].Regen, "Distribution", i)
 			}
 			require.NoError(t, got.Validate())
 		})
@@ -583,10 +564,8 @@ func Test_distAmountAndDust(t *testing.T) {
 				t.Errorf("distAmountAndDust() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			require.Truef(t, tt.wantDistAmount.Cmp(&gotDistAmount) == 0,
-				"distAmount: %s != %s", tt.wantDistAmount.String(), gotDistAmount.String())
-			require.Truef(t, tt.wantDust.Cmp(&gotDust) == 0,
-				"dust: %s != %s", tt.wantDust.String(), gotDust.String())
+			RequireDecEqual(t, &tt.wantDistAmount, &gotDistAmount, "distAmount")
+			RequireDecEqual(t, &tt.wantDust, &gotDust, "distAmount")
 		})
 	}
 }

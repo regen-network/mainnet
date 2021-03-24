@@ -24,6 +24,11 @@ func MergeAccounts(accounts []Account) ([]Account, error) {
 			if err != nil {
 				return nil, err
 			}
+
+			err = newAcc.Validate()
+			if err != nil {
+				return nil, fmt.Errorf("error merging two accounts: %w", err)
+			}
 		} else {
 			newAcc = acc
 		}

@@ -272,3 +272,28 @@ func RegenToCoins(regenAmount *apd.Decimal) (sdk.Coins, error) {
 
 	return sdk.NewCoins(sdk.NewCoin(URegenDenom, sdk.NewInt(uregenInt64))), nil
 }
+
+func ValidateVestingAccount(acc auth.AccountI) error {
+	vacc, ok := acc.(*vesting.PeriodicVestingAccount)
+	if !ok {
+		return nil
+	}
+
+	orig := vacc.OriginalVesting
+	time := vacc.StartTime
+	var total sdk.Coins
+	for _, period := range vacc.VestingPeriods {
+		total = total.Add(period.Amount...)
+		time += period.Length
+	}
+
+	if !orig.IsEqual(total) {
+		return fmt.Errorf("vesting account error: expected %s coins, got %s", orig.String(), total.String())
+	}
+
+	if vacc.EndTime != time {
+		return fmt.Errorf("vesting account error: expected %d end time, got %d", vacc.EndTime, time)
+	}
+
+	return nil
+}
