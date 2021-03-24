@@ -8,6 +8,7 @@ import (
 	"time"
 
 	regen "github.com/regen-network/regen-ledger/app"
+
 	"github.com/tendermint/tendermint/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -39,25 +40,7 @@ func main() {
 				return err
 			}
 
-			accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, errorsAsWarnings)
-			if err != nil {
-				return err
-			}
-
-			var genState map[string]json.RawMessage
-			err = json.Unmarshal(doc.AppState, &genState)
-			if err != nil {
-				return err
-			}
-
-			cdc, _ := regen.MakeCodecs()
-
-			err = setAccounts(cdc, genState, accounts, balances)
-			if err != nil {
-				return err
-			}
-
-			doc.AppState, err = json.Marshal(genState)
+			err = Process(doc, accountsCsv, errorsAsWarnings)
 			if err != nil {
 				return err
 			}
@@ -75,6 +58,33 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func Process(doc *types.GenesisDoc, accountsCsv io.Reader, errorsAsWarnings bool) error {
+	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, errorsAsWarnings)
+	if err != nil {
+		return err
+	}
+
+	var genState map[string]json.RawMessage
+	err = json.Unmarshal(doc.AppState, &genState)
+	if err != nil {
+		return err
+	}
+
+	cdc, _ := regen.MakeCodecs()
+
+	err = setAccounts(cdc, genState, accounts, balances)
+	if err != nil {
+		return err
+	}
+
+	doc.AppState, err = json.Marshal(genState)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
