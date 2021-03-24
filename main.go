@@ -9,6 +9,8 @@ import (
 	"path/filepath"
 	"time"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	regen "github.com/regen-network/regen-ledger/app"
 
 	"github.com/tendermint/tendermint/types"
@@ -150,7 +152,13 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 		return err
 	}
 
+	var supply sdk.Coins
+	for _, bal := range balances {
+		supply = supply.Add(bal.Coins...)
+	}
+
 	bankGenesis.Balances = append(bankGenesis.Balances, balances...)
+	bankGenesis.Supply = supply
 
 	genesis[bank.ModuleName], err = cdc.MarshalJSON(&bankGenesis)
 
