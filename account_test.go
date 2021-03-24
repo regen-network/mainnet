@@ -300,17 +300,8 @@ func TestRecordToAccount(t *testing.T) {
 				Address:     addr0,
 				TotalAmount: five,
 			},
-			Account{
-				Address:    addr0,
-				TotalRegen: five,
-				Distributions: []Distribution{
-					{
-						Time:  genesisTime,
-						Regen: five,
-					},
-				},
-			},
-			false,
+			nil,
+			true,
 		},
 		{
 			"no dists, genesis start time",
@@ -319,17 +310,8 @@ func TestRecordToAccount(t *testing.T) {
 				TotalAmount: five,
 				StartTime:   genesisTime,
 			},
-			Account{
-				Address:    addr0,
-				TotalRegen: five,
-				Distributions: []Distribution{
-					{
-						Time:  genesisTime,
-						Regen: five,
-					},
-				},
-			},
-			false,
+			nil,
+			true,
 		},
 		{
 			"one dist at genesis",
@@ -507,7 +489,7 @@ func Test_distAmountAndDust(t *testing.T) {
 	require.NoError(t, err)
 	ten02, err := NewDecFromString("10.02")
 	require.NoError(t, err)
-	ten0000002, err := NewDecFromString("10.020001")
+	ten020001, err := NewDecFromString("10.020001")
 	require.NoError(t, err)
 	point000001, err := NewDecFromString("0.000001")
 	require.NoError(t, err)
@@ -537,9 +519,7 @@ func Test_distAmountAndDust(t *testing.T) {
 				amount:  ten02,
 				numDist: 0,
 			},
-			wantDistAmount: ten02,
-			wantDust:       Dec{},
-			wantErr:        false,
+			wantErr: true,
 		},
 		{
 			name: "1 dist",
@@ -564,7 +544,7 @@ func Test_distAmountAndDust(t *testing.T) {
 		{
 			name: "2 dist, dust",
 			args: args{
-				amount:  ten0000002,
+				amount:  ten020001,
 				numDist: 2,
 			},
 			wantDistAmount: five01,

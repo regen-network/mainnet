@@ -72,11 +72,11 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	amount := rec.TotalAmount
 	distTime := rec.StartTime
 	if distTime.IsZero() {
-		distTime = genesisTime
+		return Account{}, fmt.Errorf("require a non-zero distribution time")
 	}
 	numDist := rec.NumMonthlyDistributions
 	if numDist < 1 {
-		numDist = 1
+		return Account{}, fmt.Errorf("numDist must be >= 1, got %d", numDist)
 	}
 
 	if numDist == 1 && !distTime.After(genesisTime) {
@@ -92,6 +92,8 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		}, nil
 	}
 
+	// calculate dust, which represents an uregen-integral remainder, represented as an apd.Decimal of regen
+	// from dividing `amount` by `numDist`
 	distAmount, dust, err := distAmountAndDust(amount, numDist)
 	if err != nil {
 		return Account{}, err
@@ -140,18 +142,23 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 }
 
 func distAmountAndDust(amount Dec, numDist int) (distAmount Dec, dust Dec, err error) {
-	if numDist <= 1 {
+	if numDist < 1 {
+		return Dec{}, Dec{}, fmt.Errorf("num must be >= 1, got %d", numDist)
+	}
+
+	if numDist == 1 {
 		return amount, dust, nil
 	}
 
 	numDistDec := NewDecFromInt64(int64(numDist))
 
+	// convert amount from regen to uregen, so we can perform integral arithmetic on uregen
 	amount, err = amount.Mul(tenE6)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	// each distribution is an integral amount of regen
+	// each distribution is an integral amount of uregen
 	distAmount, err = amount.QuoInteger(numDistDec)
 	if err != nil {
 		return distAmount, dust, err
@@ -162,11 +169,13 @@ func distAmountAndDust(amount Dec, numDist int) (distAmount Dec, dust Dec, err e
 		return distAmount, dust, err
 	}
 
+	// convert distAmount from uregen back to regen
 	distAmount, err = distAmount.Quo(tenE6)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
+	// convert dust from uregen back to regen
 	dust, err = dust.Quo(tenE6)
 	if err != nil {
 		return distAmount, dust, err
