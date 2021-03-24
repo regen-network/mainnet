@@ -91,7 +91,6 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time) ([]auth.Account
 	}
 
 	// TODO: emit audit file with all accounts and distributions
-	// 4. convert to cosmos accounts
 
 	authAccounts := make([]auth.AccountI, 0, len(accounts))
 	balances := make([]bank.Balance, 0, len(accounts))
