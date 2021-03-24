@@ -300,7 +300,7 @@ func TestRecordToAccount(t *testing.T) {
 				Address:     addr0,
 				TotalAmount: five,
 			},
-			nil,
+			Account{},
 			true,
 		},
 		{
@@ -310,7 +310,7 @@ func TestRecordToAccount(t *testing.T) {
 				TotalAmount: five,
 				StartTime:   genesisTime,
 			},
-			nil,
+			Account{},
 			true,
 		},
 		{
@@ -473,9 +473,11 @@ func TestRecordToAccount(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := RecordToAccount(tt.record, genesisTime)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("RecordToAccount() error = %v, wantErr %v", err, tt.wantErr)
+			if tt.wantErr {
+				require.Error(t, err)
 				return
+			} else {
+				require.NoError(t, err)
 			}
 			require.NotNil(t, got)
 			RequireAccountEqual(t, tt.want, got)

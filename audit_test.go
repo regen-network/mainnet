@@ -63,10 +63,10 @@ func ExamplePrintAccountAudit() {
 		},
 	}, genesisTime, os.Stdout)
 	//Output:
-	//regen16ll5l3zdu086ug96cau00k3rllqg9eeyz7ss7t	15	2
-	//	10	2021-05-03 16:00:00
-	//	5	2021-05-08 16:00:00
 	//regen1ktvsz07ca4amg5cja68pph3t65lj4wdulrz464	10	2
 	//	5	MAINNET
+	//	5	2021-05-08 16:00:00
+	//regen16ll5l3zdu086ug96cau00k3rllqg9eeyz7ss7t	15	2
+	//	10	2021-05-03 16:00:00
 	//	5	2021-05-08 16:00:00
 }

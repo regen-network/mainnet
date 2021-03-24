@@ -104,7 +104,7 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 
 	// collapse all pre-genesis distributions into a genesis distribution
 	for ; numDist > 0 && !distTime.After(genesisTime); numDist-- {
-		_, err = genesisAmount.Add(distAmount)
+		genesisAmount, err = genesisAmount.Add(distAmount)
 		if err != nil {
 			return Account{}, err
 		}
