@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"strings"
 
@@ -38,7 +39,8 @@ func processStrings(tmplJson string, accountsCsv string) error {
 		return err
 	}
 
-	err = Process(doc, strings.NewReader(accountsCsv), false)
+	auditOut := new(bytes.Buffer)
+	err = Process(doc, strings.NewReader(accountsCsv), auditOut, false)
 	if err != nil {
 		return err
 	}
@@ -49,5 +51,7 @@ func processStrings(tmplJson string, accountsCsv string) error {
 	}
 
 	fmt.Println(bz)
+	fmt.Println("---")
+	fmt.Println(auditOut.String())
 	return nil
 }

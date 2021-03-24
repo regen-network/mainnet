@@ -5,8 +5,6 @@ import (
 	"math"
 	"time"
 
-	"github.com/cockroachdb/apd/v2"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vesting "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
@@ -16,14 +14,14 @@ import (
 // Account is an internal representation of a genesis regen account
 type Account struct {
 	Address       sdk.AccAddress
-	TotalRegen    apd.Decimal
+	TotalRegen    Dec
 	Distributions []Distribution
 }
 
 // Distribution is an internal representation of a genesis vesting distribution of regen
 type Distribution struct {
 	Time  time.Time
-	Regen apd.Decimal
+	Regen Dec
 }
 
 func (a Account) String() string {
@@ -39,24 +37,24 @@ func (acc Account) Validate() error {
 		return fmt.Errorf("empty address")
 	}
 
-	if acc.TotalRegen.IsZero() || acc.TotalRegen.Negative {
+	if !acc.TotalRegen.IsPositive() {
 		return fmt.Errorf("expected positive balance, got %s", acc.TotalRegen.String())
 	}
 
-	var calcTotal apd.Decimal
+	var calcTotal Dec
 	for _, dist := range acc.Distributions {
 		err := dist.Validate()
 		if err != nil {
 			return err
 		}
 
-		_, err = apd.BaseContext.Add(&calcTotal, &calcTotal, &dist.Regen)
+		calcTotal, err = calcTotal.Add(dist.Regen)
 		if err != nil {
 			return err
 		}
 	}
 
-	if acc.TotalRegen.Cmp(&calcTotal) != 0 {
+	if !acc.TotalRegen.IsEqual(calcTotal) {
 		return fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), calcTotal.String())
 	}
 
@@ -68,13 +66,6 @@ func (d Distribution) Validate() error {
 		return fmt.Errorf("time is zero")
 	}
 	return nil
-}
-
-var Dec128Context = apd.Context{
-	Precision:   34,
-	MaxExponent: apd.MaxExponent,
-	MinExponent: apd.MinExponent,
-	Traps:       apd.DefaultTraps,
 }
 
 func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
@@ -107,11 +98,11 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	}
 
 	var distributions []Distribution
-	var genesisAmount apd.Decimal
+	var genesisAmount Dec
 
 	// collapse all pre-genesis distributions into a genesis distribution
 	for ; numDist > 0 && !distTime.After(genesisTime); numDist-- {
-		_, err = apd.BaseContext.Add(&genesisAmount, &genesisAmount, &distAmount)
+		_, err = genesisAmount.Add(distAmount)
 		if err != nil {
 			return Account{}, err
 		}
@@ -136,7 +127,7 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	}
 
 	// add dust to first distribution
-	_, err = apd.BaseContext.Add(&distributions[0].Regen, &distributions[0].Regen, &dust)
+	distributions[0].Regen, err = distributions[0].Regen.Add(dust)
 	if err != nil {
 		return Account{}, err
 	}
@@ -148,36 +139,35 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	}, nil
 }
 
-func distAmountAndDust(amount apd.Decimal, numDist int) (distAmount apd.Decimal, dust apd.Decimal, err error) {
+func distAmountAndDust(amount Dec, numDist int) (distAmount Dec, dust Dec, err error) {
 	if numDist <= 1 {
 		return amount, dust, nil
 	}
 
-	var numDistDec apd.Decimal
-	numDistDec = *numDistDec.SetInt64(int64(numDist))
+	numDistDec := NewDecFromInt64(int64(numDist))
 
-	_, err = Dec128Context.Mul(&amount, &amount, tenE6)
+	amount, err = amount.Mul(tenE6)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
 	// each distribution is an integral amount of regen
-	_, err = Dec128Context.QuoInteger(&distAmount, &amount, &numDistDec)
+	distAmount, err = amount.QuoInteger(numDistDec)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	_, err = Dec128Context.Rem(&dust, &amount, &numDistDec)
+	dust, err = amount.Rem(numDistDec)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	_, err = Dec128Context.Quo(&distAmount, &distAmount, tenE6)
+	distAmount, err = distAmount.Quo(tenE6)
 	if err != nil {
 		return distAmount, dust, err
 	}
 
-	_, err = Dec128Context.Quo(&dust, &dust, tenE6)
+	dust, err = dust.Quo(tenE6)
 	if err != nil {
 		return distAmount, dust, err
 	}
@@ -189,15 +179,7 @@ const (
 	URegenDenom = "uregen"
 )
 
-var tenE6 *apd.Decimal
-
-func init() {
-	var err error
-	tenE6, _, err = apd.NewFromString("1000000")
-	if err != nil {
-		panic(err)
-	}
-}
+var tenE6 Dec = NewDecFromInt64(1000000)
 
 func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.Balance, error) {
 	err := acc.Validate()
@@ -205,7 +187,7 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 		return nil, nil, err
 	}
 
-	totalCoins, err := RegenToCoins(&acc.TotalRegen)
+	totalCoins, err := RegenToCoins(acc.TotalRegen)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -230,7 +212,7 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 
 		var periods []vesting.Period
 		for _, dist := range acc.Distributions {
-			coins, err := RegenToCoins(&dist.Regen)
+			coins, err := RegenToCoins(dist.Regen)
 			if err != nil {
 				return nil, nil, err
 			}
@@ -258,9 +240,8 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 	}
 }
 
-func RegenToCoins(regenAmount *apd.Decimal) (sdk.Coins, error) {
-	var uregen apd.Decimal
-	_, err := apd.BaseContext.Mul(&uregen, regenAmount, tenE6)
+func RegenToCoins(regenAmount Dec) (sdk.Coins, error) {
+	uregen, err := regenAmount.Mul(tenE6)
 	if err != nil {
 		return nil, err
 	}

@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"sort"
 	"time"
-
-	"github.com/cockroachdb/apd/v2"
 )
 
 func MergeAccounts(accounts []Account) ([]Account, error) {
@@ -49,8 +47,7 @@ func mergeTwoAccounts(acc1, acc2 Account) (Account, error) {
 		return Account{}, fmt.Errorf("%s != %s", acc1.Address, acc2.Address)
 	}
 
-	var newTotal apd.Decimal
-	_, err := apd.BaseContext.Add(&newTotal, &acc1.TotalRegen, &acc2.TotalRegen)
+	newTotal, err := acc1.TotalRegen.Add(acc2.TotalRegen)
 	if err != nil {
 		return Account{}, err
 	}
@@ -64,19 +61,16 @@ func mergeTwoAccounts(acc1, acc2 Account) (Account, error) {
 		t := dist.Time
 		amount := dist.Regen
 		existing, ok := distMap[t]
-		var newAmount apd.Decimal
 		if ok {
-			_, err := apd.BaseContext.Add(&newAmount, &existing.Regen, &amount)
+			amount, err = amount.Add(existing.Regen)
 			if err != nil {
 				return Account{}, err
 			}
-		} else {
-			newAmount = amount
 		}
 
 		distMap[t] = Distribution{
 			Time:  t,
-			Regen: newAmount,
+			Regen: amount,
 		}
 	}
 

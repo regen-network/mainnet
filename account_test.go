@@ -11,12 +11,11 @@ import (
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
 
-	"github.com/cockroachdb/apd/v2"
 	"github.com/stretchr/testify/require"
 )
 
 func TestRegenToCoins(t *testing.T) {
-	one, _, err := apd.NewFromString("1")
+	one, err := NewDecFromString("1")
 	require.NoError(t, err)
 
 	coins, err := RegenToCoins(one)
@@ -27,11 +26,11 @@ func TestRegenToCoins(t *testing.T) {
 func TestToCosmosAccount(t *testing.T) {
 	addr0 := sdk.AccAddress("abcdefg012345")
 	addr1 := sdk.AccAddress("012345abcdefg")
-	five, _, err := apd.NewFromString("5")
+	five, err := NewDecFromString("5")
 	require.NoError(t, err)
-	ten, _, err := apd.NewFromString("10")
+	ten, err := NewDecFromString("10")
 	require.NoError(t, err)
-	thirty, _, err := apd.NewFromString("30")
+	thirty, err := NewDecFromString("30")
 	require.NoError(t, err)
 
 	time0, err := time.Parse(time.RFC3339, "2021-05-21T00:00:00Z")
@@ -57,11 +56,11 @@ func TestToCosmosAccount(t *testing.T) {
 			"one distribution at mainnet",
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten,
+				TotalRegen: ten,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
-						Regen: *ten,
+						Regen: ten,
 					},
 				},
 			},
@@ -78,11 +77,11 @@ func TestToCosmosAccount(t *testing.T) {
 			"one distribution at mainnet bad balance",
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten,
+				TotalRegen: ten,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -94,11 +93,11 @@ func TestToCosmosAccount(t *testing.T) {
 			"one distribution after mainnet",
 			Account{
 				Address:    addr1,
-				TotalRegen: *five,
+				TotalRegen: five,
 				Distributions: []Distribution{
 					{
 						Time:  time1,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -128,15 +127,15 @@ func TestToCosmosAccount(t *testing.T) {
 			"two distributions",
 			Account{
 				Address:    addr1,
-				TotalRegen: *ten,
+				TotalRegen: ten,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
-						Regen: *five,
+						Regen: five,
 					},
 					{
 						Time:  time1,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -170,23 +169,23 @@ func TestToCosmosAccount(t *testing.T) {
 			"four distributions",
 			Account{
 				Address:    addr1,
-				TotalRegen: *thirty,
+				TotalRegen: thirty,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
-						Regen: *five,
+						Regen: five,
 					},
 					{
 						Time:  time1,
-						Regen: *ten,
+						Regen: ten,
 					},
 					{
 						Time:  time2,
-						Regen: *five,
+						Regen: five,
 					},
 					{
 						Time:  time3,
-						Regen: *ten,
+						Regen: ten,
 					},
 				},
 			},
@@ -228,15 +227,15 @@ func TestToCosmosAccount(t *testing.T) {
 			"two distributions bad balance",
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten,
+				TotalRegen: ten,
 				Distributions: []Distribution{
 					{
 						Time:  time0,
-						Regen: *five,
+						Regen: five,
 					},
 					{
 						Time:  time1,
-						Regen: *ten,
+						Regen: ten,
 					},
 				},
 			},
@@ -264,15 +263,19 @@ func TestToCosmosAccount(t *testing.T) {
 func TestRecordToAccount(t *testing.T) {
 	addr0 := sdk.AccAddress("abcdefg012345")
 
-	five, _, err := apd.NewFromString("5")
+	five, err := NewDecFromString("5")
 	require.NoError(t, err)
-	five000001, _, err := apd.NewFromString("5.000001")
+	five000001, err := NewDecFromString("5.000001")
 	require.NoError(t, err)
-	ten000001, _, err := apd.NewFromString("10.000001")
+	ten000001, err := NewDecFromString("10.000001")
 	require.NoError(t, err)
-	seven500001, _, err := apd.NewFromString("7.500001")
+	seven500001, err := NewDecFromString("7.500001")
 	require.NoError(t, err)
-	two5, _, err := apd.NewFromString("2.5")
+	two5, err := NewDecFromString("2.5")
+	require.NoError(t, err)
+	three00000, err := NewDecFromString("300000.0")
+	require.NoError(t, err)
+	one50000, err := NewDecFromString("150000")
 	require.NoError(t, err)
 
 	genesisTime, err := time.Parse(time.RFC3339, "2021-04-08T00:00:00Z")
@@ -295,15 +298,15 @@ func TestRecordToAccount(t *testing.T) {
 			"no dists, no start time",
 			Record{
 				Address:     addr0,
-				TotalAmount: *five,
+				TotalAmount: five,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *five,
+				TotalRegen: five,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -313,16 +316,16 @@ func TestRecordToAccount(t *testing.T) {
 			"no dists, genesis start time",
 			Record{
 				Address:     addr0,
-				TotalAmount: *five,
+				TotalAmount: five,
 				StartTime:   genesisTime,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *five,
+				TotalRegen: five,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -332,17 +335,17 @@ func TestRecordToAccount(t *testing.T) {
 			"one dist at genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *five,
+				TotalAmount:             five,
 				StartTime:               genesisTime,
 				NumMonthlyDistributions: 1,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *five,
+				TotalRegen: five,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -352,21 +355,21 @@ func TestRecordToAccount(t *testing.T) {
 			"two dists from genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten000001,
+				TotalAmount:             ten000001,
 				StartTime:               genesisTime,
 				NumMonthlyDistributions: 2,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten000001,
+				TotalRegen: ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *five000001,
+						Regen: five000001,
 					},
 					{
 						Time:  oneMonthAfterGenesis,
-						Regen: *five,
+						Regen: five,
 					},
 				},
 			},
@@ -376,17 +379,17 @@ func TestRecordToAccount(t *testing.T) {
 			"two dists all from before genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten000001,
+				TotalAmount:             ten000001,
 				StartTime:               start0,
 				NumMonthlyDistributions: 2,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten000001,
+				TotalRegen: ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *ten000001,
+						Regen: ten000001,
 					},
 				},
 			},
@@ -396,21 +399,21 @@ func TestRecordToAccount(t *testing.T) {
 			"four dists starting before genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten000001,
+				TotalAmount:             ten000001,
 				StartTime:               twoMonthsBeforeGenesis,
 				NumMonthlyDistributions: 4,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten000001,
+				TotalRegen: ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
-						Regen: *seven500001,
+						Regen: seven500001,
 					},
 					{
 						Time:  oneMonthAfterGenesis,
-						Regen: *two5,
+						Regen: two5,
 					},
 				},
 			},
@@ -420,17 +423,17 @@ func TestRecordToAccount(t *testing.T) {
 			"one dist after genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten000001,
+				TotalAmount:             ten000001,
 				StartTime:               oneMonthAfterGenesis,
 				NumMonthlyDistributions: 1,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten000001,
+				TotalRegen: ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  oneMonthAfterGenesis,
-						Regen: *ten000001,
+						Regen: ten000001,
 					},
 				},
 			},
@@ -440,21 +443,45 @@ func TestRecordToAccount(t *testing.T) {
 			"two dists after genesis",
 			Record{
 				Address:                 addr0,
-				TotalAmount:             *ten000001,
+				TotalAmount:             ten000001,
 				StartTime:               oneMonthAfterGenesis,
 				NumMonthlyDistributions: 2,
 			},
 			Account{
 				Address:    addr0,
-				TotalRegen: *ten000001,
+				TotalRegen: ten000001,
 				Distributions: []Distribution{
 					{
 						Time:  oneMonthAfterGenesis,
-						Regen: *five000001,
+						Regen: five000001,
 					},
 					{
 						Time:  oneMonthAfterGenesis.Add(OneMonth),
-						Regen: *five,
+						Regen: five,
+					},
+				},
+			},
+			false,
+		},
+		{
+			"two dists after genesis, 300000.0",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             three00000,
+				StartTime:               oneMonthAfterGenesis,
+				NumMonthlyDistributions: 2,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: three00000,
+				Distributions: []Distribution{
+					{
+						Time:  oneMonthAfterGenesis,
+						Regen: one50000,
+					},
+					{
+						Time:  oneMonthAfterGenesis.Add(OneMonth),
+						Regen: one50000,
 					},
 				},
 			},
@@ -476,78 +503,92 @@ func TestRecordToAccount(t *testing.T) {
 }
 
 func Test_distAmountAndDust(t *testing.T) {
-	five01, _, err := apd.NewFromString("5.01")
+	five01, err := NewDecFromString("5.01")
 	require.NoError(t, err)
-	ten02, _, err := apd.NewFromString("10.02")
+	ten02, err := NewDecFromString("10.02")
 	require.NoError(t, err)
-	ten0000002, _, err := apd.NewFromString("10.020001")
+	ten0000002, err := NewDecFromString("10.020001")
 	require.NoError(t, err)
-	point000001, _, err := apd.NewFromString("0.000001")
+	point000001, err := NewDecFromString("0.000001")
 	require.NoError(t, err)
-	ten, _, err := apd.NewFromString("10")
+	ten, err := NewDecFromString("10")
 	require.NoError(t, err)
-	three333333, _, err := apd.NewFromString("3.333333")
+	three333333, err := NewDecFromString("3.333333")
+	require.NoError(t, err)
+	three00000, err := NewDecFromString("300000.0")
+	require.NoError(t, err)
+	twelve500, err := NewDecFromString("12500")
 	require.NoError(t, err)
 
 	type args struct {
-		amount  apd.Decimal
+		amount  Dec
 		numDist int
 	}
 	tests := []struct {
 		name           string
 		args           args
-		wantDistAmount apd.Decimal
-		wantDust       apd.Decimal
+		wantDistAmount Dec
+		wantDust       Dec
 		wantErr        bool
 	}{
 		{
 			name: "0 dist",
 			args: args{
-				amount:  *ten02,
+				amount:  ten02,
 				numDist: 0,
 			},
-			wantDistAmount: *ten02,
-			wantDust:       apd.Decimal{},
+			wantDistAmount: ten02,
+			wantDust:       Dec{},
 			wantErr:        false,
 		},
 		{
 			name: "1 dist",
 			args: args{
-				amount:  *ten02,
+				amount:  ten02,
 				numDist: 1,
 			},
-			wantDistAmount: *ten02,
-			wantDust:       apd.Decimal{},
+			wantDistAmount: ten02,
+			wantDust:       Dec{},
 			wantErr:        false,
 		},
 		{
 			name: "2 dist, no dust",
 			args: args{
-				amount:  *ten02,
+				amount:  ten02,
 				numDist: 2,
 			},
-			wantDistAmount: *five01,
-			wantDust:       apd.Decimal{},
+			wantDistAmount: five01,
+			wantDust:       Dec{},
 			wantErr:        false,
 		},
 		{
 			name: "2 dist, dust",
 			args: args{
-				amount:  *ten0000002,
+				amount:  ten0000002,
 				numDist: 2,
 			},
-			wantDistAmount: *five01,
-			wantDust:       *point000001,
+			wantDistAmount: five01,
+			wantDust:       point000001,
 			wantErr:        false,
 		},
 		{
 			name: "3 dists, dust",
 			args: args{
-				amount:  *ten,
+				amount:  ten,
 				numDist: 3,
 			},
-			wantDistAmount: *three333333,
-			wantDust:       *point000001,
+			wantDistAmount: three333333,
+			wantDust:       point000001,
+			wantErr:        false,
+		},
+		{
+			name: "24 dists, no dust",
+			args: args{
+				amount:  three00000,
+				numDist: 24,
+			},
+			wantDistAmount: twelve500,
+			wantDust:       Dec{},
 			wantErr:        false,
 		},
 	}
@@ -558,8 +599,8 @@ func Test_distAmountAndDust(t *testing.T) {
 				t.Errorf("distAmountAndDust() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			RequireDecEqual(t, &tt.wantDistAmount, &gotDistAmount, "distAmount")
-			RequireDecEqual(t, &tt.wantDust, &gotDust, "distAmount")
+			RequireDecEqual(t, tt.wantDistAmount, gotDistAmount, "distAmount")
+			RequireDecEqual(t, tt.wantDust, gotDust, "distAmount")
 		})
 	}
 }

@@ -5,8 +5,6 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-
-	"github.com/cockroachdb/apd/v2"
 )
 
 func ExamplePrintAccountAudit() {
@@ -30,36 +28,36 @@ func ExamplePrintAccountAudit() {
 	if err != nil {
 		panic(err)
 	}
-	five, _, _ := apd.NewFromString("5")
-	ten, _, _ := apd.NewFromString("10")
-	fifteen, _, _ := apd.NewFromString("15")
+	five, _ := NewDecFromString("5")
+	ten, _ := NewDecFromString("10")
+	fifteen, _ := NewDecFromString("15")
 
 	PrintAccountAudit([]Account{
 		{
 			Address:    addr0,
-			TotalRegen: *ten,
+			TotalRegen: ten,
 			Distributions: []Distribution{
 				{
 					Time:  genesisTime,
-					Regen: *five,
+					Regen: five,
 				},
 				{
 					Time:  t1,
-					Regen: *five,
+					Regen: five,
 				},
 			},
 		},
 		{
 			Address:    addr1,
-			TotalRegen: *fifteen,
+			TotalRegen: fifteen,
 			Distributions: []Distribution{
 				{
 					Time:  t0,
-					Regen: *ten,
+					Regen: ten,
 				},
 				{
 					Time:  t1,
-					Regen: *five,
+					Regen: five,
 				},
 			},
 		},

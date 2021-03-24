@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -41,7 +42,9 @@ func main() {
 				return err
 			}
 
-			err = Process(doc, accountsCsv, errorsAsWarnings)
+			auditTsv, err := os.OpenFile(filepath.Join(genDir, "account_dump.tsv"), os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)
+
+			err = Process(doc, accountsCsv, auditTsv, errorsAsWarnings)
 			if err != nil {
 				return err
 			}
@@ -61,8 +64,8 @@ func main() {
 	}
 }
 
-func Process(doc *types.GenesisDoc, accountsCsv io.Reader, errorsAsWarnings bool) error {
-	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, errorsAsWarnings)
+func Process(doc *types.GenesisDoc, accountsCsv io.Reader, auditOutput io.Writer, errorsAsWarnings bool) error {
+	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, auditOutput, errorsAsWarnings)
 	if err != nil {
 		return err
 	}
@@ -88,7 +91,7 @@ func Process(doc *types.GenesisDoc, accountsCsv io.Reader, errorsAsWarnings bool
 	return nil
 }
 
-func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
+func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.Writer, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
 	records, err := ParseAccountsCsv(accountsCsv, genesisTime, errorsAsWarnings)
 	if err != nil {
 		return nil, nil, err
@@ -103,7 +106,9 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarning
 
 		err = acc.Validate()
 		if err != nil {
-			return nil, nil, fmt.Errorf("error on RecordToAccount: %w, Account: %s", err, acc)
+			buf := new(bytes.Buffer)
+			PrintAccountAudit([]Account{acc}, genesisTime, buf)
+			return nil, nil, fmt.Errorf("error on RecordToAccount: %w, Account: %s", err, buf.String())
 		}
 
 		accounts = append(accounts, acc)
@@ -114,7 +119,8 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, errorsAsWarning
 		return nil, nil, fmt.Errorf("error on MergeAccounts: %w", err)
 	}
 
-	// TODO: emit audit file with all accounts and distributions
+	accounts = SortAccounts(accounts)
+	PrintAccountAudit(accounts, genesisTime, auditOutput)
 
 	authAccounts := make([]auth.AccountI, 0, len(accounts))
 	balances := make([]bank.Balance, 0, len(accounts))
