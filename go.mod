@@ -3,7 +3,7 @@ module github.com/regen-network/mainnet
 go 1.15
 
 require (
-	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
+	github.com/cockroachdb/apd/v2 v2.0.2
 	github.com/cosmos/cosmos-sdk v0.42.0-rc0
 	github.com/regen-network/regen-ledger v1.0.0-rc0
 	github.com/stretchr/testify v1.7.0

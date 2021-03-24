@@ -26,6 +26,14 @@ type Distribution struct {
 	Regen apd.Decimal
 }
 
+func (a Account) String() string {
+	return fmt.Sprintf("Account{%s, %sregen, %s}", a.Address, a.TotalRegen.String(), a.Distributions)
+}
+
+func (d Distribution) String() string {
+	return fmt.Sprintf("Distribution{%s, %sregen}", d.Time.Format(time.RFC3339), d.Regen.String())
+}
+
 var Dec128Context = apd.Context{
 	Precision:   34,
 	MaxExponent: apd.MaxExponent,
