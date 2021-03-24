@@ -34,6 +34,42 @@ func (d Distribution) String() string {
 	return fmt.Sprintf("Distribution{%s, %sregen}", d.Time.Format(time.RFC3339), d.Regen.String())
 }
 
+func (acc Account) Validate() error {
+	if acc.Address.Empty() {
+		return fmt.Errorf("empty address")
+	}
+
+	if acc.TotalRegen.IsZero() || acc.TotalRegen.Negative {
+		return fmt.Errorf("expected positive balance, got %s", acc.TotalRegen.String())
+	}
+
+	var calcTotal apd.Decimal
+	for _, dist := range acc.Distributions {
+		err := dist.Validate()
+		if err != nil {
+			return err
+		}
+
+		_, err = apd.BaseContext.Add(&calcTotal, &calcTotal, &dist.Regen)
+		if err != nil {
+			return err
+		}
+	}
+
+	if acc.TotalRegen.Cmp(&calcTotal) != 0 {
+		return fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), calcTotal.String())
+	}
+
+	return nil
+}
+
+func (d Distribution) Validate() error {
+	if d.Time.IsZero() {
+		return fmt.Errorf("time is zero")
+	}
+	return nil
+}
+
 var Dec128Context = apd.Context{
 	Precision:   34,
 	MaxExponent: apd.MaxExponent,
@@ -164,6 +200,11 @@ func init() {
 }
 
 func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.Balance, error) {
+	err := acc.Validate()
+	if err != nil {
+		return nil, nil, err
+	}
+
 	totalCoins, err := RegenToCoins(&acc.TotalRegen)
 	if err != nil {
 		return nil, nil, err
@@ -183,23 +224,12 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 
 	// if we have one distribution and it happens before or at genesis return a basic BaseAccount
 	if len(acc.Distributions) == 1 && !startTime.After(genesisTime) {
-		if acc.TotalRegen.Cmp(&acc.Distributions[0].Regen) != 0 {
-			return nil, nil, fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), acc.Distributions[0].Regen.String())
-		}
-
 		return &auth.BaseAccount{Address: addrStr}, balance, nil
 	} else {
 		periodStart := startTime
 
 		var periods []vesting.Period
-		var calcTotal apd.Decimal
-
 		for _, dist := range acc.Distributions {
-			_, err = apd.BaseContext.Add(&calcTotal, &calcTotal, &dist.Regen)
-			if err != nil {
-				return nil, nil, err
-			}
-
 			coins, err := RegenToCoins(&dist.Regen)
 			if err != nil {
 				return nil, nil, err
@@ -212,10 +242,6 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 				Length: seconds,
 				Amount: coins,
 			})
-		}
-
-		if acc.TotalRegen.Cmp(&calcTotal) != 0 {
-			return nil, nil, fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), calcTotal.String())
 		}
 
 		return &vesting.PeriodicVestingAccount{

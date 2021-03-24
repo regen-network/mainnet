@@ -54,21 +54,6 @@ func TestToCosmosAccount(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"no distribution",
-			Account{
-				Address:    addr0,
-				TotalRegen: *ten,
-			},
-			&auth.BaseAccount{
-				Address: addr0.String(),
-			},
-			&bank.Balance{
-				Address: addr0.String(),
-				Coins:   sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 10000000)),
-			},
-			false,
-		},
-		{
 			"one distribution at mainnet",
 			Account{
 				Address:    addr0,
@@ -265,13 +250,32 @@ func TestToCosmosAccount(t *testing.T) {
 			got, got1, err := ToCosmosAccount(tt.acc, time0)
 			if tt.wantErr {
 				require.Error(t, err)
+				return
 			} else {
 				require.NoError(t, err)
 			}
 			require.Equal(t, tt.want, got)
 			require.Equal(t, tt.want1, got1)
+			validateVestingAccount(t, got)
 		})
 	}
+}
+
+func validateVestingAccount(t *testing.T, acc auth.AccountI) {
+	vacc, ok := acc.(*vesting.PeriodicVestingAccount)
+	if !ok {
+		return
+	}
+
+	orig := vacc.OriginalVesting
+	time := vacc.StartTime
+	var total sdk.Coins
+	for _, period := range vacc.VestingPeriods {
+		total = total.Add(period.Amount...)
+		time += period.Length
+	}
+	require.Equal(t, orig, total)
+	require.Equal(t, vacc.EndTime, time)
 }
 
 func TestRecordToAccount(t *testing.T) {
@@ -491,6 +495,7 @@ func TestRecordToAccount(t *testing.T) {
 				require.Truef(t, tt.want.Distributions[i].Regen.Cmp(&got.Distributions[i].Regen) == 0,
 					"Distribution %d: %s != %s", i, tt.want.Distributions[i].Regen.String(), got.Distributions[i].Regen.String())
 			}
+			require.NoError(t, got.Validate())
 		})
 	}
 }

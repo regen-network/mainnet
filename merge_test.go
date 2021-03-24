@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/cockroachdb/apd/v2"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/cockroachdb/apd/v2"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMergeAccounts(t *testing.T) {
@@ -54,7 +55,7 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *ten,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 					},
@@ -64,11 +65,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *ten,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *five,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 					},
@@ -80,11 +81,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *fifteen,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 					},
@@ -100,11 +101,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 					},
@@ -114,11 +115,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *ten,
 					Distributions: []Distribution{
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *five,
 						},
 					},
@@ -130,19 +131,19 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *five,
 						},
 					},
@@ -158,11 +159,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *ten,
 						},
 					},
@@ -172,15 +173,15 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *ten,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 					},
@@ -192,11 +193,11 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *ten,
 						},
 					},
@@ -206,15 +207,15 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *ten,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 					},
@@ -230,15 +231,15 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *fifteen,
 					Distributions: []Distribution{
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *five,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *five,
 						},
 					},
@@ -248,15 +249,15 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *five,
 						},
 					},
@@ -266,7 +267,7 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *five,
 					Distributions: []Distribution{
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *five,
 						},
 					},
@@ -276,8 +277,8 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time4,
-							Regen: *ten,
+							Time:  time4,
+							Regen: *thirty,
 						},
 					},
 				},
@@ -288,19 +289,19 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *forty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *fifteen,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 						{
-							Time: time3,
+							Time:  time3,
 							Regen: *five,
 						},
 					},
@@ -310,8 +311,8 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time4,
-							Regen: *ten,
+							Time:  time4,
+							Regen: *thirty,
 						},
 					},
 				},
@@ -322,8 +323,8 @@ func TestMergeAccounts(t *testing.T) {
 			"error on account with no distributions",
 			[]Account{
 				{
-					Address:    addr0,
-					TotalRegen: *twenty,
+					Address:       addr0,
+					TotalRegen:    *twenty,
 					Distributions: []Distribution{},
 				},
 				{
@@ -331,15 +332,15 @@ func TestMergeAccounts(t *testing.T) {
 					TotalRegen: *thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
+							Time:  time0,
 							Regen: *ten,
 						},
 						{
-							Time: time1,
+							Time:  time1,
 							Regen: *ten,
 						},
 						{
-							Time: time2,
+							Time:  time2,
 							Regen: *ten,
 						},
 					},
@@ -358,6 +359,9 @@ func TestMergeAccounts(t *testing.T) {
 			}
 			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("MergeAccounts() got = %v, want %v", got, tt.want)
+			}
+			for _, acc := range got {
+				require.NoError(t, acc.Validate())
 			}
 		})
 	}
