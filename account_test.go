@@ -283,25 +283,20 @@ func TestRecordToAccount(t *testing.T) {
 	require.NoError(t, err)
 	ten000001, _, err := apd.NewFromString("10.000001")
 	require.NoError(t, err)
-	//thirty, _, err := apd.NewFromString("30")
-	//require.NoError(t, err)
+	seven500001, _, err := apd.NewFromString("7.500001")
+	require.NoError(t, err)
+	two5, _, err := apd.NewFromString("2.5")
+	require.NoError(t, err)
 
 	genesisTime, err := time.Parse(time.RFC3339, "2021-04-08T00:00:00Z")
 	require.NoError(t, err)
 
-	genesisPlus1Month := genesisTime.Add(OneMonth)
+	oneMonthAfterGenesis := genesisTime.Add(OneMonth)
 
 	start0, err := time.Parse(time.RFC3339, "2021-01-05T00:00:00Z")
 	require.NoError(t, err)
-	//
-	//start1, err := time.Parse(time.RFC3339, "2021-02-08:00:00Z")
-	//require.NoError(t, err)
-	//
-	//start2, err := time.Parse(time.RFC3339, "2021-09-04:00:00Z")
-	//require.NoError(t, err)
 
-	//t3, err := time.Parse(time.RFC3339, "2021-01-08:00:00Z")
-	//require.NoError(t, err)
+	twoMonthsBeforeGenesis := genesisTime.Add(-OneMonth * 2)
 
 	tests := []struct {
 		name    string
@@ -383,7 +378,7 @@ func TestRecordToAccount(t *testing.T) {
 						Regen: *five000001,
 					},
 					{
-						Time:  genesisPlus1Month,
+						Time:  oneMonthAfterGenesis,
 						Regen: *five,
 					},
 				},
@@ -391,7 +386,7 @@ func TestRecordToAccount(t *testing.T) {
 			false,
 		},
 		{
-			"two dists from before genesis",
+			"two dists all from before genesis",
 			Record{
 				Address:                 addr0,
 				TotalAmount:             *ten000001,
@@ -411,11 +406,11 @@ func TestRecordToAccount(t *testing.T) {
 			false,
 		},
 		{
-			"four dists from before genesis",
+			"four dists starting before genesis",
 			Record{
 				Address:                 addr0,
 				TotalAmount:             *ten000001,
-				StartTime:               start0,
+				StartTime:               twoMonthsBeforeGenesis,
 				NumMonthlyDistributions: 4,
 			},
 			Account{
@@ -424,7 +419,55 @@ func TestRecordToAccount(t *testing.T) {
 				Distributions: []Distribution{
 					{
 						Time:  genesisTime,
+						Regen: *seven500001,
+					},
+					{
+						Time:  oneMonthAfterGenesis,
+						Regen: *two5,
+					},
+				},
+			},
+			false,
+		},
+		{
+			"one dist after genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *ten000001,
+				StartTime:               oneMonthAfterGenesis,
+				NumMonthlyDistributions: 1,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten000001,
+				Distributions: []Distribution{
+					{
+						Time:  oneMonthAfterGenesis,
 						Regen: *ten000001,
+					},
+				},
+			},
+			false,
+		},
+		{
+			"two dists after genesis",
+			Record{
+				Address:                 addr0,
+				TotalAmount:             *ten000001,
+				StartTime:               oneMonthAfterGenesis,
+				NumMonthlyDistributions: 2,
+			},
+			Account{
+				Address:    addr0,
+				TotalRegen: *ten000001,
+				Distributions: []Distribution{
+					{
+						Time:  oneMonthAfterGenesis,
+						Regen: *five000001,
+					},
+					{
+						Time:  oneMonthAfterGenesis.Add(OneMonth),
+						Regen: *five,
 					},
 				},
 			},

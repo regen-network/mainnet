@@ -35,13 +35,16 @@ var Dec128Context = apd.Context{
 
 func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 	amount := rec.TotalAmount
-	startTime := rec.StartTime
-	if startTime.IsZero() {
-		startTime = genesisTime
+	distTime := rec.StartTime
+	if distTime.IsZero() {
+		distTime = genesisTime
 	}
 	numDist := rec.NumMonthlyDistributions
+	if numDist < 1 {
+		numDist = 1
+	}
 
-	if numDist <= 1 && (startTime.Equal(genesisTime) || startTime.Before(genesisTime)) {
+	if numDist == 1 && !distTime.After(genesisTime) {
 		return Account{
 			Address:    rec.Address,
 			TotalRegen: amount,
@@ -59,42 +62,39 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		return Account{}, err
 	}
 
-	// put dust + distAmount in first distribution
-	var firstDist apd.Decimal
-	_, err = apd.BaseContext.Add(&firstDist, &distAmount, &dust)
-	if err != nil {
-		return Account{}, err
-	}
-
 	var distributions []Distribution
+	var genesisAmount apd.Decimal
 
-	endTime := startTime
-	if startTime.Before(genesisTime) {
-		startTime = genesisTime
-		for numDist > 0 {
-			if endTime.Before(genesisTime) && numDist > 0 {
-
-			}
-			endTime = endTime.Add(OneMonth)
-			numDist -= 1
-			_, err = apd.BaseContext.Add(&nextDist, &nextDist, &distAmount)
+	// collapse all pre-genesis distributions into a genesis distribution
+	for ; numDist > 0 && !distTime.After(genesisTime); numDist-- {
+		_, err = apd.BaseContext.Add(&genesisAmount, &genesisAmount, &distAmount)
+		if err != nil {
+			return Account{}, err
 		}
-
+		distTime = distTime.Add(OneMonth)
 	}
 
-	var nextDist apd.Decimal
-	// first distribution at start time
-	distributions = append(distributions, Distribution{
-		Time:  startTime,
-		Regen: firstDist,
-	})
-
-	for i := 1; i < numDist; i++ {
-		endTime = endTime.Add(OneMonth)
+	// if there is a genesis distribution add it
+	if !genesisAmount.IsZero() {
 		distributions = append(distributions, Distribution{
-			Time:  endTime,
+			Time:  genesisTime,
+			Regen: genesisAmount,
+		})
+	}
+
+	// add post genesis distributions
+	for ; numDist > 0; numDist-- {
+		distributions = append(distributions, Distribution{
+			Time:  distTime,
 			Regen: distAmount,
 		})
+		distTime = distTime.Add(OneMonth)
+	}
+
+	// add dust to first distribution
+	_, err = apd.BaseContext.Add(&distributions[0].Regen, &distributions[0].Regen, &dust)
+	if err != nil {
+		return Account{}, err
 	}
 
 	return Account{
@@ -174,7 +174,7 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 	startTime := acc.Distributions[0].Time
 
 	// if we have one distribution and it happens before or at genesis return a basic BaseAccount
-	if len(acc.Distributions) == 1 && (startTime.Before(genesisTime) || startTime.Equal(genesisTime)) {
+	if len(acc.Distributions) == 1 && !startTime.After(genesisTime) {
 		if acc.TotalRegen.Cmp(&acc.Distributions[0].Regen) != 0 {
 			return nil, nil, fmt.Errorf("incorrect balance, expected %s, got %s", acc.TotalRegen.String(), acc.Distributions[0].Regen.String())
 		}
