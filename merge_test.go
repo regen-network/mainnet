@@ -1,28 +1,28 @@
 package main
 
 import (
-	"github.com/cockroachdb/apd/v2"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	"reflect"
 	"testing"
 	"time"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMergeAccounts(t *testing.T) {
 	addr0 := sdk.AccAddress("abcdefg012345")
 	addr1 := sdk.AccAddress("012345abcdefg")
-	five, _, err := apd.NewFromString("5")
+	five, err := NewDecFromString("5")
 	require.NoError(t, err)
-	ten, _, err := apd.NewFromString("10")
+	ten, err := NewDecFromString("10")
 	require.NoError(t, err)
-	fifteen, _, err := apd.NewFromString("15")
+	fifteen, err := NewDecFromString("15")
 	require.NoError(t, err)
-	twenty, _, err := apd.NewFromString("20")
+	twenty, err := NewDecFromString("20")
 	require.NoError(t, err)
-	thirty, _, err := apd.NewFromString("30")
+	thirty, err := NewDecFromString("30")
 	require.NoError(t, err)
-	forty, _, err := apd.NewFromString("40")
+	forty, err := NewDecFromString("40")
 	require.NoError(t, err)
 
 	time0, err := time.Parse(time.RFC3339, "2021-05-21T00:00:00Z")
@@ -51,25 +51,25 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *ten,
+					TotalRegen: ten,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 					},
 				},
 				{
 					Address:    addr0,
-					TotalRegen: *ten,
+					TotalRegen: ten,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *five,
+							Time:  time0,
+							Regen: five,
 						},
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 					},
 				},
@@ -77,15 +77,15 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *fifteen,
+							Time:  time0,
+							Regen: fifteen,
 						},
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 					},
 				},
@@ -97,29 +97,29 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 					},
 				},
 				{
 					Address:    addr0,
-					TotalRegen: *ten,
+					TotalRegen: ten,
 					Distributions: []Distribution{
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 						{
-							Time: time3,
-							Regen: *five,
+							Time:  time3,
+							Regen: five,
 						},
 					},
 				},
@@ -127,23 +127,23 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 						{
-							Time: time3,
-							Regen: *five,
+							Time:  time3,
+							Regen: five,
 						},
 					},
 				},
@@ -155,33 +155,33 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time3,
-							Regen: *ten,
+							Time:  time3,
+							Regen: ten,
 						},
 					},
 				},
 				{
 					Address:    addr1,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *ten,
+							Time:  time1,
+							Regen: ten,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 					},
 				},
@@ -189,33 +189,33 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time3,
-							Regen: *ten,
+							Time:  time3,
+							Regen: ten,
 						},
 					},
 				},
 				{
 					Address:    addr1,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *ten,
+							Time:  time1,
+							Regen: ten,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 					},
 				},
@@ -227,57 +227,57 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *fifteen,
+					TotalRegen: fifteen,
 					Distributions: []Distribution{
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 						{
-							Time: time2,
-							Regen: *five,
+							Time:  time2,
+							Regen: five,
 						},
 						{
-							Time: time3,
-							Regen: *five,
+							Time:  time3,
+							Regen: five,
 						},
 					},
 				},
 				{
 					Address:    addr0,
-					TotalRegen: *twenty,
+					TotalRegen: twenty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 						{
-							Time: time2,
-							Regen: *five,
+							Time:  time2,
+							Regen: five,
 						},
 					},
 				},
 				{
 					Address:    addr0,
-					TotalRegen: *five,
+					TotalRegen: five,
 					Distributions: []Distribution{
 						{
-							Time: time1,
-							Regen: *five,
+							Time:  time1,
+							Regen: five,
 						},
 					},
 				},
 				{
 					Address:    addr1,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time4,
-							Regen: *ten,
+							Time:  time4,
+							Regen: thirty,
 						},
 					},
 				},
@@ -285,33 +285,33 @@ func TestMergeAccounts(t *testing.T) {
 			[]Account{
 				{
 					Address:    addr0,
-					TotalRegen: *forty,
+					TotalRegen: forty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *fifteen,
+							Time:  time1,
+							Regen: fifteen,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 						{
-							Time: time3,
-							Regen: *five,
+							Time:  time3,
+							Regen: five,
 						},
 					},
 				},
 				{
 					Address:    addr1,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time4,
-							Regen: *ten,
+							Time:  time4,
+							Regen: thirty,
 						},
 					},
 				},
@@ -322,25 +322,25 @@ func TestMergeAccounts(t *testing.T) {
 			"error on account with no distributions",
 			[]Account{
 				{
-					Address:    addr0,
-					TotalRegen: *twenty,
+					Address:       addr0,
+					TotalRegen:    twenty,
 					Distributions: []Distribution{},
 				},
 				{
 					Address:    addr1,
-					TotalRegen: *thirty,
+					TotalRegen: thirty,
 					Distributions: []Distribution{
 						{
-							Time: time0,
-							Regen: *ten,
+							Time:  time0,
+							Regen: ten,
 						},
 						{
-							Time: time1,
-							Regen: *ten,
+							Time:  time1,
+							Regen: ten,
 						},
 						{
-							Time: time2,
-							Regen: *ten,
+							Time:  time2,
+							Regen: ten,
 						},
 					},
 				},
@@ -356,8 +356,18 @@ func TestMergeAccounts(t *testing.T) {
 				t.Errorf("MergeAccounts() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+
+			require.Equal(t, len(tt.want), len(got))
+			for i, gotAcc := range got {
+				wantAcc := tt.want[i]
+				require.Equal(t, wantAcc.Address, gotAcc.Address)
+				RequireAccountEqual(t, wantAcc, gotAcc)
+			}
 			if !tt.wantErr && !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("MergeAccounts() got = %v, want %v", got, tt.want)
+			}
+			for _, acc := range got {
+				require.NoError(t, acc.Validate())
 			}
 		})
 	}
