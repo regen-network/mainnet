@@ -79,10 +79,10 @@ func (x Dec) IsZero() bool {
 	return x.dec.IsZero()
 }
 
-func (x Dec) IsNegative() bool {
-	return x.dec.Negative && !x.dec.IsZero()
-}
-
 func (x Dec) IsPositive() bool {
 	return !x.dec.Negative && !x.dec.IsZero()
+}
+
+func (x Dec) IsNegative() bool {
+	return x.dec.Negative && !x.dec.IsZero()
 }
