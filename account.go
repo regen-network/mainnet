@@ -92,7 +92,7 @@ func RecordToAccount(rec Record, genesisTime time.Time) (Account, error) {
 		}, nil
 	}
 
-	// calculate dust, which represents an uregen-integral remainder, represented as an apd.Decimal of regen
+	// calculate dust, which represents an uregen-integral remainder, represented as a decimal value of regen
 	// from dividing `amount` by `numDist`
 	distAmount, dust, err := distAmountAndDust(amount, numDist)
 	if err != nil {
