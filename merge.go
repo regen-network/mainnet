@@ -33,10 +33,17 @@ func MergeAccounts(accounts []Account) ([]Account, error) {
 		accMap[addrStr] = newAcc
 	}
 
-	res := make([]Account, 0, len(accMap))
+	// sort addresses
+	addrs := make([]string, 0, len(accMap))
+	for addr := range accMap {
+		addrs = append(addrs, addr)
+	}
 
-	for _, acc := range accMap {
-		res = append(res, acc)
+	sort.Strings(addrs)
+
+	res := make([]Account, 0, len(accMap))
+	for _, addr := range addrs {
+		res = append(res, accMap[addr])
 	}
 
 	return res, nil
