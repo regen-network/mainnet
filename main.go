@@ -132,6 +132,14 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 			return nil, nil, fmt.Errorf("error on ToCosmosAccount: %w", err)
 		}
 
+		genAcc, ok := authAcc.(auth.GenesisAccount)
+		if ok {
+			err = genAcc.Validate()
+			if err != nil {
+				return nil, nil, err
+			}
+		}
+
 		err = ValidateVestingAccount(authAcc)
 		if err != nil {
 			return nil, nil, err
