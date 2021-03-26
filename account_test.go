@@ -109,10 +109,10 @@ func TestToCosmosAccount(t *testing.T) {
 					OriginalVesting: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
 					EndTime:         time1.Unix(),
 				},
-				StartTime: time1.Unix(),
+				StartTime: time0.Unix(),
 				VestingPeriods: []vesting.Period{
 					{
-						Length: 0,
+						Length: int64(time1.Sub(time0).Seconds()),
 						Amount: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
 					},
 				},
