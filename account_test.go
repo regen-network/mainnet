@@ -101,20 +101,13 @@ func TestToCosmosAccount(t *testing.T) {
 					},
 				},
 			},
-			&vesting.PeriodicVestingAccount{
+			&vesting.DelayedVestingAccount{
 				BaseVestingAccount: &vesting.BaseVestingAccount{
 					BaseAccount: &auth.BaseAccount{
 						Address: addr1.String(),
 					},
 					OriginalVesting: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
 					EndTime:         time1.Unix(),
-				},
-				StartTime: time1.Unix(),
-				VestingPeriods: []vesting.Period{
-					{
-						Length: 0,
-						Amount: sdk.NewCoins(sdk.NewInt64Coin(URegenDenom, 5000000)),
-					},
 				},
 			},
 			&bank.Balance{

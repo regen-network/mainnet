@@ -214,8 +214,18 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 	startTime := acc.Distributions[0].Time
 
 	// if we have one distribution and it happens before or at genesis return a basic BaseAccount
-	if len(acc.Distributions) == 1 && !startTime.After(genesisTime) {
-		return &auth.BaseAccount{Address: addrStr}, balance, nil
+	if len(acc.Distributions) == 1 {
+		if !acc.Distributions[0].Time.After(genesisTime) {
+			return &auth.BaseAccount{Address: addrStr}, balance, nil
+		} else {
+			return &vesting.DelayedVestingAccount{
+				BaseVestingAccount: &vesting.BaseVestingAccount{
+					BaseAccount:     &auth.BaseAccount{Address: addrStr},
+					OriginalVesting: totalCoins,
+					EndTime:         acc.Distributions[0].Time.Unix(),
+				},
+			}, balance, nil
+		}
 	} else {
 		periodStart := startTime
 
