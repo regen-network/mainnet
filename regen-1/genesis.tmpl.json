@@ -40,7 +40,6 @@
       "balances": [],
       "supply": [],
       "denom_metadata": [
-        [
           {
             "base": "uregen",
             "denom_units": [
@@ -68,7 +67,6 @@
             "display": "regen"
           }
         ]
-      ]
     },
     "capability": {
       "index": "1",
