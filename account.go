@@ -211,7 +211,7 @@ func ToCosmosAccount(acc Account, genesisTime time.Time) (auth.AccountI, *bank.B
 		return &auth.BaseAccount{Address: addrStr}, balance, nil
 	}
 
-	startTime := genesisTime
+	startTime := acc.Distributions[0].Time
 
 	// if we have one distribution and it happens before or at genesis return a basic BaseAccount
 	if len(acc.Distributions) == 1 {
