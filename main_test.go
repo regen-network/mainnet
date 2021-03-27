@@ -23,7 +23,8 @@ const testTemplate = `
   "app_hash": "",
   "app_state": {
     "auth":{},
-    "bank":{}
+    "bank":{},
+    "distribution":{}
   }
 }
 `
@@ -204,6 +205,30 @@ func TestProcess(t *testing.T) {
         }
       ],
       "denom_metadata": []
+    },
+    "distribution": {
+      "params": {
+        "community_tax": "0",
+        "base_proposer_reward": "0",
+        "bonus_proposer_reward": "0",
+        "withdraw_addr_enabled": false
+      },
+      "fee_pool": {
+        "community_pool": [
+          {
+            "denom": "uregen",
+            "amount": "100000000000.000000000000000000"
+          }
+        ]
+      },
+      "delegator_withdraw_infos": [],
+      "previous_proposer": "",
+      "outstanding_rewards": [],
+      "validator_accumulated_commissions": [],
+      "validator_historical_rewards": [],
+      "validator_current_rewards": [],
+      "delegator_starting_infos": [],
+      "validator_slash_events": []
     }
   }
 }`, json)

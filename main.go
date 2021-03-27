@@ -70,7 +70,7 @@ func main() {
 }
 
 func Process(doc *types.GenesisDoc, accountsCsv io.Reader, communityPoolRegen int, auditOutput io.Writer, errorsAsWarnings bool) error {
-	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, communityPoolRegen, auditOutput, errorsAsWarnings)
+	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, auditOutput, errorsAsWarnings)
 	if err != nil {
 		return err
 	}
@@ -83,7 +83,7 @@ func Process(doc *types.GenesisDoc, accountsCsv io.Reader, communityPoolRegen in
 
 	cdc, _ := regen.MakeCodecs()
 
-	err = setAccounts(cdc, genState, accounts, balances)
+	err = setAccounts(cdc, genState, accounts, balances, communityPoolRegen)
 	if err != nil {
 		return err
 	}
@@ -96,7 +96,7 @@ func Process(doc *types.GenesisDoc, accountsCsv io.Reader, communityPoolRegen in
 	return nil
 }
 
-func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, communityPoolRegen int, auditOutput io.Writer, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
+func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.Writer, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
 	records, err := ParseAccountsCsv(accountsCsv, genesisTime, errorsAsWarnings)
 	if err != nil {
 		return nil, nil, err
@@ -127,8 +127,8 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, communityPoolRe
 	accounts = SortAccounts(accounts)
 	PrintAccountAudit(accounts, genesisTime, auditOutput)
 
-	authAccounts := make([]auth.AccountI, 0, len(accounts)+1)
-	balances := make([]bank.Balance, 0, len(accounts)+1)
+	authAccounts := make([]auth.AccountI, 0, len(accounts))
+	balances := make([]bank.Balance, 0, len(accounts))
 	for _, acc := range accounts {
 		authAcc, bal, err := ToCosmosAccount(acc, genesisTime)
 		if err != nil {
@@ -152,19 +152,11 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, communityPoolRe
 		balances = append(balances, *bal)
 	}
 
-	// create distribution module account and corresponding balance with community pool funded
-	distrMacc, distrBalance, err := buildDistrMaccAndBalance(communityPoolRegen)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	authAccounts = append(authAccounts, distrMacc)
-	balances = append(balances, *distrBalance)
 
 	return authAccounts, balances, nil
 }
 
-func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accounts []auth.AccountI, balances []bank.Balance) error {
+func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accounts []auth.AccountI, balances []bank.Balance, communityPoolRegen int) error {
 	var bankGenesis bank.GenesisState
 
 	err := cdc.UnmarshalJSON(genesis[bank.ModuleName], &bankGenesis)
@@ -172,12 +164,20 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 		return err
 	}
 
-	var supply sdk.Coins
-	for _, bal := range balances {
-		supply = supply.Add(bal.Coins...)
+	// create distribution module account and corresponding balance with community pool funded
+	distrMacc, distrBalance, err := buildDistrMaccAndBalance(communityPoolRegen)
+	if err != nil {
+		return err
 	}
 
 	bankGenesis.Balances = append(bankGenesis.Balances, balances...)
+	bankGenesis.Balances = append(bankGenesis.Balances, *distrBalance)
+
+	var supply sdk.Coins
+	for _, bal := range bankGenesis.Balances {
+		supply = supply.Add(bal.Coins...)
+	}
+
 	bankGenesis.Supply = supply
 
 	genesis[bank.ModuleName], err = cdc.MarshalJSON(&bankGenesis)
@@ -198,7 +198,19 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 		authGenesis.Accounts = append(authGenesis.Accounts, any)
 	}
 
+	distrMaccAny, err := cdctypes.NewAnyWithValue(distrMacc)
+	if err != nil {
+		return err
+	}
+	authGenesis.Accounts = append(authGenesis.Accounts, distrMaccAny)
+
 	genesis[auth.ModuleName], err = cdc.MarshalJSON(&authGenesis)
+
+	var distrGenesis distribution.GenesisState
+
+	// set CommunityPool to balance of distribution module account
+	distrGenesis.FeePool.CommunityPool = sdk.NewDecCoinsFromCoins(distrBalance.Coins...)
+	genesis[distribution.ModuleName], err = cdc.MarshalJSON(&distrGenesis)
 
 	return nil
 }
