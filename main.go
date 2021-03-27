@@ -19,8 +19,11 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
+	distribution "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	"github.com/spf13/cobra"
 )
+
+const CommunityPoolRegenAmount = 2_000_000
 
 func main() {
 	rootCmd := &cobra.Command{}
@@ -46,7 +49,7 @@ func main() {
 
 			auditTsv, err := os.OpenFile(filepath.Join(genDir, "account_dump.tsv"), os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)
 
-			err = Process(doc, accountsCsv, auditTsv, errorsAsWarnings)
+			err = Process(doc, accountsCsv, CommunityPoolRegenAmount, auditTsv, errorsAsWarnings)
 			if err != nil {
 				return err
 			}
@@ -66,8 +69,8 @@ func main() {
 	}
 }
 
-func Process(doc *types.GenesisDoc, accountsCsv io.Reader, auditOutput io.Writer, errorsAsWarnings bool) error {
-	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, auditOutput, errorsAsWarnings)
+func Process(doc *types.GenesisDoc, accountsCsv io.Reader, communityPoolRegen int, auditOutput io.Writer, errorsAsWarnings bool) error {
+	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, communityPoolRegen, auditOutput, errorsAsWarnings)
 	if err != nil {
 		return err
 	}
@@ -93,7 +96,7 @@ func Process(doc *types.GenesisDoc, accountsCsv io.Reader, auditOutput io.Writer
 	return nil
 }
 
-func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.Writer, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
+func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, communityPoolRegen int, auditOutput io.Writer, errorsAsWarnings bool) ([]auth.AccountI, []bank.Balance, error) {
 	records, err := ParseAccountsCsv(accountsCsv, genesisTime, errorsAsWarnings)
 	if err != nil {
 		return nil, nil, err
@@ -124,8 +127,8 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 	accounts = SortAccounts(accounts)
 	PrintAccountAudit(accounts, genesisTime, auditOutput)
 
-	authAccounts := make([]auth.AccountI, 0, len(accounts))
-	balances := make([]bank.Balance, 0, len(accounts))
+	authAccounts := make([]auth.AccountI, 0, len(accounts)+1)
+	balances := make([]bank.Balance, 0, len(accounts)+1)
 	for _, acc := range accounts {
 		authAcc, bal, err := ToCosmosAccount(acc, genesisTime)
 		if err != nil {
@@ -148,6 +151,15 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 		authAccounts = append(authAccounts, authAcc)
 		balances = append(balances, *bal)
 	}
+
+	// create distribution module account and corresponding balance with community pool funded
+	distrMacc, distrBalance, err := buildDistrMaccAndBalance(communityPoolRegen)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	authAccounts = append(authAccounts, distrMacc)
+	balances = append(balances, *distrBalance)
 
 	return authAccounts, balances, nil
 }
@@ -189,4 +201,21 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 	genesis[auth.ModuleName], err = cdc.MarshalJSON(&authGenesis)
 
 	return nil
+}
+
+func buildDistrMaccAndBalance(regenAmount int) (auth.ModuleAccountI, *bank.Balance, error) {
+	maccPerms := regen.GetMaccPerms()
+	distrMacc := auth.NewEmptyModuleAccount(distribution.ModuleName, maccPerms[distribution.ModuleName]...)
+
+	distrCoins, err := RegenToCoins(NewDecFromInt64(int64(regenAmount)))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	distrBalance := &bank.Balance{
+		Coins: distrCoins,
+		Address: distrMacc.Address,
+	}
+
+	return distrMacc, distrBalance, nil
 }
