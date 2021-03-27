@@ -207,6 +207,10 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 	genesis[auth.ModuleName], err = cdc.MarshalJSON(&authGenesis)
 
 	var distrGenesis distribution.GenesisState
+	err = cdc.UnmarshalJSON(genesis[distribution.ModuleName], &distrGenesis)
+	if err != nil {
+		return err
+	}
 
 	// set CommunityPool to balance of distribution module account
 	distrGenesis.FeePool.CommunityPool = sdk.NewDecCoinsFromCoins(distrBalance.Coins...)
