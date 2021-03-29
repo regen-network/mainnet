@@ -6,19 +6,35 @@ CHAIN_ID=regen-1
 GENTX_FILE=$(find ./$CHAIN_ID/gentxs -iname "*.json")
 LEN_GENTX=$(echo ${#GENTX_FILE})
 
-# GENTX_STARTDATE=$(date -d '05-02-2021 15:00:00' '+%d/%m/%Y %H:%M:%S')
-# GENTX_DEADLINE=$(date -d '07-02-2021 15:00:00' '+%d/%m/%Y %H:%M:%S')
-now=$(date +"%d/%m/%Y %H:%M:%S")
+# Gentx Start date
+start="2021-03-31 15:00:00Z"
+# Compute the seconds since epoch for start date
+stTime=$(date --date="$start" +%s)
 
-# if [ $now -le $GENTX_STARTDATE ]; then
-#     echo 'Gentx submission is not open yet. Please close the PR and raise a new PR after 05-Feb-2021 15:00:00'
-#     exit 0
-# fi
+# Gentx End date
+end="2021-04-06 15:00:00Z"
+# Compute the seconds since epoch for end date
+endTime=$(date --date="$end" +%s)
 
-# if [ $now -ge $GENTX_DEADLINE ]; then
-#     echo 'Gentx submission is closed'
-#     exit 0
-# fi
+# Current date
+current=$(date +%Y-%m-%d\ %H:%M:%S)
+# Compute the seconds since epoch for current date
+curTime=$(date --date="$current" +%s)
+
+if [[ $curTime < $stTime ]]; then
+    echo "start=$stTime:curent=$curTime:endTime=$endTime"
+    echo "Gentx submission is not open yet. Please close the PR and raise a new PR after 05-Feb-2021 15:00:00"
+    exit 0
+else
+    if [[ $curTime > $endTime ]]; then
+        echo "start=$stTime:curent=$curTime:endTime=$endTime"
+        echo "Gentx submission is closed"
+        exit 0
+    else
+        echo "Gentx is now open"
+        echo "start=$stTime:curent=$curTime:endTime=$endTime"
+    fi
+fi
 
 if [ $LEN_GENTX -eq 0 ]; then
     echo "No new gentx file found."
@@ -42,7 +58,7 @@ else
 
     echo "..........Fetching genesis......."
     rm -rf $REGEN_HOME/config/genesis.json
-    curl -s https://raw.githubusercontent.com/regen-network/mainnet/master/$CHAIN_ID/prelaunch-genesis.json > $REGEN_HOME/config/genesis.json
+    curl -s https://raw.githubusercontent.com/regen-network/mainnet/master/$CHAIN_ID/prelaunch-genesis.json >$REGEN_HOME/config/genesis.json
 
     sed -i '/genesis_time/c\   \"genesis_time\" : \"2021-03-29T00:00:00Z\",' $REGEN_HOME/config/genesis.json
 
