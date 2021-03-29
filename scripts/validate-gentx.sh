@@ -23,7 +23,7 @@ curTime=$(date --date="$current" +%s)
 
 if [[ $curTime < $stTime ]]; then
     echo "start=$stTime:curent=$curTime:endTime=$endTime"
-    echo "Gentx submission is not open yet. Please close the PR and raise a new PR after 05-Feb-2021 15:00:00"
+    echo "Gentx submission is not open yet. Please close the PR and raise a new PR after 31-March-2021 15:00:00"
     exit 0
 else
     if [[ $curTime > $endTime ]]; then
