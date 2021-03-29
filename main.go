@@ -19,8 +19,11 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
+	distribution "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	"github.com/spf13/cobra"
 )
+
+const CommunityPoolRegenAmount = 2_000_000
 
 func main() {
 	rootCmd := &cobra.Command{}
@@ -46,7 +49,7 @@ func main() {
 
 			auditTsv, err := os.OpenFile(filepath.Join(genDir, "account_dump.tsv"), os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)
 
-			err = Process(doc, accountsCsv, auditTsv, errorsAsWarnings)
+			err = Process(doc, accountsCsv, CommunityPoolRegenAmount, auditTsv, errorsAsWarnings)
 			if err != nil {
 				return err
 			}
@@ -66,7 +69,7 @@ func main() {
 	}
 }
 
-func Process(doc *types.GenesisDoc, accountsCsv io.Reader, auditOutput io.Writer, errorsAsWarnings bool) error {
+func Process(doc *types.GenesisDoc, accountsCsv io.Reader, communityPoolRegen int, auditOutput io.Writer, errorsAsWarnings bool) error {
 	accounts, balances, err := buildAccounts(accountsCsv, doc.GenesisTime, auditOutput, errorsAsWarnings)
 	if err != nil {
 		return err
@@ -80,7 +83,7 @@ func Process(doc *types.GenesisDoc, accountsCsv io.Reader, auditOutput io.Writer
 
 	cdc, _ := regen.MakeCodecs()
 
-	err = setAccounts(cdc, genState, accounts, balances)
+	err = setAccounts(cdc, genState, accounts, balances, communityPoolRegen)
 	if err != nil {
 		return err
 	}
@@ -149,10 +152,11 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 		balances = append(balances, *bal)
 	}
 
+
 	return authAccounts, balances, nil
 }
 
-func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accounts []auth.AccountI, balances []bank.Balance) error {
+func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accounts []auth.AccountI, balances []bank.Balance, communityPoolRegen int) error {
 	var bankGenesis bank.GenesisState
 
 	err := cdc.UnmarshalJSON(genesis[bank.ModuleName], &bankGenesis)
@@ -160,12 +164,20 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 		return err
 	}
 
-	var supply sdk.Coins
-	for _, bal := range balances {
-		supply = supply.Add(bal.Coins...)
+	// create distribution module account and corresponding balance with community pool funded
+	distrMacc, distrBalance, err := buildDistrMaccAndBalance(communityPoolRegen)
+	if err != nil {
+		return err
 	}
 
 	bankGenesis.Balances = append(bankGenesis.Balances, balances...)
+	bankGenesis.Balances = append(bankGenesis.Balances, *distrBalance)
+
+	var supply sdk.Coins
+	for _, bal := range bankGenesis.Balances {
+		supply = supply.Add(bal.Coins...)
+	}
+
 	bankGenesis.Supply = supply
 
 	genesis[bank.ModuleName], err = cdc.MarshalJSON(&bankGenesis)
@@ -186,7 +198,40 @@ func setAccounts(cdc codec.Marshaler, genesis map[string]json.RawMessage, accoun
 		authGenesis.Accounts = append(authGenesis.Accounts, any)
 	}
 
+	distrMaccAny, err := cdctypes.NewAnyWithValue(distrMacc)
+	if err != nil {
+		return err
+	}
+	authGenesis.Accounts = append(authGenesis.Accounts, distrMaccAny)
+
 	genesis[auth.ModuleName], err = cdc.MarshalJSON(&authGenesis)
 
+	var distrGenesis distribution.GenesisState
+	err = cdc.UnmarshalJSON(genesis[distribution.ModuleName], &distrGenesis)
+	if err != nil {
+		return err
+	}
+
+	// set CommunityPool to balance of distribution module account
+	distrGenesis.FeePool.CommunityPool = sdk.NewDecCoinsFromCoins(distrBalance.Coins...)
+	genesis[distribution.ModuleName], err = cdc.MarshalJSON(&distrGenesis)
+
 	return nil
+}
+
+func buildDistrMaccAndBalance(regenAmount int) (auth.ModuleAccountI, *bank.Balance, error) {
+	maccPerms := regen.GetMaccPerms()
+	distrMacc := auth.NewEmptyModuleAccount(distribution.ModuleName, maccPerms[distribution.ModuleName]...)
+
+	distrCoins, err := RegenToCoins(NewDecFromInt64(int64(regenAmount)))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	distrBalance := &bank.Balance{
+		Coins: distrCoins,
+		Address: distrMacc.Address,
+	}
+
+	return distrMacc, distrBalance, nil
 }

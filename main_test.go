@@ -2,6 +2,10 @@ package main
 
 import (
 	"bytes"
+	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
+	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
+	distribution "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	regen "github.com/regen-network/regen-ledger/app"
 	"strings"
 	"testing"
 
@@ -19,7 +23,8 @@ const testTemplate = `
   "app_hash": "",
   "app_state": {
     "auth":{},
-    "bank":{}
+    "bank":{},
+    "distribution":{}
   }
 }
 `
@@ -30,14 +35,16 @@ regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz,200000.301,2020-06-19,2
 regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz,300000.0,MAINNET+1YEAR,2
 `
 
-func processStrings(tmplJson string, accountsCsv string) (string, string, error) {
+const testCommunityPoolRegenAmount = 100000
+
+func processStrings(tmplJson string, accountsCsv string, communityPoolRegen int) (string, string, error) {
 	doc, err := types.GenesisDocFromJSON([]byte(tmplJson))
 	if err != nil {
 		return "", "", err
 	}
 
 	auditOut := new(bytes.Buffer)
-	err = Process(doc, strings.NewReader(accountsCsv), auditOut, false)
+	err = Process(doc, strings.NewReader(accountsCsv), communityPoolRegen, auditOut, false)
 	if err != nil {
 		return "", "", err
 	}
@@ -51,7 +58,7 @@ func processStrings(tmplJson string, accountsCsv string) (string, string, error)
 }
 
 func TestProcess(t *testing.T) {
-	json, auditOut, err := processStrings(testTemplate, testAccounts)
+	json, auditOut, err := processStrings(testTemplate, testAccounts, testCommunityPoolRegenAmount)
 	require.NoError(t, err)
 	require.Equal(t,
 		`{
@@ -143,6 +150,17 @@ func TestProcess(t *testing.T) {
               ]
             }
           ]
+        },
+        {
+          "@type": "/cosmos.auth.v1beta1.ModuleAccount",
+          "base_account": {
+            "address": "regen1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ca0qlm",
+            "pub_key": null,
+            "account_number": "0",
+            "sequence": "0"
+          },
+          "name": "distribution",
+          "permissions": []
         }
       ]
     },
@@ -169,15 +187,48 @@ func TestProcess(t *testing.T) {
               "amount": "500000301000"
             }
           ]
+        },
+        {
+          "address": "regen1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ca0qlm",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "100000000000"
+            }
+          ]
         }
       ],
       "supply": [
         {
           "denom": "uregen",
-          "amount": "600000301000"
+          "amount": "700000301000"
         }
       ],
       "denom_metadata": []
+    },
+    "distribution": {
+      "params": {
+        "community_tax": "0",
+        "base_proposer_reward": "0",
+        "bonus_proposer_reward": "0",
+        "withdraw_addr_enabled": false
+      },
+      "fee_pool": {
+        "community_pool": [
+          {
+            "denom": "uregen",
+            "amount": "100000000000.000000000000000000"
+          }
+        ]
+      },
+      "delegator_withdraw_infos": [],
+      "previous_proposer": "",
+      "outstanding_rewards": [],
+      "validator_accumulated_commissions": [],
+      "validator_historical_rewards": [],
+      "validator_current_rewards": [],
+      "delegator_starting_infos": [],
+      "validator_slash_events": []
     }
   }
 }`, json)
@@ -188,4 +239,25 @@ regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz	500000.301	3
 	150000.0	2022-03-26 21:49:12
 	150000	2022-04-26 08:18:18
 `, auditOut)
+}
+
+func TestBuildDistrMaccAndBalance(t *testing.T) {
+
+	testRegenAmount := 1000
+	testCoins, err := RegenToCoins(NewDecFromInt64(int64(testRegenAmount)))
+	require.NoError(t, err)
+
+	maccPerms := regen.GetMaccPerms()
+	testMacc := auth.NewEmptyModuleAccount(distribution.ModuleName, maccPerms[distribution.ModuleName]...)
+
+	testBalance := &bank.Balance{
+		Coins: testCoins,
+		Address: testMacc.Address,
+	}
+
+	distrMacc, distrBalance, err := buildDistrMaccAndBalance(testRegenAmount)
+	require.NoError(t, err)
+
+	require.Equal(t, testBalance, distrBalance)
+	require.Equal(t, testMacc, distrMacc)
 }
