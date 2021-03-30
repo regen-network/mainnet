@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2021-03-26T16:00:00Z",
-  "chain_id": "regen-prelaunch-1",
+  "genesis_time": "2021-03-30T16:00:00Z",
+  "chain_id": "regen-devnet-5",
   "initial_height": "1",
   "consensus_params": {
     "block": {
