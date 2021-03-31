@@ -120,6 +120,8 @@ It will show an output something similar to:
 Genesis transaction written to "/home/ubuntu/.regen/config/gentx/gentx-9c8fe340885fd0178781eefcf24f32a5e448e15a.json"
 ```
 
+**Note: If you are generating gentx from local machine, append `--pubkey` to the above command. You can get pubkey of your validator by running `regen tendermint show-validtor`**
+
 ### Step-5: Fork regen-network mainnet repo
 - Go to https://github.com/regen-network/mainnet
 - Click on fork and chose your account (if many)
