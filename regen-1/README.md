@@ -30,8 +30,15 @@ echo 'export GOBIN=$GOPATH/bin' >> ~/.bashrc
 echo 'export PATH=$PATH:/usr/local/go/bin:$GOBIN' >> ~/.bashrc
 ```
 
+Update PATH:
 ```sh
 source ~/.bashrc
+```
+
+Verify Go installation:
+
+```sh
+go version # should be go1.15.6
 ```
 
 #### Setup Regen Ledger
