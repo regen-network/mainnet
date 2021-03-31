@@ -82,7 +82,7 @@ else
     # limit the amount that can be bonded
 
     if [ $amountquery -gt $MAXBOND ]; then
-        echo "bonded too much: $amt > $MAXBOND"
+        echo "bonded too much: $amountquery > $MAXBOND"
         exit 1
     fi
 
