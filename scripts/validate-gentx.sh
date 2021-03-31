@@ -3,7 +3,7 @@ REGEN_HOME="/tmp/regen$(date +%s)"
 RANDOM_KEY="randomregenvalidatorkey"
 CHAIN_ID=regen-1
 DENOM=uregen
-MAXBOND=5000000000 # 1000REGEN
+MAXBOND=50000000000 # 50000REGEN
 
 GENTX_FILE=$(find ./$CHAIN_ID/gentxs -iname "*.json")
 LEN_GENTX=$(echo ${#GENTX_FILE})
@@ -14,7 +14,7 @@ start="2021-03-31 15:00:00Z"
 stTime=$(date --date="$start" +%s)
 
 # Gentx End date
-end="2021-04-09 15:00:00Z"
+end="2021-04-06 15:00:00Z"
 # Compute the seconds since epoch for end date
 endTime=$(date --date="$end" +%s)
 

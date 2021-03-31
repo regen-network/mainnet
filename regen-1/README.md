@@ -42,7 +42,7 @@ mkdir -p $GOPATH/src/github.com/regen-network
 cd $GOPATH/src/github.com/regen-network
 git clone https://github.com/regen-network/regen-ledger && cd regen-ledger
 git fetch
-git checkout v1.0.0
+git checkout v1.0.0-rc1
 make install
 ```
 
@@ -53,7 +53,13 @@ regen version --long
 
 it should display the following details:
 ```sh
-[TBD]
+name: regen
+server_name: regen
+version: v1.0.0-rc1
+commit: 4032eb7da6fcea38e3ba7ccb2d977b78cfad27b6
+build_tags: netgo,ledger
+go: go version go1.16.2 linux/amd64
+build_deps:
 ```
 
 ## Gentx submission
@@ -66,7 +72,7 @@ regen init --chain-id regen-1 <your_validator_moniker>
 
 ### Step-2: Replace the genesis
 ```sh
-curl -s https://raw.githubusercontent.com/regen-network/regen-ledger/master/regen-1/prelaunch-genesis.json > $HOME/.regen/config/genesis.json
+curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis-prelaunch.json > $HOME/.regen/config/genesis.json
 ```
 ### Step-3: Add/Recover keys
 ```sh
@@ -84,12 +90,12 @@ regen keys add <key_name> --recover
 regen gentx <key_name> <amount>  --chain-id regen-1
 ```
 
-Note: Make sure to use the amount < available tokens in the genesis.
-
 ex:
 ```sh
 regen gentx validator 1000000000uregen --chain-id regen-1
 ```
+
+**Note: Make sure to use the amount < available tokens in the genesis. Also max BONDED TOKENS allowed for gentxs are 50000REGEN or 50000000000uregen**
 
 You might be interested to specify other optional flags. For ex:
 
