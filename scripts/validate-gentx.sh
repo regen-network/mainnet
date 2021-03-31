@@ -14,7 +14,7 @@ start="2021-03-31 15:00:00Z"
 stTime=$(date --date="$start" +%s)
 
 # Gentx End date
-end="2021-04-08 15:00:00Z"
+end="2021-04-09 15:00:00Z"
 # Compute the seconds since epoch for end date
 endTime=$(date --date="$end" +%s)
 
