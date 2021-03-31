@@ -10,14 +10,12 @@ import (
 
 	"github.com/regen-network/regen-ledger/app"
 
-	"github.com/cockroachdb/apd/v2"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 type Record struct {
 	Address                 sdk.AccAddress
-	TotalAmount             apd.Decimal
+	TotalAmount             Dec
 	StartTime               time.Time
 	NumMonthlyDistributions int
 }
@@ -46,7 +44,7 @@ func init() {
 	}
 }
 
-func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time) ([]Record, error) {
+func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time, errorsAsWarnings bool) ([]Record, error) {
 	csvRdr := csv.NewReader(rdr)
 	lines, err := csvRdr.ReadAll()
 	if err != nil {
@@ -57,8 +55,12 @@ func ParseAccountsCsv(rdr io.Reader, genesisTime time.Time) ([]Record, error) {
 	for i, line := range lines {
 		record, err := parseLine(line, genesisTime)
 		if err != nil {
-			fmt.Printf("Error on line %d: %v", i, err)
-			continue
+			if errorsAsWarnings {
+				fmt.Printf("WARNING: Error on line %d: %v\n", i, err)
+				continue
+			} else {
+				return nil, err
+			}
 		}
 
 		records = append(records, record)
@@ -73,7 +75,7 @@ func parseLine(line []string, genesisTime time.Time) (Record, error) {
 		return Record{}, err
 	}
 
-	amount, _, err := apd.NewFromString(line[1])
+	amount, err := NewDecFromString(line[1])
 	if err != nil {
 		return Record{}, err
 	}
@@ -103,7 +105,7 @@ func parseLine(line []string, genesisTime time.Time) (Record, error) {
 
 	return Record{
 		Address:                 addr,
-		TotalAmount:             *amount,
+		TotalAmount:             amount,
 		StartTime:               startTime,
 		NumMonthlyDistributions: numDist,
 	}, nil
@@ -112,7 +114,7 @@ func parseLine(line []string, genesisTime time.Time) (Record, error) {
 
 func (r Record) Equal(o Record) bool {
 	return r.StartTime.Equal(o.StartTime) &&
-		r.TotalAmount.Cmp(&o.TotalAmount) == 0 &&
+		r.TotalAmount.IsEqual(o.TotalAmount) &&
 		r.Address.Equals(o.Address) &&
 		r.NumMonthlyDistributions == o.NumMonthlyDistributions
 }
