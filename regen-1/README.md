@@ -65,7 +65,7 @@ server_name: regen
 version: v1.0.0-rc2
 commit: 6a161528e261212e837e41ae63bcdeef0933f8cf
 build_tags: netgo,ledger
-go: go version go1.15.2 darwin/amd64
+go: go version go1.15.6 linux/amd64
 build_deps:
 ```
 
