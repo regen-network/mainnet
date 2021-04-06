@@ -4,14 +4,14 @@
   "initial_height": "1",
   "consensus_params": {
     "block": {
-      "max_bytes": "2097152",
+      "max_bytes": "200000",
       "max_gas": "2000000",
       "time_iota_ms": "1000"
     },
     "evidence": {
       "max_age_num_blocks": "1000000",
       "max_age_duration": "172800000000000",
-      "max_bytes": "1048576"
+      "max_bytes": "50000"
     },
     "validator": {
       "pub_key_types": [
@@ -24,7 +24,7 @@
   "app_state": {
     "auth": {
       "params": {
-        "max_memo_characters": "256",
+        "max_memo_characters": "512",
         "tx_sig_limit": "7",
         "tx_size_cost_per_byte": "10",
         "sig_verify_cost_ed25519": "590",
@@ -112,7 +112,7 @@
         "min_deposit": [
           {
             "denom": "uregen",
-            "amount": "1000000000"
+            "amount": "200000000"
           }
         ],
         "max_deposit_period": "1209600s"
@@ -133,7 +133,6 @@
         "clients_metadata": [],
         "params": {
           "allowed_clients": [
-            "06-solomachine",
             "07-tendermint"
           ]
         },
@@ -167,14 +166,14 @@
         "inflation_max": "0.200000000000000000",
         "inflation_min": "0.070000000000000000",
         "goal_bonded": "0.670000000000000000",
-        "blocks_per_year": "6311520"
+        "blocks_per_year": "4360000"
       }
     },
     "params": null,
     "slashing": {
       "params": {
         "downtime_jail_duration": "600s",
-        "min_signed_per_window": "0.250000000000000000",
+        "min_signed_per_window": "0.050000000000000000",
         "signed_blocks_window": "10000",
         "slash_fraction_double_sign": "0.050000000000000000",
         "slash_fraction_downtime": "0.000100000000000000"
