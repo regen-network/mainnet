@@ -1,17 +1,17 @@
 {
-  "genesis_time": "2021-03-30T16:00:00Z",
+  "genesis_time": "2021-04-09T16:00:00Z",
   "chain_id": "regen-devnet-5",
   "initial_height": "1",
   "consensus_params": {
     "block": {
-      "max_bytes": "2097152",
+      "max_bytes": "200000",
       "max_gas": "2000000",
       "time_iota_ms": "1000"
     },
     "evidence": {
       "max_age_num_blocks": "1000000",
       "max_age_duration": "172800000000000",
-      "max_bytes": "1048576"
+      "max_bytes": "50000"
     },
     "validator": {
       "pub_key_types": [
@@ -24,7 +24,7 @@
   "app_state": {
     "auth": {
       "params": {
-        "max_memo_characters": "256",
+        "max_memo_characters": "512",
         "tx_sig_limit": "7",
         "tx_size_cost_per_byte": "10",
         "sig_verify_cost_ed25519": "590",
@@ -548,7 +548,7 @@
             "delegated_vesting": [],
             "end_time": "1656119358"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -560,7 +560,7 @@
               ]
             },
             {
-              "length": "2182914",
+              "length": "1318914",
               "amount": [
                 {
                   "denom": "uregen",
@@ -713,9 +713,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -1069,7 +1069,7 @@
             "delegated_vesting": [],
             "end_time": "1700269758"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -1081,7 +1081,7 @@
               ]
             },
             {
-              "length": "1351638",
+              "length": "487638",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1504,7 +1504,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -1547,7 +1547,7 @@
               ]
             },
             {
-              "length": "818406",
+              "length": "1682406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1556,7 +1556,7 @@
               ]
             },
             {
-              "length": "1811340",
+              "length": "947340",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1772,7 +1772,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
           "start_time": "1646524800",
           "vesting_periods": [
@@ -1795,7 +1795,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1804,16 +1813,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1822,7 +1822,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1831,16 +1840,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1849,7 +1849,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1858,16 +1867,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1876,7 +1876,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1885,16 +1894,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1903,7 +1903,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1912,16 +1921,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1930,7 +1930,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1939,16 +1948,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1957,7 +1957,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1966,16 +1975,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1984,7 +1984,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -1993,16 +2002,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2011,7 +2011,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2020,16 +2029,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2038,7 +2038,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2047,16 +2056,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2065,7 +2065,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2074,16 +2083,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2092,7 +2092,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2101,16 +2110,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2119,7 +2119,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2128,16 +2137,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2146,7 +2146,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2155,16 +2164,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2173,7 +2173,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2182,16 +2191,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2200,7 +2200,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2209,16 +2218,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2227,7 +2227,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2236,16 +2245,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2254,7 +2254,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2263,16 +2272,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2281,7 +2281,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2290,16 +2299,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2308,7 +2308,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2317,16 +2326,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2335,7 +2335,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2344,16 +2353,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2362,7 +2362,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2371,16 +2380,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2389,7 +2389,16 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1074546",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "2682166666"
+                }
+              ]
+            },
+            {
+              "length": "386406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2398,16 +2407,7 @@
               ]
             },
             {
-              "length": "477594",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2682166666"
-                }
-              ]
-            },
-            {
-              "length": "1555200",
+              "length": "1168794",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2416,7 +2416,7 @@
               ]
             },
             {
-              "length": "596952",
+              "length": "1460952",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2443,9 +2443,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -2705,7 +2705,7 @@
               ]
             },
             {
-              "length": "1596006",
+              "length": "2460006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2714,7 +2714,7 @@
               ]
             },
             {
-              "length": "1033740",
+              "length": "169740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -2952,7 +2952,7 @@
             "delegated_vesting": [],
             "end_time": "1655946558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -2964,7 +2964,7 @@
               ]
             },
             {
-              "length": "2010114",
+              "length": "1146114",
               "amount": [
                 {
                   "denom": "uregen",
@@ -3072,7 +3072,7 @@
               ]
             },
             {
-              "length": "619632",
+              "length": "1483632",
               "amount": [
                 {
                   "denom": "uregen",
@@ -3081,7 +3081,7 @@
               ]
             },
             {
-              "length": "2010114",
+              "length": "1146114",
               "amount": [
                 {
                   "denom": "uregen",
@@ -3388,7 +3388,7 @@
               ]
             },
             {
-              "length": "40806",
+              "length": "904806",
               "amount": [
                 {
                   "denom": "uregen",
@@ -3397,7 +3397,7 @@
               ]
             },
             {
-              "length": "2588940",
+              "length": "1724940",
               "amount": [
                 {
                   "denom": "uregen",
@@ -3633,7 +3633,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -3673,7 +3673,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -3693,7 +3693,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -4407,9 +4407,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -4993,9 +4993,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -5471,7 +5471,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -5732,28 +5732,19 @@
             "delegated_vesting": [],
             "end_time": "1659575358"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
               "amount": [
                 {
                   "denom": "uregen",
-                  "amount": "69483166678"
+                  "amount": "79409333344"
                 }
               ]
             },
             {
-              "length": "379422",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "9926166666"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
+              "length": "2145168",
               "amount": [
                 {
                   "denom": "uregen",
@@ -5915,9 +5906,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -6154,7 +6145,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -6194,9 +6185,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -6541,7 +6532,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -6800,9 +6791,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -7386,7 +7377,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -7426,7 +7417,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -7446,7 +7437,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -7466,7 +7457,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -7486,7 +7477,27 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
+          }
+        },
+        {
+          "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+          "base_vesting_account": {
+            "base_account": {
+              "address": "regen14kn0kk33szpwus9nh8n87fjel8djx0y0yemjp9",
+              "pub_key": null,
+              "account_number": "0",
+              "sequence": "0"
+            },
+            "original_vesting": [
+              {
+                "denom": "uregen",
+                "amount": "12229000000"
+              }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1649540952"
           }
         },
         {
@@ -7508,7 +7519,7 @@
             "delegated_vesting": [],
             "end_time": "1703207358"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -7520,7 +7531,7 @@
               ]
             },
             {
-              "length": "973314",
+              "length": "109314",
               "amount": [
                 {
                   "denom": "uregen",
@@ -8115,6 +8126,26 @@
           "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
           "base_vesting_account": {
             "base_account": {
+              "address": "regen14u0vfw9cmr07qrpmsqjh88yhla2rlnnym65092",
+              "pub_key": null,
+              "account_number": "0",
+              "sequence": "0"
+            },
+            "original_vesting": [
+              {
+                "denom": "uregen",
+                "amount": "15874000000"
+              }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1644883200"
+          }
+        },
+        {
+          "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+          "base_vesting_account": {
+            "base_account": {
               "address": "regen14ualw5s00dhytkfrrptukg6cv8p6s9c6wy4a5p",
               "pub_key": null,
               "account_number": "0",
@@ -8398,7 +8429,7 @@
             "delegated_vesting": [],
             "end_time": "1706490558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -8410,7 +8441,7 @@
               ]
             },
             {
-              "length": "1686330",
+              "length": "822330",
               "amount": [
                 {
                   "denom": "uregen",
@@ -8815,7 +8846,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -10007,7 +10038,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -10027,7 +10058,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -10049,28 +10080,19 @@
             "delegated_vesting": [],
             "end_time": "1675818558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
               "amount": [
                 {
                   "denom": "uregen",
-                  "amount": "1275000000"
+                  "amount": "2550000000"
                 }
               ]
             },
             {
-              "length": "844146",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1275000000"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
+              "length": "2609892",
               "amount": [
                 {
                   "denom": "uregen",
@@ -11262,7 +11284,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -11521,7 +11543,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -11541,7 +11563,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -11802,7 +11824,7 @@
             "delegated_vesting": [],
             "end_time": "1654909758"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -11814,7 +11836,7 @@
               ]
             },
             {
-              "length": "973314",
+              "length": "109314",
               "amount": [
                 {
                   "denom": "uregen",
@@ -11967,7 +11989,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -11987,7 +12009,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -12246,7 +12268,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -12266,7 +12288,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -12286,7 +12308,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -12346,7 +12368,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -12607,7 +12629,7 @@
             "delegated_vesting": [],
             "end_time": "1656464958"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -12619,7 +12641,7 @@
               ]
             },
             {
-              "length": "2528514",
+              "length": "1664514",
               "amount": [
                 {
                   "denom": "uregen",
@@ -13011,7 +13033,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -13031,9 +13053,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -13532,7 +13554,7 @@
               ]
             },
             {
-              "length": "213606",
+              "length": "1077606",
               "amount": [
                 {
                   "denom": "uregen",
@@ -13541,7 +13563,7 @@
               ]
             },
             {
-              "length": "2416140",
+              "length": "1552140",
               "amount": [
                 {
                   "denom": "uregen",
@@ -13757,7 +13779,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -14284,7 +14306,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -15064,7 +15086,7 @@
               ]
             },
             {
-              "length": "127206",
+              "length": "991206",
               "amount": [
                 {
                   "denom": "uregen",
@@ -15073,7 +15095,7 @@
               ]
             },
             {
-              "length": "2502540",
+              "length": "1638540",
               "amount": [
                 {
                   "denom": "uregen",
@@ -15528,7 +15550,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -15548,7 +15570,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -15568,7 +15590,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -15588,7 +15610,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -17779,7 +17801,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -18038,7 +18060,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -18058,7 +18080,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -18795,7 +18817,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -18815,7 +18837,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -19322,9 +19344,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -19561,7 +19583,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -19822,7 +19844,7 @@
             "delegated_vesting": [],
             "end_time": "1666141758"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -19834,7 +19856,7 @@
               ]
             },
             {
-              "length": "1686330",
+              "length": "822330",
               "amount": [
                 {
                   "denom": "uregen",
@@ -20262,9 +20284,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -20501,9 +20523,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -20848,7 +20870,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -20868,7 +20890,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -20888,7 +20910,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -21147,7 +21169,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -21494,7 +21516,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -21753,8 +21775,247 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
+        },
+        {
+          "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
+          "base_vesting_account": {
+            "base_account": {
+              "address": "regen1aqyn69cvuap69kwz4vupfajrwqgzfal68f6n4k",
+              "pub_key": null,
+              "account_number": "0",
+              "sequence": "0"
+            },
+            "original_vesting": [
+              {
+                "denom": "uregen",
+                "amount": "32609000000"
+              }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1705885758"
+          },
+          "start_time": "1645401600",
+          "vesting_periods": [
+            {
+              "length": "0",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708341"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1358708333"
+                }
+              ]
+            }
+          ]
         },
         {
           "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
@@ -21773,7 +22034,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -22271,7 +22532,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -22291,7 +22552,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -22550,7 +22811,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -22570,7 +22831,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -23068,7 +23329,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -23088,7 +23349,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -23108,7 +23369,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -23128,7 +23389,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -23148,9 +23409,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -23973,7 +24234,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -24732,7 +24993,7 @@
             "delegated_vesting": [],
             "end_time": "1649552958"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -24744,7 +25005,7 @@
               ]
             },
             {
-              "length": "876006",
+              "length": "12006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -24879,7 +25140,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           },
           "start_time": "1645833600",
           "vesting_periods": [
@@ -24893,7 +25154,7 @@
               ]
             },
             {
-              "length": "2843352",
+              "length": "3707352",
               "amount": [
                 {
                   "denom": "uregen",
@@ -25438,9 +25699,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -25677,7 +25938,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -25697,7 +25958,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -25737,7 +25998,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -26255,7 +26516,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -26275,7 +26536,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -26541,7 +26802,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -26561,7 +26822,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -26909,7 +27170,7 @@
             "delegated_vesting": [],
             "end_time": "1666314558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -26921,7 +27182,7 @@
               ]
             },
             {
-              "length": "1859130",
+              "length": "995130",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27110,7 +27371,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -27130,21 +27391,21 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
               "amount": [
                 {
                   "denom": "uregen",
-                  "amount": "46230388932"
+                  "amount": "52182805598"
                 }
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27153,7 +27414,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27162,7 +27423,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27171,7 +27432,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27180,7 +27441,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27189,7 +27450,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27198,7 +27459,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27207,7 +27468,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27216,7 +27477,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27225,7 +27486,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27234,7 +27495,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27243,7 +27504,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27252,7 +27513,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27261,7 +27522,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27270,7 +27531,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27279,7 +27540,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27288,7 +27549,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27297,7 +27558,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27306,7 +27567,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27315,7 +27576,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27324,7 +27585,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27333,7 +27594,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27342,7 +27603,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27351,7 +27612,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27360,7 +27621,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27369,7 +27630,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27378,7 +27639,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27387,7 +27648,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27396,7 +27657,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27405,7 +27666,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27414,7 +27675,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27423,7 +27684,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27432,7 +27693,7 @@
               ]
             },
             {
-              "length": "773676",
+              "length": "2539422",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27441,7 +27702,7 @@
               ]
             },
             {
-              "length": "1856070",
+              "length": "90324",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27450,16 +27711,7 @@
               ]
             },
             {
-              "length": "773676",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "5952416666"
-                }
-              ]
-            },
-            {
-              "length": "1856070",
+              "length": "2629746",
               "amount": [
                 {
                   "denom": "uregen",
@@ -27878,7 +28130,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -28376,7 +28628,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -28635,7 +28887,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -28896,7 +29148,7 @@
             "delegated_vesting": [],
             "end_time": "1665796158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -28908,7 +29160,7 @@
               ]
             },
             {
-              "length": "1340730",
+              "length": "476730",
               "amount": [
                 {
                   "denom": "uregen",
@@ -29223,7 +29475,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -29482,7 +29734,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -29502,7 +29754,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -30000,7 +30252,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -30040,7 +30292,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -30060,7 +30312,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -30080,9 +30332,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -30427,7 +30679,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -30709,16 +30961,7 @@
               ]
             },
             {
-              "length": "2373606",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1844000000"
-                }
-              ]
-            },
-            {
-              "length": "256140",
+              "length": "2629746",
               "amount": [
                 {
                   "denom": "uregen",
@@ -30727,7 +30970,16 @@
               ]
             },
             {
-              "length": "2629746",
+              "length": "607860",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1844000000"
+                }
+              ]
+            },
+            {
+              "length": "2021886",
               "amount": [
                 {
                   "denom": "uregen",
@@ -30934,7 +31186,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -31171,245 +31423,6 @@
                 {
                   "denom": "uregen",
                   "amount": "452916666"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
-          "base_vesting_account": {
-            "base_account": {
-              "address": "regen1huh3fxh6flakxwqqctthdmpmw90y94dulvp5kn",
-              "pub_key": null,
-              "account_number": "0",
-              "sequence": "0"
-            },
-            "original_vesting": [
-              {
-                "denom": "uregen",
-                "amount": "32609000000"
-              }
-            ],
-            "delegated_free": [],
-            "delegated_vesting": [],
-            "end_time": "1705885758"
-          },
-          "start_time": "1645401600",
-          "vesting_periods": [
-            {
-              "length": "0",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708341"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1358708333"
                 }
               ]
             }
@@ -31680,7 +31693,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -32191,9 +32204,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -33255,7 +33268,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -33275,9 +33288,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -34791,7 +34804,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -34811,9 +34824,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -35050,7 +35063,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -35072,7 +35085,7 @@
             "delegated_vesting": [],
             "end_time": "1692148158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -35084,7 +35097,7 @@
               ]
             },
             {
-              "length": "14544000",
+              "length": "13680000",
               "amount": [
                 {
                   "denom": "uregen",
@@ -35557,9 +35570,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -35798,7 +35811,7 @@
             "delegated_vesting": [],
             "end_time": "1666832958"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -35810,7 +35823,7 @@
               ]
             },
             {
-              "length": "2377530",
+              "length": "1513530",
               "amount": [
                 {
                   "denom": "uregen",
@@ -35918,7 +35931,7 @@
               ]
             },
             {
-              "length": "252216",
+              "length": "1116216",
               "amount": [
                 {
                   "denom": "uregen",
@@ -35927,7 +35940,7 @@
               ]
             },
             {
-              "length": "2377530",
+              "length": "1513530",
               "amount": [
                 {
                   "denom": "uregen",
@@ -36023,7 +36036,7 @@
             "original_vesting": [
               {
                 "denom": "uregen",
-                "amount": "338316000000"
+                "amount": "326087000000"
               }
             ],
             "delegated_free": [],
@@ -36042,16 +36055,7 @@
               ]
             },
             {
-              "length": "683352",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "12229000000"
-                }
-              ]
-            },
-            {
-              "length": "1946394",
+              "length": "2629746",
               "amount": [
                 {
                   "denom": "uregen",
@@ -36754,7 +36758,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -36774,7 +36778,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -36794,7 +36798,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -37073,7 +37077,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -37093,7 +37097,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -38087,7 +38091,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -38107,7 +38111,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -38127,7 +38131,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
           "start_time": "1646611200",
           "vesting_periods": [
@@ -38141,7 +38145,16 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1313416666"
+                }
+              ]
+            },
+            {
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38150,7 +38163,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38159,7 +38172,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38168,7 +38181,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38177,7 +38190,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38186,7 +38199,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38195,7 +38208,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38204,7 +38217,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38213,7 +38226,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38222,7 +38235,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38231,7 +38244,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38240,7 +38253,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38249,7 +38262,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38258,7 +38271,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38267,7 +38280,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38276,7 +38289,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38285,7 +38298,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38294,7 +38307,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38303,7 +38316,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38312,7 +38325,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38321,7 +38334,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38330,7 +38343,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38339,7 +38352,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38348,7 +38361,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38357,7 +38370,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38366,7 +38379,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38375,7 +38388,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38384,7 +38397,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38393,7 +38406,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38402,7 +38415,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38411,7 +38424,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38420,7 +38433,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38429,7 +38442,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38438,7 +38451,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38447,7 +38460,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38456,7 +38469,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38465,7 +38478,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38474,7 +38487,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38483,7 +38496,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38492,7 +38505,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38501,7 +38514,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38510,7 +38523,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38519,7 +38532,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38528,7 +38541,7 @@
               ]
             },
             {
-              "length": "563994",
+              "length": "2329740",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38537,7 +38550,7 @@
               ]
             },
             {
-              "length": "2065752",
+              "length": "300006",
               "amount": [
                 {
                   "denom": "uregen",
@@ -38546,16 +38559,7 @@
               ]
             },
             {
-              "length": "563994",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1313416666"
-                }
-              ]
-            },
-            {
-              "length": "2065752",
+              "length": "2629746",
               "amount": [
                 {
                   "denom": "uregen",
@@ -39037,9 +39041,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -39105,7 +39109,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -39125,7 +39129,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -39147,28 +39151,19 @@
             "delegated_vesting": [],
             "end_time": "1661994558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
               "amount": [
                 {
                   "denom": "uregen",
-                  "amount": "12286250006"
+                  "amount": "14333958339"
                 }
               ]
             },
             {
-              "length": "168876",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2047708333"
-                }
-              ]
-            },
-            {
-              "length": "2629746",
+              "length": "1934622",
               "amount": [
                 {
                   "denom": "uregen",
@@ -39339,7 +39334,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -39361,6 +39356,245 @@
             "delegated_vesting": [],
             "end_time": "1644796800"
           }
+        },
+        {
+          "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
+          "base_vesting_account": {
+            "base_account": {
+              "address": "regen1mqtnspwqmuqpwera2p24j0gy0v5ajz9k4drd3m",
+              "pub_key": null,
+              "account_number": "0",
+              "sequence": "0"
+            },
+            "original_vesting": [
+              {
+                "denom": "uregen",
+                "amount": "6522000000"
+              }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1710025110"
+          },
+          "start_time": "1649540952",
+          "vesting_periods": [
+            {
+              "length": "0",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            },
+            {
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "271750000"
+                }
+              ]
+            }
+          ]
         },
         {
           "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
@@ -40118,7 +40352,7 @@
             "delegated_vesting": [],
             "end_time": "1655946558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -40130,7 +40364,7 @@
               ]
             },
             {
-              "length": "2010114",
+              "length": "1146114",
               "amount": [
                 {
                   "denom": "uregen",
@@ -40290,9 +40524,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1677604158"
+            "end_time": "1678468158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -40768,9 +41002,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1677604158"
+            "end_time": "1678468158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -41007,9 +41241,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -41485,7 +41719,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -41987,9 +42221,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -42681,7 +42915,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -42960,7 +43194,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -43242,7 +43476,7 @@
               ]
             },
             {
-              "length": "386406",
+              "length": "1250406",
               "amount": [
                 {
                   "denom": "uregen",
@@ -43251,7 +43485,7 @@
               ]
             },
             {
-              "length": "2243340",
+              "length": "1379340",
               "amount": [
                 {
                   "denom": "uregen",
@@ -43945,9 +44179,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -44292,7 +44526,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -44551,7 +44785,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -46244,7 +46478,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -46762,7 +46996,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -46782,7 +47016,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -47041,7 +47275,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -47061,7 +47295,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -47320,7 +47554,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -47340,9 +47574,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -47687,7 +47921,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -47950,6 +48184,26 @@
           ]
         },
         {
+          "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
+          "base_vesting_account": {
+            "base_account": {
+              "address": "regen1rhj2v0cc0nktyzev26uas4djpum3jh2dwqaltf",
+              "pub_key": null,
+              "account_number": "0",
+              "sequence": "0"
+            },
+            "original_vesting": [
+              {
+                "denom": "uregen",
+                "amount": "685000000"
+              }
+            ],
+            "delegated_free": [],
+            "delegated_vesting": [],
+            "end_time": "1649540952"
+          }
+        },
+        {
           "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
           "base_vesting_account": {
             "base_account": {
@@ -47966,9 +48220,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -49386,7 +49640,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -49884,7 +50138,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -51096,7 +51350,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -51716,7 +51970,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -51975,7 +52229,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           },
           "start_time": "1645315200",
           "vesting_periods": [
@@ -51989,7 +52243,7 @@
               ]
             },
             {
-              "length": "3361752",
+              "length": "4225752",
               "amount": [
                 {
                   "denom": "uregen",
@@ -52016,9 +52270,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1677604158"
+            "end_time": "1678468158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -52255,7 +52509,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -54231,7 +54485,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           },
           "start_time": "1644451200",
           "vesting_periods": [
@@ -54245,7 +54499,7 @@
               ]
             },
             {
-              "length": "4225752",
+              "length": "5089752",
               "amount": [
                 {
                   "denom": "uregen",
@@ -54272,7 +54526,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -54332,7 +54586,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -54354,7 +54608,7 @@
             "delegated_vesting": [],
             "end_time": "1656119358"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -54366,7 +54620,7 @@
               ]
             },
             {
-              "length": "2096514",
+              "length": "1232514",
               "amount": [
                 {
                   "denom": "uregen",
@@ -54654,9 +54908,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -55828,7 +56082,7 @@
             "delegated_vesting": [],
             "end_time": "1706749758"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -55840,7 +56094,7 @@
               ]
             },
             {
-              "length": "1859130",
+              "length": "995130",
               "amount": [
                 {
                   "denom": "uregen",
@@ -56247,7 +56501,7 @@
             "delegated_vesting": [],
             "end_time": "1679188158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -56259,7 +56513,7 @@
               ]
             },
             {
-              "length": "1584000",
+              "length": "720000",
               "amount": [
                 {
                   "denom": "uregen",
@@ -56619,7 +56873,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -57635,7 +57889,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -57696,7 +57950,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -57716,7 +57970,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -58214,7 +58468,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -58234,7 +58488,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -58254,7 +58508,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -58513,7 +58767,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
           "start_time": "1630972800",
           "vesting_periods": [
@@ -58581,7 +58835,16 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "2629746",
+              "amount": [
+                {
+                  "denom": "uregen",
+                  "amount": "1190500000"
+                }
+              ]
+            },
+            {
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58590,7 +58853,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58599,7 +58862,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58608,7 +58871,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58617,7 +58880,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58626,7 +58889,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58635,7 +58898,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58644,7 +58907,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58653,7 +58916,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58662,7 +58925,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58671,7 +58934,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58680,7 +58943,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58689,7 +58952,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58698,7 +58961,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58707,7 +58970,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58716,7 +58979,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58725,7 +58988,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58734,7 +58997,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58743,7 +59006,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58752,7 +59015,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58761,7 +59024,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58770,7 +59033,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58779,7 +59042,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58788,7 +59051,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58797,7 +59060,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58806,7 +59069,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58815,7 +59078,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58824,7 +59087,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58833,7 +59096,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58842,7 +59105,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58851,7 +59114,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58860,7 +59123,7 @@
               ]
             },
             {
-              "length": "704070",
+              "length": "2469816",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58869,7 +59132,7 @@
               ]
             },
             {
-              "length": "1925676",
+              "length": "159930",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58878,16 +59141,7 @@
               ]
             },
             {
-              "length": "704070",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "1190500000"
-                }
-              ]
-            },
-            {
-              "length": "1925676",
+              "length": "2629746",
               "amount": [
                 {
                   "denom": "uregen",
@@ -58975,7 +59229,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -59036,9 +59290,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -59622,7 +59876,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -59642,7 +59896,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -59662,9 +59916,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -59885,7 +60139,7 @@
           ]
         },
         {
-          "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
+          "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
           "base_vesting_account": {
             "base_account": {
               "address": "regen1x7a0ltsxnpx9y3rt7s45q33a83nv7dlfgvryww",
@@ -59896,34 +60150,13 @@
             "original_vesting": [
               {
                 "denom": "uregen",
-                "amount": "18107000000"
+                "amount": "2233000000"
               }
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
-          },
-          "start_time": "1644883200",
-          "vesting_periods": [
-            {
-              "length": "0",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "15874000000"
-                }
-              ]
-            },
-            {
-              "length": "3793752",
-              "amount": [
-                {
-                  "denom": "uregen",
-                  "amount": "2233000000"
-                }
-              ]
-            }
-          ]
+            "end_time": "1649540952"
+          }
         },
         {
           "@type": "/cosmos.vesting.v1beta1.DelayedVestingAccount",
@@ -59942,7 +60175,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -60012,7 +60245,7 @@
               ]
             },
             {
-              "length": "1423206",
+              "length": "2287206",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60021,7 +60254,7 @@
               ]
             },
             {
-              "length": "1206540",
+              "length": "342540",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60237,7 +60470,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -60257,9 +60490,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1648676952",
+          "start_time": "1649540952",
           "vesting_periods": [
             {
               "length": "0",
@@ -60505,7 +60738,7 @@
             "delegated_vesting": [],
             "end_time": "1695172158"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -60571,7 +60804,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60580,7 +60813,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60589,7 +60822,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60598,7 +60831,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60607,7 +60840,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60616,7 +60849,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60625,7 +60858,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60634,7 +60867,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60643,7 +60876,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60652,7 +60885,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60661,7 +60894,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60670,7 +60903,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60679,7 +60912,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60688,7 +60921,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60697,7 +60930,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60706,7 +60939,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60715,7 +60948,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60724,7 +60957,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60733,7 +60966,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60742,7 +60975,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60751,7 +60984,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60760,7 +60993,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60769,7 +61002,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60778,7 +61011,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60787,7 +61020,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60796,7 +61029,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60805,7 +61038,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60814,7 +61047,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60823,7 +61056,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60832,7 +61065,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60841,7 +61074,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60850,7 +61083,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60859,7 +61092,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60868,7 +61101,7 @@
               ]
             },
             {
-              "length": "840222",
+              "length": "1704222",
               "amount": [
                 {
                   "denom": "uregen",
@@ -60877,7 +61110,7 @@
               ]
             },
             {
-              "length": "1789524",
+              "length": "925524",
               "amount": [
                 {
                   "denom": "uregen",
@@ -61197,7 +61430,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -61217,9 +61450,9 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1709161110"
+            "end_time": "1710025110"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -61564,7 +61797,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -61584,7 +61817,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -61843,7 +62076,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -62102,7 +62335,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -62129,7 +62362,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -62169,7 +62402,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           },
           "start_time": "1645747200",
           "vesting_periods": [
@@ -62183,7 +62416,7 @@
               ]
             },
             {
-              "length": "2929752",
+              "length": "3793752",
               "amount": [
                 {
                   "denom": "uregen",
@@ -62904,7 +63137,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -62926,7 +63159,7 @@
             "delegated_vesting": [],
             "end_time": "1660266558"
           },
-          "start_time": "1617120000",
+          "start_time": "1617984000",
           "vesting_periods": [
             {
               "length": "0",
@@ -62938,7 +63171,7 @@
               ]
             },
             {
-              "length": "1070622",
+              "length": "206622",
               "amount": [
                 {
                   "denom": "uregen",
@@ -63826,7 +64059,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -63846,7 +64079,7 @@
             ],
             "delegated_free": [],
             "delegated_vesting": [],
-            "end_time": "1648676952"
+            "end_time": "1649540952"
           }
         },
         {
@@ -64520,6 +64753,15 @@
           ]
         },
         {
+          "address": "regen14kn0kk33szpwus9nh8n87fjel8djx0y0yemjp9",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "12229000000"
+            }
+          ]
+        },
+        {
           "address": "regen14nhr6f0ng22ckgye2wrp7f2ntcqw93zqnn3ra9",
           "coins": [
             {
@@ -64534,6 +64776,15 @@
             {
               "denom": "uregen",
               "amount": "54347000000"
+            }
+          ]
+        },
+        {
+          "address": "regen14u0vfw9cmr07qrpmsqjh88yhla2rlnnym65092",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "15874000000"
             }
           ]
         },
@@ -65384,6 +65635,15 @@
           ]
         },
         {
+          "address": "regen1aqyn69cvuap69kwz4vupfajrwqgzfal68f6n4k",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "32609000000"
+            }
+          ]
+        },
+        {
           "address": "regen1auz89mhmlu4egvpj3epn4cadmxwekzkkmnp20m",
           "coins": [
             {
@@ -66068,15 +66328,6 @@
           ]
         },
         {
-          "address": "regen1huh3fxh6flakxwqqctthdmpmw90y94dulvp5kn",
-          "coins": [
-            {
-              "denom": "uregen",
-              "amount": "32609000000"
-            }
-          ]
-        },
-        {
           "address": "regen1hxh7pf878rj682jxj36wjy6zt3pyzlqp0zju25",
           "coins": [
             {
@@ -66288,7 +66539,7 @@
           "coins": [
             {
               "denom": "uregen",
-              "amount": "338316000000"
+              "amount": "326087000000"
             }
           ]
         },
@@ -66514,6 +66765,15 @@
             {
               "denom": "uregen",
               "amount": "5556000000"
+            }
+          ]
+        },
+        {
+          "address": "regen1mqtnspwqmuqpwera2p24j0gy0v5ajz9k4drd3m",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "6522000000"
             }
           ]
         },
@@ -66973,6 +67233,15 @@
             {
               "denom": "uregen",
               "amount": "155204000000"
+            }
+          ]
+        },
+        {
+          "address": "regen1rhj2v0cc0nktyzev26uas4djpum3jh2dwqaltf",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "685000000"
             }
           ]
         },
@@ -67656,7 +67925,7 @@
           "coins": [
             {
               "denom": "uregen",
-              "amount": "18107000000"
+              "amount": "2233000000"
             }
           ]
         },
@@ -67935,7 +68204,7 @@
           "coins": [
             {
               "denom": "uregen",
-              "amount": "1239465000000"
+              "amount": "1232258000000"
             }
           ]
         },
@@ -68042,7 +68311,7 @@
         "min_deposit": [
           {
             "denom": "uregen",
-            "amount": "1000000000"
+            "amount": "200000000"
           }
         ],
         "max_deposit_period": "1209600s"
@@ -68051,7 +68320,7 @@
         "voting_period": "1209600s"
       },
       "tally_params": {
-        "quorum": "0.334000000000000000",
+        "quorum": "0.400000000000000000",
         "threshold": "0.500000000000000000",
         "veto_threshold": "0.334000000000000000"
       }
@@ -68063,7 +68332,6 @@
         "clients_metadata": [],
         "params": {
           "allowed_clients": [
-            "06-solomachine",
             "07-tendermint"
           ]
         },
@@ -68088,7 +68356,7 @@
     },
     "mint": {
       "minter": {
-        "inflation": "0.130000000000000000",
+        "inflation": "0.200000000000000000",
         "annual_provisions": "0.000000000000000000"
       },
       "params": {
@@ -68097,14 +68365,14 @@
         "inflation_max": "0.200000000000000000",
         "inflation_min": "0.070000000000000000",
         "goal_bonded": "0.670000000000000000",
-        "blocks_per_year": "6311520"
+        "blocks_per_year": "4360000"
       }
     },
     "params": null,
     "slashing": {
       "params": {
         "downtime_jail_duration": "600s",
-        "min_signed_per_window": "0.250000000000000000",
+        "min_signed_per_window": "0.050000000000000000",
         "signed_blocks_window": "10000",
         "slash_fraction_double_sign": "0.050000000000000000",
         "slash_fraction_downtime": "0.000100000000000000"
