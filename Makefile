@@ -1,4 +1,3 @@
-all: prelaunch
 
 .PHONY: prelaunch prelaunch-2 regen-1
 
