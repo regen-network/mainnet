@@ -49,7 +49,7 @@ mkdir -p $GOPATH/src/github.com/regen-network
 cd $GOPATH/src/github.com/regen-network
 git clone https://github.com/regen-network/regen-ledger && cd regen-ledger
 git fetch
-git checkout v1.0.0-rc1
+git checkout v1.0.0-rc2
 make install
 ```
 
@@ -62,10 +62,10 @@ it should display the following details:
 ```sh
 name: regen
 server_name: regen
-version: v1.0.0-rc1
-commit: 4032eb7da6fcea38e3ba7ccb2d977b78cfad27b6
+version: v1.0.0-rc2
+commit: 6a161528e261212e837e41ae63bcdeef0933f8cf
 build_tags: netgo,ledger
-go: go version go1.16.2 linux/amd64
+go: go version go1.15.2 darwin/amd64
 build_deps:
 ```
 
