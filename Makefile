@@ -8,3 +8,5 @@ prelaunch-2:
 regen-1:
 	go run . build-genesis regen-1
 	mv -f regen-1/genesis.json regen-1/genesis-prelaunch.json
+	go run . build-genesis regen-prelaunch-1 --errors-as-warnings
+	bash -x ./scripts/gen-genesis.sh
