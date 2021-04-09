@@ -1,9 +1,9 @@
-all: prelaunch-2 regen-1
+all: prelaunch-3 regen-1
 
-.PHONY: prelaunch-2 regen-1
+.PHONY: prelaunch-3 regen-1
 
-prelaunch-2:
-	go run . build-genesis regen-prelaunch-2 --errors-as-warnings
+prelaunch-3:
+	go run . build-genesis regen-prelaunch-3 --errors-as-warnings
 
 regen-1:
 	go run . build-genesis regen-1
