@@ -119,12 +119,17 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 		accounts = append(accounts, acc)
 	}
 
-	accounts, err = MergeAccounts(accounts)
+	accMap, err := MergeAccounts(accounts)
 	if err != nil {
 		return nil, nil, fmt.Errorf("error on MergeAccounts: %w", err)
 	}
 
-	accounts = SortAccounts(accounts)
+	err = AirdropRegenForMinFees(accMap, genesisTime)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	accounts = SortAccounts(accMap)
 	PrintAccountAudit(accounts, genesisTime, auditOutput)
 
 	authAccounts := make([]auth.AccountI, 0, len(accounts))
@@ -151,7 +156,6 @@ func buildAccounts(accountsCsv io.Reader, genesisTime time.Time, auditOutput io.
 		authAccounts = append(authAccounts, authAcc)
 		balances = append(balances, *bal)
 	}
-
 
 	return authAccounts, balances, nil
 }
@@ -229,7 +233,7 @@ func buildDistrMaccAndBalance(regenAmount int) (auth.ModuleAccountI, *bank.Balan
 	}
 
 	distrBalance := &bank.Balance{
-		Coins: distrCoins,
+		Coins:   distrCoins,
 		Address: distrMacc.Address,
 	}
 
