@@ -7,19 +7,16 @@ import (
 	"time"
 )
 
-func SortAccounts(accounts []Account) []Account {
+func SortAccounts(accMap map[string]Account) []Account {
 	var addrs []string
-	accMap := make(map[string]Account)
-	// sort
-	for _, acc := range accounts {
-		addr := acc.Address.String()
+
+	for addr := range accMap {
 		addrs = append(addrs, addr)
-		accMap[addr] = acc
 	}
 
 	sort.Strings(addrs)
 
-	res := make([]Account, 0, len(accounts))
+	res := make([]Account, 0, len(accMap))
 	for _, addr := range addrs {
 		res = append(res, accMap[addr])
 	}

@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-func MergeAccounts(accounts []Account) ([]Account, error) {
+func MergeAccounts(accounts []Account) (map[string]Account, error) {
 	accMap := make(map[string]Account)
 
 	for _, acc := range accounts {
 		if len(acc.Distributions) == 0 {
-			return []Account{}, fmt.Errorf("account must have atleast one distribution: %v", acc)
+			return nil, fmt.Errorf("account must have atleast one distribution: %v", acc)
 		}
 		addrStr := acc.Address.String()
 		existing, ok := accMap[addrStr]
@@ -33,20 +33,7 @@ func MergeAccounts(accounts []Account) ([]Account, error) {
 		accMap[addrStr] = newAcc
 	}
 
-	// sort addresses
-	addrs := make([]string, 0, len(accMap))
-	for addr := range accMap {
-		addrs = append(addrs, addr)
-	}
-
-	sort.Strings(addrs)
-
-	res := make([]Account, 0, len(accMap))
-	for _, addr := range addrs {
-		res = append(res, accMap[addr])
-	}
-
-	return res, nil
+	return accMap, nil
 }
 
 func mergeTwoAccounts(acc1, acc2 Account) (Account, error) {

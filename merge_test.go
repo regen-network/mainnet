@@ -351,11 +351,13 @@ func TestMergeAccounts(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := MergeAccounts(tt.accounts)
+			gotAccMap, err := MergeAccounts(tt.accounts)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("MergeAccounts() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
+
+			got := SortAccounts(gotAccMap)
 
 			require.Equal(t, len(tt.want), len(got))
 			for i, gotAcc := range got {
