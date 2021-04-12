@@ -2,12 +2,13 @@ package main
 
 import (
 	"bytes"
+	"strings"
+	"testing"
+
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	bank "github.com/cosmos/cosmos-sdk/x/bank/types"
 	distribution "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	regen "github.com/regen-network/regen-ledger/app"
-	"strings"
-	"testing"
 
 	"github.com/stretchr/testify/require"
 
@@ -30,7 +31,7 @@ const testTemplate = `
 `
 
 const testAccounts = `
-regen10rk2v8pxjnldtxuy9ds0s5na9qjcmh5ymplz87,100000,MAINNET,1
+regen1zxcfa9nrjamf5kt3q7ruwh2nscmm7su2temk4u,100000,MAINNET,1
 regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz,200000.301,2020-06-19,2
 regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz,300000.0,MAINNET+1YEAR,2
 `
@@ -95,13 +96,6 @@ func TestProcess(t *testing.T) {
       },
       "accounts": [
         {
-          "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "regen10rk2v8pxjnldtxuy9ds0s5na9qjcmh5ymplz87",
-          "pub_key": null,
-          "account_number": "0",
-          "sequence": "0"
-        },
-        {
           "@type": "/cosmos.vesting.v1beta1.PeriodicVestingAccount",
           "base_vesting_account": {
             "base_account": {
@@ -113,7 +107,7 @@ func TestProcess(t *testing.T) {
             "original_vesting": [
               {
                 "denom": "uregen",
-                "amount": "500000301000"
+                "amount": "500001301000"
               }
             ],
             "delegated_free": [],
@@ -127,7 +121,7 @@ func TestProcess(t *testing.T) {
               "amount": [
                 {
                   "denom": "uregen",
-                  "amount": "200000301000"
+                  "amount": "200001301000"
                 }
               ]
             },
@@ -152,6 +146,13 @@ func TestProcess(t *testing.T) {
           ]
         },
         {
+          "@type": "/cosmos.auth.v1beta1.BaseAccount",
+          "address": "regen1zxcfa9nrjamf5kt3q7ruwh2nscmm7su2temk4u",
+          "pub_key": null,
+          "account_number": "0",
+          "sequence": "0"
+        },
+        {
           "@type": "/cosmos.auth.v1beta1.ModuleAccount",
           "base_account": {
             "address": "regen1jv65s3grqf6v6jl3dp4t6c9t9rk99cd8ca0qlm",
@@ -171,20 +172,20 @@ func TestProcess(t *testing.T) {
       },
       "balances": [
         {
-          "address": "regen10rk2v8pxjnldtxuy9ds0s5na9qjcmh5ymplz87",
-          "coins": [
-            {
-              "denom": "uregen",
-              "amount": "100000000000"
-            }
-          ]
-        },
-        {
           "address": "regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz",
           "coins": [
             {
               "denom": "uregen",
-              "amount": "500000301000"
+              "amount": "500001301000"
+            }
+          ]
+        },
+        {
+          "address": "regen1zxcfa9nrjamf5kt3q7ruwh2nscmm7su2temk4u",
+          "coins": [
+            {
+              "denom": "uregen",
+              "amount": "99999000000"
             }
           ]
         },
@@ -232,12 +233,12 @@ func TestProcess(t *testing.T) {
     }
   }
 }`, json)
-	require.Equal(t, `regen10rk2v8pxjnldtxuy9ds0s5na9qjcmh5ymplz87	100000	1
-	100000	MAINNET
-regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz	500000.301	3
-	200000.3010	MAINNET
+	require.Equal(t, `regen1lusdjktpk3f2v33cda5uwnya5qcyv04cwvnkwz	500001.301	3
+	200001.3010	MAINNET
 	150000.0	2022-03-26 21:49:12
 	150000	2022-04-26 08:18:18
+regen1zxcfa9nrjamf5kt3q7ruwh2nscmm7su2temk4u	99999	1
+	99999	MAINNET
 `, auditOut)
 }
 
@@ -251,7 +252,7 @@ func TestBuildDistrMaccAndBalance(t *testing.T) {
 	testMacc := auth.NewEmptyModuleAccount(distribution.ModuleName, maccPerms[distribution.ModuleName]...)
 
 	testBalance := &bank.Balance{
-		Coins: testCoins,
+		Coins:   testCoins,
 		Address: testMacc.Address,
 	}
 
