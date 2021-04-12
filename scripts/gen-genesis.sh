@@ -16,7 +16,7 @@ chmod +x ./build/regen
 
 echo "..........Fetching genesis......."
 rm -rf $REGEN_HOME/config/genesis.json
-cp ../$CHAIN_ID/genesis-prelaunch.json >$REGEN_HOME/config/genesis.json
+cp -r ../$CHAIN_ID/genesis-prelaunch.json >$REGEN_HOME/config/genesis.json
 
 echo "..........Collecting gentxs......."
 ./build/regen collect-gentxs --home $REGEN_HOME --gentx-dir ../$CHAIN_ID/gentxs
