@@ -83,6 +83,12 @@ Check out these [instructions](./regen-1/README.md#Requirements) for installing 
     sudo -S systemctl start regen
     ```
 
+That's all! Your node should be up and running now. You can query your node by executing the following command after the genesis time
+
+```sh
+regen status
+```
+
 ### Create validator (Optional)
 Note: This section is applicable for validators who wants to join post genesis time.
 
