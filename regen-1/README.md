@@ -49,7 +49,7 @@ mkdir -p $GOPATH/src/github.com/regen-network
 cd $GOPATH/src/github.com/regen-network
 git clone https://github.com/regen-network/regen-ledger && cd regen-ledger
 git fetch
-git checkout v1.0.0-rc2
+git checkout v1.0.0
 make install
 ```
 
@@ -60,13 +60,7 @@ regen version --long
 
 it should display the following details:
 ```sh
-name: regen
-server_name: regen
-version: v1.0.0-rc2
-commit: 6a161528e261212e837e41ae63bcdeef0933f8cf
-build_tags: netgo,ledger
-go: go version go1.15.2 darwin/amd64
-build_deps:
+[TBD]
 ```
 
 ## Gentx submission
@@ -148,3 +142,57 @@ git push origin master
 - Go to your repository (on github)
 - Click on Pull request and create a PR
 - To make sure your submission is valid, please wait for the github action on your PR to complete
+
+## Start your validator
+
+### Step-1: Check and/or install correct regen software version
+Required version: `v1.0.0`
+
+### Step-2: Download the mainnet genesis
+```sh
+curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis.json > ~/.regen/config/genesis.json
+```
+
+### Step-3: Verify genesis
+```sh
+jq -S -c -M '' ~/.regen/config/genesis.json | shasum -a 256
+```
+It should be equal to the contents in [checksum](regen-1/checksum.txt)
+
+### Step-4: Update seeds and persistent peers
+
+Open `~/.regen/config/config.toml` and update `persistent_peers` and `seeds` (comma separated list)
+#### Persistent peers
+```sh
+[TBD]
+```
+#### Seeds
+```sh
+[TBD]
+```
+
+### Step-5: Create systemd
+```sh
+DAEMON_PATH=$(which regen)
+
+echo "[Unit]
+Description=regen daemon
+After=network-online.target
+[Service]
+User=${USER}
+ExecStart=${DAEMON_PATH} start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+[Install]
+WantedBy=multi-user.target
+" >regen.service
+```
+
+### Step-6: Update system daemon and start regen node
+
+```
+sudo mv regen.service /lib/systemd/system/regen.service
+sudo -S systemctl daemon-reload
+sudo -S systemctl start regen
+```
