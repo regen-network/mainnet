@@ -17,6 +17,11 @@ go run . build-genesis regen-prelaunch-1 --errors-as-warnings
 ### Requirements
 Check out these [instructions](./regen-1/README.md#Requirements) for installing `regen-ledger@v1.0.0`
 
+If you haven't initialized your node, init regen chain by running
+```sh
+regen init --chain-id regen-1 <my_node_moniker>
+```
+
 ### Start your validator node
 
 - Step-1: Verify installation
