@@ -60,7 +60,12 @@ regen version --long
 
 it should display the following details:
 ```sh
-[TBD]
+name: regen
+server_name: regen
+version: v1.0.0
+commit: 1b7c80ef102d3ae7cc40bba3ceccd97a64dadbfd
+build_tags: netgo,ledger
+go: go version go1.15.6 linux/amd64
 ```
 
 ## Gentx submission
