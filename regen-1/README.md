@@ -68,7 +68,7 @@ build_tags: netgo,ledger
 go: go version go1.15.6 linux/amd64
 ```
 
-## Gentx submission
+## Gentx submission [CLOSED]
 This section applies to the validators who wants to join the genesis.
 
 ### Step-1: Initialize the chain
