@@ -19,9 +19,7 @@ Check out these [instructions](./regen-1/README.md#Requirements) for installing 
 
 ### Start your validator node
 
-- Step-1: Check and/or install correct regen software version
-
-    **Verify installation**
+- Step-1: Verify installation
     ```sh
     regen version --long
     ```
