@@ -59,7 +59,7 @@ regen init --chain-id regen-1 <my_node_moniker>
     ```
     #### Seeds
     ```sh
-    [TBD]
+    aebb8431609cb126a977592446f5de252d8b7fa1@104.236.201.138:26656
     ```
 
 - Step-5: Create systemd
