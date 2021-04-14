@@ -104,7 +104,7 @@ regen tx staking create-validator \
   --amount=9000000uregen \
   --pubkey=$(regen tendermint show-validator) \
   --moniker="<your_moniker>" \
-  --chain-id=aplikigo-1 \
+  --chain-id=regen-1 \
   --commission-rate="0.10" \
   --commission-max-rate="0.20" \
   --commission-max-change-rate="0.01" \
