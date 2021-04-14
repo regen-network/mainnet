@@ -101,7 +101,7 @@ Note: This section is applicable for validators who wants to join post genesis t
 
 ```sh
 regen tx staking create-validator \
-  --amount=9000000utree \
+  --amount=9000000uregen \
   --pubkey=$(regen tendermint show-validator) \
   --moniker="<your_moniker>" \
   --chain-id=aplikigo-1 \
