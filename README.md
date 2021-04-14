@@ -55,8 +55,7 @@ regen init --chain-id regen-1 <my_node_moniker>
     Open `~/.regen/config/config.toml` and update `persistent_peers` and `seeds` (comma separated list)
     #### Persistent peers
     ```sh
-    69975e7afdf731a165e40449fcffc75167a084fc@104.131.169.70:26656
-    ffacd3202ded6945fed12fa4fd715b1874985b8c@3.98.38.91:26656
+    69975e7afdf731a165e40449fcffc75167a084fc@104.131.169.70:26656,d35d652b6cb3bf7d6cb8d4bd7c036ea03e7be2ab@116.203.182.185:26656,ffacd3202ded6945fed12fa4fd715b1874985b8c@3.98.38.91:26656
     ```
     #### Seeds
     ```sh
@@ -86,6 +85,7 @@ regen init --chain-id regen-1 <my_node_moniker>
     ```
     sudo mv regen.service /lib/systemd/system/regen.service
     sudo -S systemctl daemon-reload
+    sudo -S systemctl enable regen
     sudo -S systemctl start regen
     ```
 
