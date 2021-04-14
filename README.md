@@ -56,6 +56,7 @@ regen init --chain-id regen-1 <my_node_moniker>
     #### Persistent peers
     ```sh
     69975e7afdf731a165e40449fcffc75167a084fc@104.131.169.70:26656
+    ffacd3202ded6945fed12fa4fd715b1874985b8c@3.98.38.91:26656
     ```
     #### Seeds
     ```sh
