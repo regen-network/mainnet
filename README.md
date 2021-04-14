@@ -85,6 +85,7 @@ regen init --chain-id regen-1 <my_node_moniker>
     ```
     sudo mv regen.service /lib/systemd/system/regen.service
     sudo -S systemctl daemon-reload
+    sudo -S systemctl enable regen
     sudo -S systemctl start regen
     ```
 
