@@ -49,7 +49,7 @@ mkdir -p $GOPATH/src/github.com/regen-network
 cd $GOPATH/src/github.com/regen-network
 git clone https://github.com/regen-network/regen-ledger && cd regen-ledger
 git fetch
-git checkout v1.0.0-rc2
+git checkout v1.0.0
 make install
 ```
 
@@ -62,14 +62,13 @@ it should display the following details:
 ```sh
 name: regen
 server_name: regen
-version: v1.0.0-rc2
-commit: 6a161528e261212e837e41ae63bcdeef0933f8cf
+version: v1.0.0
+commit: 1b7c80ef102d3ae7cc40bba3ceccd97a64dadbfd
 build_tags: netgo,ledger
-go: go version go1.15.2 darwin/amd64
-build_deps:
+go: go version go1.15.6 linux/amd64
 ```
 
-## Gentx submission
+## Gentx submission [CLOSED]
 This section applies to the validators who wants to join the genesis.
 
 ### Step-1: Initialize the chain
