@@ -2,7 +2,7 @@
 
 ## Resources
 
-- ### [Block Explorer](./explorer-urls.txt)
+- ### [Block Explorers](./explorer-urls.txt)
 - ### [Wallets](./wallets.txt)
 - ### [API Nodes](./api-nodes.txt)
 - ### [RPC Nodes](./rpc-nodes.txt)
