@@ -8,7 +8,7 @@
 - ### [RPC Nodes](./rpc-nodes.txt)
 - ### [Seed Nodes](./seed-nodes.txt)
 - ### [Persistent Peer Nodes](./peer-nodes.txt)
-- ### [API Nodes](./api-nodes.txt)
+- API Swagger Docs: http://public-rpc.regen.vitwit.com:1317/swagger/
 
 ## Node Requirements
 
