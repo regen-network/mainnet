@@ -1,6 +1,16 @@
-# Regen Network - Mainnet validator guide
+# Regen Network Mainnet
 
-## Requirements
+## Resources
+
+- ### [Block Explorer](./explorer-urls.txt)
+- ### [Wallets](./wallets.txt)
+- ### [API Nodes](./api-nodes.txt)
+- ### [RPC Nodes](./rpc-nodes.txt)
+- ### [Seed Nodes](./seed-nodes.txt)
+- ### [Persistent Peer Nodes](./peer-nodes.txt)
+- ### [API Nodes](./api-nodes.txt)
+
+## Node Requirements
 
 ### Minimum hardware requirements
 - 8GB RAM
