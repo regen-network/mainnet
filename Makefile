@@ -1,6 +1,6 @@
-all: prelaunch-3 regen-1
+all: regen-1
 
-.PHONY: prelaunch-3 regen-1
+.PHONY: regen-1
 
 regen-1:
 	go run . build-genesis regen-1
