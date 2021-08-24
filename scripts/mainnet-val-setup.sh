@@ -42,7 +42,7 @@ echo "install regen-ledger"
 git clone https://github.com/regen-network/regen-ledger $GOPATH/src/github.com/regen-network/regen-ledger
 cd $GOPATH/src/github.com/regen-network/regen-ledger
 git fetch
-git checkout v2.0.0-beta1
+git checkout v1.0.0
 make install
 
 echo "Creating keys"
@@ -54,7 +54,7 @@ echo "press the space bar to continue."
 read -s -d ' '
 echo ""
 
-echo "Setting up your validator"
+echo "Setting up your full-node"
 $DAEMON init --chain-id $CHAIN_ID $YOUR_NAME
 curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis.json > ~/.regen/config/genesis.json
 
@@ -104,8 +104,8 @@ sudo -S systemctl start cosmovisor
 echo
 echo "Your account address is :"
 $DAEMON keys show $YOUR_KEY_NAME -a
-echo "Your node setup is done. You would need some tokens to start your validator. You can get some tokens from the faucet: http://128.199.249.31:8000/faucet/<address>"
+echo "Your node setup is done, you may need to restart the session to begin using regen."
 echo
 echo
-echo "After receiving tokens, you can create your validator by running"
-echo "$DAEMON tx staking create-validator --amount 9000000000$DENOM --commission-max-change-rate \"0.1\" --commission-max-rate \"0.20\" --commission-rate \"0.1\" --details \"Some details about yourvalidator\" --from $YOUR_KEY_NAME --pubkey=\"$($DAEMON tendermint show-validator)\" --moniker $YOUR_NAME --min-self-delegation \"1\" --chain-id $CHAIN_ID --gas auto --fees 500uregen
+echo "After funding your wallet, you can create your validator by running"
+echo "$DAEMON tx staking create-validator --amount 9000000000$DENOM --commission-max-change-rate \"0.1\" --commission-max-rate \"0.20\" --commission-rate \"0.1\" --details \"Some details about yourvalidator\" --from $YOUR_KEY_NAME --pubkey=\"$($DAEMON tendermint show-validator)\" --moniker $YOUR_NAME --min-self-delegation \"1\" --chain-id $CHAIN_ID --gas auto --fees 500uregen"
