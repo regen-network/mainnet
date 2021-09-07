@@ -84,7 +84,7 @@ echo "press the space bar to continue."
 read -s -d ' '
 echo ""
 
-echo "----------Setting up your full-node------------"
+echo "----------Setting up your validator node------------"
 $DAEMON init --chain-id $CHAIN_ID $YOUR_NAME
 echo "------Downloading Regen Mainnet genesis--------"
 curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis.json > ~/.regen/config/genesis.json
