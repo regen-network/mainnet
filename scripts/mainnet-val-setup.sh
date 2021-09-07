@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 command_exists () {
     type "$1" &> /dev/null ;
@@ -9,30 +10,33 @@ if command_exists go ; then
 else
   echo "Install dependencies"
   sudo apt update
-  sudo apt install build-essential jq -y
+  sudo apt install build-essential jq wget git -y
 
   wget https://dl.google.com/go/go1.15.2.linux-amd64.tar.gz
   tar -xvf go1.15.2.linux-amd64.tar.gz
   sudo mv go /usr/local
 
-  echo "" >> ~/.profile
-  echo 'export GOPATH=$HOME/go' >> ~/.profile
-  echo 'export GOROOT=/usr/local/go' >> ~/.profile
-  echo 'export GOBIN=$GOPATH/bin' >> ~/.profile
-  echo 'export PATH=$PATH:/usr/local/go/bin:$GOBIN' >> ~/.profile
-
-  #source ~/.profile
-  . ~/.profile
-
-  go version
+  echo "" >> ~/.bashrc
+  echo 'export GOPATH=$HOME/go' >> ~/.bashrc
+  echo 'export GOROOT=/usr/local/go' >> ~/.bashrc
+  echo 'export GOBIN=$GOPATH/bin' >> ~/.bashrc
+  echo 'export PATH=$PATH:/usr/local/go/bin:$GOBIN' >> ~/.bashrc
+  
+  clear
 fi
 
-echo "-- Clear old regen data and install Regen-ledger and setup the node --"
+source ~/.bashrc
 
-rm -rf ~/.regen
+echo "CAUTION!"
+echo "-- If Regen was previously installed, the following step will remove ~/.regen from your system. Are you sure you would like to continue?--"
 
-YOUR_KEY_NAME=$1
-YOUR_NAME=$2
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) rm -rf ~/.regen; break;;
+        No ) exit;;
+    esac
+done
+
 DAEMON=regen
 DENOM=uregen
 CHAIN_ID=regen-1
@@ -45,6 +49,32 @@ git fetch
 git checkout v1.0.0
 make install
 
+clear
+
+echo "Regen Ledger has been installed succesfully!"
+echo ""
+echo "-- Next we will need to set up your keys and moniker"
+echo "-- Please choose a name for your key --"
+read YOUR_KEY_NAME
+
+echo "-- Please choose a moniker --"
+read YOUR_NAME
+
+echo "-- Your Key Name is $YOUR_KEY_NAME and your moniker is $YOUR_NAME. Is this correct?"
+
+select yn in "Yes" "No" "Cancel"; do
+    case $yn in
+        Yes ) break;;
+        No ) echo "-- Please choose a name for your key --";
+             read YOUR_KEY_NAME;
+             echo "-- Please choose a moniker --";
+             read YOUR_NAME; break;;
+        Cancel ) exit;;
+    esac
+done
+
+echo "-- Your Key Name is $YOUR_KEY_NAME and your moniker is $YOUR_NAME. --"
+
 echo "Creating keys"
 $DAEMON keys add $YOUR_KEY_NAME
 
@@ -54,8 +84,9 @@ echo "press the space bar to continue."
 read -s -d ' '
 echo ""
 
-echo "Setting up your full-node"
+echo "----------Setting up your full-node------------"
 $DAEMON init --chain-id $CHAIN_ID $YOUR_NAME
+echo "------Downloading Regen Mainnet genesis--------"
 curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis.json > ~/.regen/config/genesis.json
 
 echo "----------Setting config for seed node---------"
@@ -63,6 +94,8 @@ sed -i 's#tcp://127.0.0.1:26657#tcp://0.0.0.0:26657#g' ~/.$DAEMON/config/config.
 sed -i '/persistent_peers =/c\persistent_peers = "'"$PERSISTENT_PEERS"'"' ~/.$DAEMON/config/config.toml
 
 DAEMON_PATH=$(which $DAEMON)
+
+clear
 
 echo "Installing cosmovisor - an upgrade manager..."
 
@@ -101,11 +134,15 @@ sudo mv cosmovisor.service /lib/systemd/system/cosmovisor.service
 sudo -S systemctl daemon-reload
 sudo -S systemctl start cosmovisor
 
+clear
+
 echo
-echo "Your account address is :"
+echo "--------------Congratulations!---------------"
+echo 
+echo "View your account address by typing your passphrase below." 
 $DAEMON keys show $YOUR_KEY_NAME -a
-echo "Your node setup is done, you may need to restart the session to begin using regen."
 echo
 echo
-echo "After funding your wallet, you can create your validator by running"
+echo "Next you will need to fund the above wallet address. When finished, you can create your validator by customizing and running the following command"
+echo
 echo "$DAEMON tx staking create-validator --amount 9000000000$DENOM --commission-max-change-rate \"0.1\" --commission-max-rate \"0.20\" --commission-rate \"0.1\" --details \"Some details about yourvalidator\" --from $YOUR_KEY_NAME --pubkey=\"$($DAEMON tendermint show-validator)\" --moniker $YOUR_NAME --min-self-delegation \"1\" --chain-id $CHAIN_ID --gas auto --fees 500uregen"
