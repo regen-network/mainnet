@@ -12,8 +12,8 @@ else
   sudo apt update
   sudo apt install build-essential jq wget git -y
 
-  wget https://dl.google.com/go/go1.15.2.linux-amd64.tar.gz
-  tar -xvf go1.15.2.linux-amd64.tar.gz
+  wget https://dl.google.com/go/go1.17.1.linux-amd64.tar.gz
+  tar -xvf go1.17.1.linux-amd64.tar.gz
   sudo mv go /usr/local
 
   echo "" >> ~/.bashrc
