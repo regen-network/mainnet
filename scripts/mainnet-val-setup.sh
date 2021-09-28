@@ -43,7 +43,7 @@ PERSISTENT_PEERS="69975e7afdf731a165e40449fcffc75167a084fc@104.131.169.70:26656,
 
 echo "install regen-ledger"
 git clone https://github.com/regen-network/regen-ledger 
-cd ~/regen-network/regen-ledger
+cd ~/regen-ledger
 git fetch
 git checkout v1.0.0
 make install
