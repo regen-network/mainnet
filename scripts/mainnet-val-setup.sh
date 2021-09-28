@@ -22,7 +22,6 @@ else
   echo 'export GOBIN=$GOPATH/bin' >> ~/.bashrc
   echo 'export PATH=$PATH:/usr/local/go/bin:$GOBIN' >> ~/.bashrc
   
-  clear
 fi
 
 source ~/.bashrc
@@ -43,13 +42,11 @@ CHAIN_ID=regen-1
 PERSISTENT_PEERS="69975e7afdf731a165e40449fcffc75167a084fc@104.131.169.70:26656,d35d652b6cb3bf7d6cb8d4bd7c036ea03e7be2ab@116.203.182.185:26656,ffacd3202ded6945fed12fa4fd715b1874985b8c@3.98.38.91:26656"
 
 echo "install regen-ledger"
-git clone https://github.com/regen-network/regen-ledger $GOPATH/src/github.com/regen-network/regen-ledger
-cd $GOPATH/src/github.com/regen-network/regen-ledger
+git clone https://github.com/regen-network/regen-ledger 
+cd ~/regen-network/regen-ledger
 git fetch
 git checkout v1.0.0
 make install
-
-clear
 
 echo "Regen Ledger has been installed succesfully!"
 echo ""
@@ -95,8 +92,6 @@ sed -i '/persistent_peers =/c\persistent_peers = "'"$PERSISTENT_PEERS"'"' ~/.$DA
 
 DAEMON_PATH=$(which $DAEMON)
 
-clear
-
 echo "Installing cosmovisor - an upgrade manager..."
 
 rm -rf $GOPATH/src/github.com/cosmos/cosmos-sdk
@@ -134,7 +129,6 @@ sudo mv cosmovisor.service /lib/systemd/system/cosmovisor.service
 sudo -S systemctl daemon-reload
 sudo -S systemctl start cosmovisor
 
-clear
 
 echo
 echo "--------------Congratulations!---------------"
