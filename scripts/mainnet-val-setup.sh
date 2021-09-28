@@ -130,13 +130,13 @@ sudo -S systemctl daemon-reload
 sudo -S systemctl start cosmovisor
 
 
-echo
-echo "--------------Congratulations!---------------"
-echo 
+echo ""
+echo "--------------Congratulations---------------"
+echo ""
 echo "View your account address by typing your passphrase below." 
 $DAEMON keys show $YOUR_KEY_NAME -a
-echo
-echo
+echo ""
+echo ""
 echo "Next you will need to fund the above wallet address. When finished, you can create your validator by customizing and running the following command"
-echo
+echo ""
 echo "$DAEMON tx staking create-validator --amount 9000000000$DENOM --commission-max-change-rate \"0.1\" --commission-max-rate \"0.20\" --commission-rate \"0.1\" --details \"Some details about yourvalidator\" --from $YOUR_KEY_NAME --pubkey=\"$($DAEMON tendermint show-validator)\" --moniker $YOUR_NAME --min-self-delegation \"1\" --chain-id $CHAIN_ID --gas auto --fees 500uregen"
