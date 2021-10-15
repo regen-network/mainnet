@@ -103,7 +103,6 @@ make cosmovisor
 cp cosmovisor $GOBIN/cosmovisor
 
 echo "Setting up cosmovisor directories"
-mkdir -p ~/.regen/cosmovisor
 mkdir -p ~/.regen/cosmovisor/genesis/bin
 cp $GOBIN/regen ~/.regen/cosmovisor/genesis/bin
 
