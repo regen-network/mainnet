@@ -98,6 +98,7 @@ else
     wget https://dl.google.com/go/go1.19.6.linux-amd64.tar.gz
     tar -xvf go1.19.6.linux-amd64.tar.gz
     sudo mv go /usr/local
+    rm -rf go1.19.6.linux-amd64.tar.gz
     sleep 5
     clear
     echo "
