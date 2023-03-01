@@ -233,8 +233,9 @@ sleep 3
 clear
 
 echo "Starting cosmovisor service..."
-sudo -S systemctl daemon-reload
-sudo -S sudo service cosmovisor start
+sudo systemctl daemon-reload
+sudo systemctl enable cosmovisor
+sudo service cosmovisor start
 
 sleep 5
 clear
