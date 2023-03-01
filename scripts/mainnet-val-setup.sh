@@ -39,6 +39,9 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
 " >> ~/.bashrc
     source ~/.bashrc
+    clear
+    echo "Installed Go 1.19.6 and added it to .bashrc"
+    sleep 5
 fi
 
 export GOPATH=$HOME/go
@@ -127,11 +130,11 @@ LimitNOFILE=4096
 [Install]
 WantedBy=multi-user.target
 " >cosmovisor.service
-sudo mv cosmovisor.service /lib/systemd/system/cosmovisor.service
+sudo mv cosmovisor.service /etc/systemd/system/cosmovisor.service
 
 echo "Starting cosmovisor service..."
 sudo -S systemctl daemon-reload
-sudo -S systemctl start cosmovisor
+sudo -S sudo service cosmovisor start
 
 echo "Congratulations! You have successfully set up your node."
 echo ""
