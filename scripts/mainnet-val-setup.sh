@@ -19,9 +19,6 @@ function required_go_version () {
 }
 
 clear
-echo "This script will install all of the necessary dependencies and perform node configurations for a Regen Network full-node"
-sleep 3
-clear
 
 echo "                            @@@@@"
 echo "                           @@@@@@,"
@@ -74,6 +71,9 @@ echo " @   @  @@   @@@@@@      @@      @  @@  @  @%  @&       @@  @@@@@@@   @@@&
 echo " @    @@@@   @           @@      %@ @   @@*@   #@      @@   @    @@   @@   @@"
 echo " @      @@   @@@@@@@@    @@       @@     @@      .@@@@@     @     /@  @@     @@"
 
+sleep 3
+clear
+echo "This script will install all of the necessary dependencies and perform node configurations for a Regen Network full-node"
 sleep 3
 clear
 
