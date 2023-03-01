@@ -78,6 +78,7 @@ if [ -d "$REGEN_HOME" ]; then
 fi
 
 echo "Installing the regen binary (v1.0.0)..."
+sleep 3
 cd $HOME
 rm -rf regen-ledger
 git clone https://github.com/regen-network/regen-ledger
@@ -173,6 +174,8 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 " >cosmovisor.service
 sudo mv cosmovisor.service /etc/systemd/system/cosmovisor.service
+sleep 3
+clear
 
 echo "Starting cosmovisor service..."
 sudo -S systemctl daemon-reload
