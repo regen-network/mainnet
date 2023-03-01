@@ -109,8 +109,9 @@ export PATH=$PATH:/usr/local/go/bin:$GOBIN
 " >> ~/.bashrc
     source ~/.bashrc
     clear
-    echo "Installed Go 1.19.6 and added it to .bashrc"
+    echo "Installed Go 1.19.6 and added it to your .bashrc"
     sleep 5
+    clear
 fi
 
 export GOPATH=$HOME/go
