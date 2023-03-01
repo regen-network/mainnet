@@ -18,6 +18,7 @@ function required_go_version () {
     fi
 }
 
+clear
 echo "Installing dependencies..."
 
 sudo apt update
@@ -68,6 +69,7 @@ if [ -d "$REGEN_HOME" ]; then
             * ) echo "Please answer yes or no.";;
         esac
     done
+    clear
 fi
 
 echo "Installing the regen binary (v1.0.0)..."
@@ -106,7 +108,7 @@ while true; do
     echo ""
     echo "After you have copied the mnemonic phrase in a safe place, press [ENTER] to continue."
     read -r -s -d $'\x0a'
-    read -rp $'Is this correct (y/n)?\n' yn
+    read -rp $'Are you sure you copied your mnemonic phrase (y/n)?\n' yn
     case $yn in
         [yY][eE][sS]|[yY]) break;;
         [nN][oO]|[nN]) ;;
@@ -119,22 +121,34 @@ clear
 
 echo "Initializing node..."
 regen init --chain-id regen-1 $NODE_MONIKER
+sleep 2
+clear
 
 echo "Downloading Regen Mainnet genesis file..."
 curl -s https://raw.githubusercontent.com/regen-network/mainnet/main/regen-1/genesis.json > $REGEN_HOME/config/genesis.json
+sleep 2
+clear
 
 echo "Configuring RPC address..."
 sed -i 's#tcp://127.0.0.1:26657#tcp://0.0.0.0:26657#g' $REGEN_HOME/config/config.toml
+sleep 2
+clear
 
 echo "Configuring seed nodes..."
 sed -i '/persistent_peers =/c\persistent_peers = "'"$PERSISTENT_PEERS"'"' $REGEN_HOME/config/config.toml
+sleep 2
+clear
 
 echo "Installing cosmovisor..."
 go install cosmossdk.io/tools/cosmovisor/cmd/cosmovisor@v1.4.0
+sleep 2
+clear
 
 echo "Setting up genesis binary..."
 mkdir -p $REGEN_HOME/cosmovisor/genesis/bin
 cp $GOBIN/regen $REGEN_HOME/cosmovisor/genesis/bin
+sleep 2
+clear
 
 echo "Creating cosmovisor service file..."
 echo "[Unit]
