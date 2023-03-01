@@ -61,6 +61,7 @@ if [ -d "$REGEN_HOME" ]; then
 fi
 
 echo "Installing the regen binary (v1.0.0)..."
+cd $HOME
 rm -rf regen-ledger
 git clone https://github.com/regen-network/regen-ledger
 cd regen-ledger
