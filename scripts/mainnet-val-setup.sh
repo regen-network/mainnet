@@ -32,6 +32,8 @@ else
     wget https://dl.google.com/go/go1.19.6.linux-amd64.tar.gz
     tar -xvf go1.19.6.linux-amd64.tar.gz
     sudo mv go /usr/local
+    sleep 5
+    clear
     echo "
 export GOPATH=$HOME/go
 export GOROOT=/usr/local/go
@@ -72,6 +74,11 @@ git fetch
 git checkout v1.0.0
 make install
 
+sleep 5
+clear
+echo "The regen binary (v1.0.0) has been installed on your system"
+sleep 5
+clear
 echo "Setting validator key and node moniker..."
 
 while true; do
@@ -88,11 +95,22 @@ while true; do
     esac
 done
 
-echo "Creating validator key..."
-regen keys add $KEY_NAME
-echo ""
-echo "After you have copied the mnemonic phrase in a safe place, press [ENTER] to continue."
-read -r -s -d $'\x0a'
+while true; do
+    echo "Creating validator key..."
+    regen keys add $KEY_NAME
+    echo ""
+    echo "After you have copied the mnemonic phrase in a safe place, press [ENTER] to continue."
+    read -r -s -d $'\x0a'
+    read -rp $'Is this correct (y/n)?\n' yn
+    case $yn in
+        [yY][eE][sS]|[yY]) break;;
+        [nN][oO]|[nN]) ;;
+        * ) echo "This is Very Important!  Last chance, did you save your mnemonic phrase?";;
+    esac
+done
+
+sleep 5
+clear
 
 echo "Initializing node..."
 regen init --chain-id regen-1 $NODE_MONIKER
@@ -135,6 +153,9 @@ sudo mv cosmovisor.service /etc/systemd/system/cosmovisor.service
 echo "Starting cosmovisor service..."
 sudo -S systemctl daemon-reload
 sudo -S sudo service cosmovisor start
+
+sleep 5
+clear
 
 echo "Congratulations! You have successfully set up your node."
 echo ""
