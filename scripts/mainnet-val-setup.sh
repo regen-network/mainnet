@@ -217,11 +217,15 @@ Description=Cosmovisor daemon
 After=network-online.target
 [Service]
 Environment="DAEMON_NAME=regen"
-Environment="DAEMON_HOME=${REGEN_HOME}"
-Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_HOME=${HOME}/.regen"
 Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_POLL_INTERVAL=300ms"
+Environment="DAEMON_DATA_BACKUP_DIR=${HOME}/.regen"
+Environment="UNSAFE_SKIP_BACKUP=false"
+Environment="DAEMON_PREUPGRADE_MAX_RETRIES=0"
 User=${USER}
-ExecStart=${GOBIN}/cosmovisor start
+ExecStart=${GOBIN}/cosmovisor run start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
