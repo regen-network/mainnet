@@ -89,6 +89,7 @@ clear
 echo "Installing Go 1.19..."
 
 if command_exists go && required_go_version; then
+    clear
     echo "Go 1.19 already installed"
     sleep 3
     clear
