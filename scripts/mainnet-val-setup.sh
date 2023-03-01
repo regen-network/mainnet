@@ -19,7 +19,12 @@ function required_go_version () {
 }
 
 clear
+echo "This script will install all of the necessary dependencies and perform node configurations for a Regen Network full-node"
+sleep 3
+clear
+
 echo "Installing dependencies..."
+sleep 3
 
 sudo apt update
 sudo apt install build-essential jq wget git -y
