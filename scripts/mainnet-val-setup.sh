@@ -23,10 +23,15 @@ echo "Installing dependencies..."
 sudo apt update
 sudo apt install build-essential jq wget git -y
 
+sleep 3
+clear
+
 echo "Installing Go 1.19..."
 
 if command_exists go && required_go_version; then
     echo "Go 1.19 already installed"
+    sleep 3
+    clear
 else
     sudo rm -rf /usr/local/go
     wget https://dl.google.com/go/go1.19.6.linux-amd64.tar.gz
@@ -105,7 +110,7 @@ while true; do
     case $yn in
         [yY][eE][sS]|[yY]) break;;
         [nN][oO]|[nN]) ;;
-        * ) echo "This is Very Important!  Last chance, did you save your mnemonic phrase?";;
+        * ) echo "Please answer yes or no.";;
     esac
 done
 
